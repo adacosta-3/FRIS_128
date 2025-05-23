@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>fris.dev</groupId>
-	<artifactId>backend</artifactId>
+	<artifactId>backend-old</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>backend</name>
 	<description>FRIS Backend</description>
