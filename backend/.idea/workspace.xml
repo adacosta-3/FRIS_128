@@ -5,19 +5,139 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="45e7ad9e-1113-4f35-a951-c6cc3ae703b0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/backend.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FRIS-Postman-Collection.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FRIS_API_Guide_Frontend.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FRIS_API_Guide_Frontend_2.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/DTO/ApprovalDecisionDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/DTO/ApprovalInstanceDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/DTO/ApprovalLevelDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/DTO/ApprovalPathAssignmentDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/DTO/ApprovalPathDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/DTO/AuthorshipDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/DTO/CourseAndSetDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/DTO/PublicServiceDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/DTO/PublicationDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/DTO/PublicationTypeDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/DTO/RoleRankDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/DTO/SubmissionDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/DTO/TeachingActivityDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/DTO/UserDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/DTO/UserRoleDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/ApprovalDecisionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/ApprovalInstanceController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/ApprovalLevelController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/ApprovalPathAssignmentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/ApprovalPathController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/AuthorshipController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/CourseAndSetController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/PublicServiceController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/PublicationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/PublicationTypeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/RoleRankController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/SDGController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/SubmissionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/TeachingActivityController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/controllers/UserRoleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/ApprovalDecision.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/ApprovalInstance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/ApprovalLevel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/ApprovalPath.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/ApprovalPathAssignment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/Authorship.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/CourseAndSet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/PublicService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/PublicServiceType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/Publication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/PublicationType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/RoleRank.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/SDG.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/SDGTarget.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/Submission.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/TeachingActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/entities/UserRole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/mapper/ApprovalDecisionMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/mapper/ApprovalInstanceMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/mapper/ApprovalLevelMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/mapper/ApprovalPathAssignmentMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/mapper/ApprovalPathMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/mapper/AuthorshipMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/mapper/CourseAndSetMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/mapper/PublicServiceMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/mapper/PublicationMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/mapper/PublicationTypeMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/mapper/RoleRankMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/mapper/SubmissionMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/mapper/TeachingActivityMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/mapper/UserRoleMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/ApprovalDecisionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/ApprovalInstanceRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/ApprovalLevelRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/ApprovalPathAssignmentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/ApprovalPathRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/AuthorshipRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/CourseAndSetRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/PublicServiceRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/PublicServiceTypeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/PublicationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/PublicationTypeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/RoleRankRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/SDGRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/SDGTargetRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/SubmissionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/TeachingActivityRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/repositories/UserRoleRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/ApprovalDecisionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/ApprovalInstanceService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/ApprovalLevelService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/ApprovalPathAssignmentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/ApprovalPathService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/AuthorshipService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/CourseAndSetService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/PublicServiceService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/PublicationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/PublicationTypeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/RoleRankService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/SDGService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/SubmissionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/TeachingActivityService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/UserRoleService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/ApprovalDecisionServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/ApprovalInstanceServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/ApprovalLevelServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/ApprovalPathAssignmentServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/ApprovalPathServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/AuthorshipServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/CourseAndSetServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/PublicServiceServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/PublicationServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/PublicationTypeServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/RoleRankServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/SDGServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/SubmissionServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/TeachingActivityServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/UserRoleServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -81,7 +201,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1748016830600</updated>
-      <workItem from="1748016831663" duration="501000" />
+      <workItem from="1748016831663" duration="8287000" />
     </task>
     <servers />
   </component>
@@ -90,5 +210,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/backend/src/test/java/fris/dev/backend/serviceImpl/ApprovalDecisionServiceImpl.java</url>
+          <line>70</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
