@@ -1,6 +1,7 @@
 package fris.dev.backend.mapper;
 
 import fris.dev.backend.DTO.PublicServiceDto;
+import fris.dev.backend.DTO.PublicServiceResponseDto;
 import fris.dev.backend.entities.PublicService;
 import fris.dev.backend.entities.PublicServiceType;
 import fris.dev.backend.entities.User;
@@ -23,5 +24,21 @@ public class PublicServiceMapper {
                 .orElseThrow(() -> new IllegalArgumentException("Service type not found"));
 
         return new PublicService(null, user, type, dto.getDescription(), dto.getDateOfService(), false);
+    }
+    public PublicServiceResponseDto toResponseDto(PublicService entity) {
+        String typeName = null;
+        String subtypeName = null;
+        if (entity.getServiceType() != null) {
+            typeName = entity.getServiceType().getTypeName();
+            subtypeName = entity.getServiceType().getSubtypeName();
+        }
+
+        return new PublicServiceResponseDto(
+                entity.getServiceId(),
+                typeName,
+                subtypeName,
+                entity.getDescription(),
+                entity.getDateOfService()
+        );
     }
 }

@@ -1,16 +1,14 @@
 package fris.dev.backend.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PublicationDto {
-    private Long userId;
+public class PublicationResponseDto {
+    private Long publicationId;
     private String title;
     private String authors;
     private Date datePublished;
@@ -18,7 +16,8 @@ public class PublicationDto {
     private String citedAs;
     private String doi;
     private String supportingDocument;
-    private Long publicationTypeId;
-    private Long sdgId;        // SDG goal
-    private Long sdgTargetId;  // SDG target
+    private String publicationTypeName;
+    private String publicationTypeSubtype;
+    private String sdgName;
+    private String sdgTargetName;
 }

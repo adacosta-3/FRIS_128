@@ -14,25 +14,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SDGServiceImpl implements SDGService {
 
-    private final SDGTargetRepository targetRepo;
-    private final SDGRepository sdgRepo;
+    private final SDGRepository sdgRepository;
 
     @Override
-    public SDGTarget createTarget(String name) {
-        return targetRepo.save(new SDGTarget(null, name));
+    public SDG createSDG(String name) {
+        SDG sdg = new SDG();
+        sdg.setSdgName(name);
+        return sdgRepository.save(sdg);
     }
 
     @Override
-    public SDG createSDG(Long targetId, String sdgName) {
-        SDGTarget target = targetRepo.findById(targetId)
-                .orElseThrow(() -> new IllegalArgumentException("Target not found"));
-        return sdgRepo.save(new SDG(null, target, sdgName));
+    public List<SDG> getAllSDGs() {
+        return sdgRepository.findAll();
     }
 
     @Override
-    public List<SDG> getByTarget(Long targetId) {
-        SDGTarget target = targetRepo.findById(targetId)
-                .orElseThrow(() -> new IllegalArgumentException("Target not found"));
-        return sdgRepo.findBySdgTarget(target);
+    public SDG getSDGById(Long id) {
+        return sdgRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("SDG not found"));
     }
 }
+

@@ -87,4 +87,58 @@ public class TeachingActivityServiceImpl implements TeachingActivityService {
     public List<TeachingActivity> getApproved() {
         return teachingActivityRepository.findByIsApprovedTrue();
     }
+
+    @Override
+    @Transactional
+    public TeachingActivity submitTeachingActivity(TeachingActivityDto dto, String username) {
+        // 1. Find user
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        // 2. Map and save TeachingActivity (with user)
+        TeachingActivity ta = teachingActivityMapper.toEntity(dto);
+        ta.setUser(user);
+        ta.setIsApproved(false);
+        ta = teachingActivityRepository.save(ta);
+
+        // 3. Create Submission record
+        Submission submission = new Submission();
+        submission.setUser(user);
+        submission.setActivityType("teaching");
+        submission.setReferenceId(ta.getTeachingId());
+        submission.setSubmittedAt(new Timestamp(System.currentTimeMillis()));
+        submission.setCurrentVersion(1);
+        submission = submissionRepository.save(submission);
+
+        // 4. Find approval path assignment by user roles & units
+        List<UserRole> roles = userRoleRepository.findByUser(user);
+        if (roles.isEmpty()) throw new IllegalStateException("User has no roles");
+
+        Optional<ApprovalPathAssignment> assignment = Optional.empty();
+        for (UserRole role : roles) {
+            assignment = pathAssignmentRepository
+                    .findByRoleRankAndCollegeAndDepartment(role.getRoleRank(), role.getCollege(), role.getDepartment());
+            if (assignment.isPresent()) break;
+        }
+
+        if (!assignment.isPresent()) {
+            // fallback global
+            assignment = pathAssignmentRepository
+                    .findByRoleRankAndCollegeAndDepartment(roles.get(0).getRoleRank(), null, null);
+        }
+        if (!assignment.isPresent()) throw new IllegalStateException("No approval path found");
+
+        // 5. Create approval instance, level 1, status pending
+        ApprovalInstance ai = new ApprovalInstance();
+        ai.setSubmission(submission);
+        ai.setVersion(1);
+        ai.setApprovalPath(assignment.get().getApprovalPath());
+        ai.setCurrentLevel(1);
+        ai.setStatus("Pending");
+        ai.setLastUpdated(new Timestamp(System.currentTimeMillis()));
+        ai.setManualOverride(false);
+        approvalInstanceRepository.save(ai);
+
+        return ta;
+    }
 }

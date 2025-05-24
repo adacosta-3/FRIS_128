@@ -5,6 +5,7 @@ import fris.dev.backend.entities.TeachingActivity;
 import fris.dev.backend.service.TeachingActivityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,9 +17,18 @@ public class TeachingActivityController {
 
     private final TeachingActivityService service;
 
+//    @PostMapping
+//    public ResponseEntity<TeachingActivity> submit(@RequestBody TeachingActivityDto dto) {
+//        return ResponseEntity.ok(service.submit(dto));
+//    }
+
     @PostMapping
-    public ResponseEntity<TeachingActivity> submit(@RequestBody TeachingActivityDto dto) {
-        return ResponseEntity.ok(service.submit(dto));
+    public ResponseEntity<TeachingActivity> submit(
+            @RequestBody TeachingActivityDto dto,
+            Authentication authentication) {
+        String username = authentication.getName();
+        TeachingActivity created = service.submitTeachingActivity(dto, username);
+        return ResponseEntity.ok(created);
     }
 
     @GetMapping("/user/{userId}")

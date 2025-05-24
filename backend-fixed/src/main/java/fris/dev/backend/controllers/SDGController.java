@@ -16,18 +16,14 @@ public class SDGController {
 
     private final SDGService sdgService;
 
-    @PostMapping("/target")
-    public ResponseEntity<SDGTarget> createTarget(@RequestParam String name) {
-        return ResponseEntity.ok(sdgService.createTarget(name));
-    }
-
     @PostMapping
-    public ResponseEntity<SDG> createSDG(@RequestParam Long targetId, @RequestParam String name) {
-        return ResponseEntity.ok(sdgService.createSDG(targetId, name));
+    public ResponseEntity<SDG> createSDG(@RequestParam String name) {
+        return ResponseEntity.ok(sdgService.createSDG(name));
     }
 
-    @GetMapping("/target/{targetId}")
-    public ResponseEntity<List<SDG>> getByTarget(@PathVariable Long targetId) {
-        return ResponseEntity.ok(sdgService.getByTarget(targetId));
+    @GetMapping
+    public ResponseEntity<List<SDG>> getAll() {
+        return ResponseEntity.ok(sdgService.getAllSDGs());
     }
 }
+

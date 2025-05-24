@@ -8,5 +8,6 @@ import java.util.List;
 public interface CourseAndSetService {
     CourseAndSet add(CourseAndSetDto dto);
     List<CourseAndSet> getByTeachingId(Long teachingId);
+    CourseAndSet addCourseSet(CourseAndSetDto dto, String loggedInUsername);
 }
 

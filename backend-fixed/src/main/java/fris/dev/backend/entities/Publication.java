@@ -39,4 +39,8 @@ public class Publication {
     @ManyToOne
     @JoinColumn(name = "sdg_id")
     private SDG sdg;
+
+    @ManyToOne
+    @JoinColumn(name = "sdg_target_id")
+    private SDGTarget sdgTarget;
 }

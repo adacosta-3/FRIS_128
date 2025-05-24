@@ -11,4 +11,7 @@ import java.util.List;
 public interface PublicationRepository extends JpaRepository<Publication, Long> {
     List<Publication> findByUser(User user);
     List<Publication> findByIsApprovedTrue();
+    List<Publication> findByUserAndIsApprovedTrue(User user);
+    List<Publication> findByUserAndIsApprovedTrueAndPublicationType_PublicationTypeId(User user, Long publicationTypeId);
+
 }

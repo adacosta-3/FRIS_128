@@ -8,4 +8,5 @@ import java.util.List;
 public interface AuthorshipService {
     Authorship add(AuthorshipDto dto);
     List<Authorship> getByTeachingId(Long teachingId);
+    Authorship addAuthorship(AuthorshipDto dto, String loggedInUsername);
 }

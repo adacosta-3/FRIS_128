@@ -16,5 +16,11 @@ public class SDGTarget {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sdgTargetId;
 
+    @ManyToOne
+    @JoinColumn(name = "sdg_id", nullable = false)
+    private SDG sdg;
+
+    @Column(nullable = false)
     private String sdgTargetName;
 }
+

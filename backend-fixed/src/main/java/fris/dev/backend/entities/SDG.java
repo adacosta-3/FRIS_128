@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "sdg")
 @Data
@@ -16,9 +18,9 @@ public class SDG {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sdgId;
 
-    @ManyToOne
-    @JoinColumn(name = "sdg_target_id", nullable = false)
-    private SDGTarget sdgTarget;
-
+    @Column(nullable = false)
     private String sdgName;
+
+    @OneToMany(mappedBy = "sdg", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SDGTarget> targets;
 }
