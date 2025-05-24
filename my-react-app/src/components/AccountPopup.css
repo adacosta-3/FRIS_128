@@ -1,0 +1,113 @@
+.account-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  z-index: 2000;
+}
+
+.account-popup {
+  position: absolute;
+  top: 80px;
+  left: var(--sidebar-width-collapsed); /* Position right beside the collapsed sidebar */
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 300px;
+  overflow: hidden;
+  animation: slideIn 0.3s ease;
+  z-index: 2001; /* Ensure it's above the sidebar */
+  transition: left 0.3s ease;
+} /* Smooth transition when sidebar expands/collapses */
+
+/* Position when sidebar is expanded */
+.account-popup.sidebar-expanded {
+  left: var(--sidebar-width-expanded); /* Position right beside the expanded sidebar */
+}
+
+/* Removed duplicate .account-popup as it's defined above */
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.account-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.account-profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.account-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #f0f0f0;
+}
+
+.account-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.account-badge {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem; /* Tier 4 font size */
+}
+
+.account-name {
+  color: #666;
+  font-size: 0.85rem; /* Tier 5 font size */
+}
+
+.account-options {
+  padding: 10px 0;
+}
+
+.account-option {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.account-option:hover {
+  background-color: #f8f9fa;
+}
+
+.option-icon {
+  color: #666;
+  font-size: 1.1rem;
+  width: 30px;
+}
+
+.option-text {
+  flex: 1;
+  color: #333;
+  font-size: 0.85rem; /* Tier 5 font size */
+}
+
+.option-arrow {
+  color: #ccc;
+  font-size: 0.8rem;
+}

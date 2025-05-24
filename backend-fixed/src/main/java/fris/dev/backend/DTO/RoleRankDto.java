@@ -1,0 +1,13 @@
+package fris.dev.backend.DTO;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class RoleRankDto {
+    private String roleRankName;
+    private Boolean isApprover;
+}

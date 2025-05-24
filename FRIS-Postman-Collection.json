@@ -1,0 +1,139 @@
+{
+  "info": {
+    "name": "FRIS API Collection",
+    "_postman_id": "fris-collection-id",
+    "description": "Postman collection for Faculty and REPS Information System (FRIS) API - for frontend integration",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "User Registration",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/users",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"sheila.magboo\",\n  \"password\": \"test123\",\n  \"firstName\": \"Sheila\",\n  \"lastName\": \"Magboo\",\n  \"email\": \"sheila@up.edu.ph\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Submit Publication",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/publications",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "publications"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"title\": \"UP Research Advances\",\n  \"authors\": \"Sheila Magboo\",\n  \"datePublished\": \"2024-10-01\",\n  \"journal\": \"UP Journal of Science\",\n  \"citedAs\": \"Magboo et al., 2024\",\n  \"doi\": \"10.1234/upres.2024\",\n  \"supportingDocument\": \"upres_paper.pdf\",\n  \"publicationTypeId\": 1,\n  \"sdgId\": 2\n}"
+        }
+      }
+    },
+    {
+      "name": "Start Approval Instance",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/approval-instances",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "approval-instances"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"submissionId\": 1,\n  \"version\": 1,\n  \"pathId\": 3\n}"
+        }
+      }
+    },
+    {
+      "name": "Log Approval Decision",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/approval-decisions/action",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "approval-decisions",
+            "action"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"approvalInstanceId\": 1,\n  \"levelOrder\": 1,\n  \"approverUserId\": 2,\n  \"decision\": \"Approved\",\n  \"remarks\": \"Looks great.\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Get Approved Publications",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/publications/approved",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "publications",
+            "approved"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080"
+    }
+  ]
+}
