@@ -8,6 +8,6 @@ import java.util.List;
 public interface ApprovalDecisionService {
     ApprovalDecision logDecision(ApprovalDecisionDto dto);
     List<ApprovalDecision> getByInstanceId(Long instanceId);
-    ApprovalDecision handleApprovalAction(ApprovalDecisionDto dto);
+    ApprovalDecision handleApprovalAction(ApprovalDecisionDto dto, String loggedInUsername);
 
 }

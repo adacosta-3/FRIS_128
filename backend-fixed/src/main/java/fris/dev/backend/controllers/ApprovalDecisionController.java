@@ -5,6 +5,7 @@ import fris.dev.backend.entities.ApprovalDecision;
 import fris.dev.backend.service.ApprovalDecisionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,8 +28,16 @@ public class ApprovalDecisionController {
     }
 
     @PostMapping("/action")
-    public ResponseEntity<ApprovalDecision> handleAction(@RequestBody ApprovalDecisionDto dto) {
-        return ResponseEntity.ok(decisionService.handleApprovalAction(dto));
+    public ResponseEntity<ApprovalDecision> handleAction(
+            @RequestBody ApprovalDecisionDto dto,
+            Authentication authentication) {
+
+        String username = authentication.getName();
+
+        ApprovalDecision decision = decisionService.handleApprovalAction(dto, username);
+
+        return ResponseEntity.ok(decision);
     }
+
 
 }
