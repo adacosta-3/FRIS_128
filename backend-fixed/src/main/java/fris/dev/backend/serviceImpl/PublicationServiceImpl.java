@@ -131,32 +131,13 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     @Transactional
     public void saveAllFromDto(List<PublicationDto> dtos, String loggedInUsername) {
-        // Find logged-in user entity once
         User user = userRepository.findByUsername(loggedInUsername)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        List<Publication> entities = dtos.stream().map(dto -> {
-            Publication pub = publicationMapper.toEntity(dto);
-
-            // Override user from logged in user, ignore dto.getUserId()
-            pub.setUser(user);
-
-            // Resolve related entities by their IDs from DTO
-            PublicationType pubType = publicationTypeRepository.findById(dto.getPublicationTypeId())
-                    .orElseThrow(() -> new IllegalArgumentException("PublicationType not found with ID: " + dto.getPublicationTypeId()));
-            pub.setPublicationType(pubType);
-
-            SDG sdg = sdgRepository.findById(dto.getSdgId())
-                    .orElseThrow(() -> new IllegalArgumentException("SDG not found with ID: " + dto.getSdgId()));
-            pub.setSdg(sdg);
-
-            SDGTarget sdgTarget = sdgTargetRepository.findById(dto.getSdgTargetId())
-                    .orElseThrow(() -> new IllegalArgumentException("SDG Target not found with ID: " + dto.getSdgTargetId()));
-            pub.setSdgTarget(sdgTarget);
-
-            return pub;
-        }).collect(Collectors.toList());
-
-        publicationRepository.saveAll(entities);
+        for (PublicationDto dto : dtos) {
+            // Force the userId to the logged-in user for security
+            dto.setUserId(user.getUserId());
+            submitPublication(dto); // Reuse your logic!
+        }
     }
 }

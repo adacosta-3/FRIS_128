@@ -1,6 +1,7 @@
 package fris.dev.backend.DTO;
 
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class PublicationDto {
     @CsvBindByName(column = "Authors")
     private String authors;
 
+    @CsvDate("MM-dd-yyyy")
     @CsvBindByName(column = "DatePublished")
     private Date datePublished;
 
