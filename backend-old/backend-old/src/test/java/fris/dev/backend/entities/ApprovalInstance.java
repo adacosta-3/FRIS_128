@@ -3,6 +3,7 @@ package fris.dev.backend.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import java.sql.Timestamp;
+import java.time.Instant;
 
 @Entity
 @Table(name = "approval_instances")

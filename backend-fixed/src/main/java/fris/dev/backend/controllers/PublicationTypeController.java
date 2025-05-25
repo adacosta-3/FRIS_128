@@ -21,8 +21,14 @@ public class PublicationTypeController {
         return ResponseEntity.ok(service.create(dto));
     }
 
+//    @GetMapping
+//    public ResponseEntity<List<PublicationType>> getAll() {
+//        return ResponseEntity.ok(service.getAll());
+//    }
+
     @GetMapping
-    public ResponseEntity<List<PublicationType>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+    public ResponseEntity<List<PublicationTypeDto>> getAllGrouped() {
+        List<PublicationTypeDto> groupedTypes = service.getAllPublicationTypesGrouped();
+        return ResponseEntity.ok(groupedTypes);
     }
 }

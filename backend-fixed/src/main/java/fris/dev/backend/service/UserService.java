@@ -12,5 +12,5 @@ public interface UserService {
     Optional<User> findByUsername(String username);
     List<User> getAllUsers();
     User updateUserProfile(String username, UserUpdateDto dto);
-
+    User updateGoogleScholarProfile(Long userId, String profileUrl);
 }

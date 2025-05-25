@@ -44,6 +44,9 @@ public class User {
     private String unit;
     private String department;
     private String college;
+
+    @Column(name = "google_scholar_profile_url")
+    private String googleScholarProfileUrl;
 }
 
 
