@@ -78,8 +78,31 @@ const MultipleAddForm = ({ onLogout }) => {
     // Clear session storage after submission
     sessionStorage.removeItem('multipleAddFormState');
     
-    // Navigate back to the previous page - this ends the flow
-    navigate(-1);
+    // Determine the appropriate destination based on the category of the first entry
+    // This ensures we go back to the correct activity page
+    if (entries.length > 0) {
+      const category = entries[0].category;
+      switch(category) {
+        case 'research':
+          navigate('/research');
+          break;
+        case 'teaching':
+          navigate('/teaching');
+          break;
+        case 'service':
+          navigate('/public');
+          break;
+        case 'request':
+          navigate('/requests');
+          break;
+        default:
+          // If we can't determine the category, go to home
+          navigate('/home');
+      }
+    } else {
+      // If there are no entries (shouldn't happen due to disabled submit button)
+      navigate('/home');
+    }
   };
 
   return (
