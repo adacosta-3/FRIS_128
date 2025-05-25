@@ -134,8 +134,9 @@ const AddSingleEntryToMultipleForm = ({ onLogout }) => {
     const encodedData = encodeURIComponent(JSON.stringify(submittedData));
     
     console.log('Redirecting to multiple-add form with entry data');
-    // Force a hard redirect to ensure we go back to the multiple add form
-    window.location.href = `/multiple-add?entryData=${encodedData}`;
+    // Use navigate instead of window.location.href to ensure proper routing
+    // Make sure to include the full path to prevent redirection to login
+    navigate(`/multiple-add?entryData=${encodedData}`);
   };
   
   // Get sub-categories based on main category

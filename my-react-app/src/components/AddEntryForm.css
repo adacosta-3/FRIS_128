@@ -78,6 +78,26 @@
   border-left: 4px solid #800000;
 }
 
+.add-entry-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Target range inputs styling */
+.target-group .target-inputs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.target-group .target-inputs input {
+  flex: 1;
+}
+
+.target-separator {
+  font-weight: bold;
+  color: #666;
+}
+
 .form-group label {
   font-weight: 600;
   margin-bottom: 0.5rem;
