@@ -1,0 +1,42 @@
+import React from "react";
+import { View, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
+import { Logo } from "./Logo";
+import { LoginForm } from "./LoginForm";
+import { SocialLogin } from "./SocialLogin";
+import { LoginFooter } from "./LoginFooter";
+import { LoginFormData } from "./types";
+
+const LoginScreen: React.FC = () => {
+  const handleLogin = async (data: LoginFormData) => {
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Add your actual login logic here
+    } catch (error) {
+      throw new Error("Login failed");
+    }
+  };
+
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      className="flex-1 bg-gray-50"
+    >
+      <ScrollView
+        contentContainerClassName="flex-grow"
+        keyboardShouldPersistTaps="handled"
+      >
+        <View className="flex-1 px-6 py-8 justify-center">
+          <Logo />
+          <View className="w-full max-w-sm mx-auto">
+            <LoginForm onSubmit={handleLogin} />
+            <SocialLogin />
+            <LoginFooter />
+          </View>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
+};
+
+export default LoginScreen;
