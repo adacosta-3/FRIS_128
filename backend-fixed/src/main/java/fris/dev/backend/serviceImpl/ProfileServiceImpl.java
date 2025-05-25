@@ -45,6 +45,7 @@ public class ProfileServiceImpl implements ProfileService {
 
         dto.setEducationalBackgrounds(educationalBackgroundRepository.findByUser(user).stream()
                 .map(eb -> new EducationalBackgroundDto(
+                        eb.getEduId(),
                         eb.getDegree(),
                         eb.getSchool(),
                         eb.getGraduationYear(),
@@ -52,15 +53,15 @@ public class ProfileServiceImpl implements ProfileService {
                 )).toList());
 
         dto.setResearchInterests(researchInterestRepository.findByUser(user).stream()
-                .map(ri -> new ResearchInterestDto(ri.getResearchInterest()))
+                .map(ri -> new ResearchInterestDto(ri.getResearchInterestId(), ri.getResearchInterest()))
                 .toList());
 
         dto.setAffiliations(affiliationRepository.findByUser(user).stream()
-                .map(af -> new AffiliationDto(af.getAffiliationName(), af.getAffiliationType()))
+                .map(af -> new AffiliationDto(af.getAffiliationId(), af.getAffiliationName(), af.getAffiliationType()))
                 .toList());
 
         dto.setResearchExperiences(researchExperienceRepository.findByUser(user).stream()
-                .map(re -> new ResearchExperienceDto(re.getLocation(), re.getStartDate(), re.getEndDate(), re.getExperienceDetails()))
+                .map(re -> new ResearchExperienceDto(re.getResearchExperienceId(), re.getLocation(), re.getStartDate(), re.getEndDate(), re.getExperienceDetails()))
                 .toList());
 
         dto.setPublications(publicationRepository.findByUserAndIsApprovedTrue(user).stream()
