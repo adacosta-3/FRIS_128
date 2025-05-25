@@ -9,21 +9,6 @@
   --page-background-light: #F5F5F5; /* A light background color for the page */
 }
 
-/* Basic Reset */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Poppins", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden; /* Crucial: Prevent scrolling on the body */
-  display: flex; /* Helps center the wrapper */
-  justify-content: center;
-  align-items: center;
-}
-
 /* Overall Page Layout */
 .login-page-wrapper {
   display: flex;
