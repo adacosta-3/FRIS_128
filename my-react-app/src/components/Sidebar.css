@@ -1,602 +1,398 @@
-.sidebar {
-  width: var(--sidebar-width-collapsed);
-  height: 100vh;
-  background-color: #fff;
-  border-right: 1px solid #eee;
-  transition: 0.01s;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  overflow-x: hidden;
-  box-sizing: border-box;
-  padding: 0; /* Added padding to fix sidebar spacing */
-}
-
-.sidebar.expanded {
-  width: var(--sidebar-width-expanded);
-}
+/* Sidebar.css - Combining mockup styles with functional component needs */
 
 :root {
-  --primary-color: #800000; /* Maroon */
-  --secondary-color: #006400; /* Green */
-  --sidebar-width-collapsed: 80px;
-  --sidebar-width-expanded: 280px;
+  --sidebar-width-folded: 80px;
+  --profile-border-color: #f49928;
 }
 
-/* Part 1: Logo and Profile */
-.sidebar-header {
-  padding: 0.75rem 0.5rem;
-  border-bottom: 1px solid #eee;
-  margin-bottom: 0rem; /* Completely removed margin */
+/* Universal box-sizing from mockup */
+.sidebar-folded,
+.sidebar-folded * {
+  box-sizing: border-box;
+}
+
+input,
+select,
+textarea,
+button {
+  outline: 0;
+  font-family: inherit; /* Inherit font for form elements */
+}
+
+/* Main Sidebar Container - Adapted from .main-container and .sidebar-folded */
+.sidebar-folded {
+  position: fixed; /* Use fixed for sidebar positioning */
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width-folded); /* Default folded width */
+  height: 100vh;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0rem; /* Removed gap between logo and profile */
+  /* Adjusting justify-content for overall layout */
+  justify-content: space-between; /* Pushes content to top/bottom */
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+  box-shadow: 7px 2px 6px 0 rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  transition: width 0.3s ease; /* For smooth toggle */
+  overflow-y: auto; /* Allow scrolling if content is too long */
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none;  /* For IE and Edge */
+}
+.sidebar-folded::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
 }
 
-.sidebar-profile {
-  padding: 0.25rem 0;
-  margin-top: 0.25rem;
+
+.sidebar-toggle .arrow {
+    width: 100%; /* Take full width of button */
+    height: 100%; /* Take full height of button */
+    background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/VwoZAFy2Ff.png) no-repeat center;
+    background-size: contain; /* Ensure arrow fits within the button */
+    transition: transform 0.3s ease;
+}
+
+
+/* Header Body - Contains Logo and Profile Section */
+.header-body {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  position: relative;
+  align-items: center; /* Center items horizontally in folded state */
+  width: 100%; /* Occupy full width of sidebar */
+  padding-top: 24px; /* Matches mockup's top spacing */
+  padding-bottom: 16px; /* Spacing before nav frame */
+  flex-shrink: 0;
 }
 
-.logo-container {
+/* Header (Logo Container) */
+.header {
   display: flex;
   align-items: center;
-  justify-content: center !important; /* Center when collapsed */
-  padding: 1rem 0;
-  position: relative;
+  justify-content: center; /* Center logo horizontally */
   width: 100%;
-  margin-bottom: 0.5rem; /* Reduced margin to minimize gap */
-  padding-left: 0;
-  transition: all 0.3s ease;
+  padding: 0; /* Remove extra padding, logo is centered */
+  margin-bottom: 24px; /* Space between logo and profile */
 }
 
-.sidebar.expanded .logo-container {
-  justify-content: flex-start !important;
-  padding-left: 1.5rem;
-  text-align: left !important;
-  align-items: center;
-}
-
-.sidebar.expanded .logo-text {
-  text-align: left !important;
-  margin-left: 0.5rem;
-}
-
-.logo-text {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #800000;
-  margin-left: 0.5rem;
-  display: none;
-  text-align: left;
-  position: relative;
-}
-
-.sidebar.expanded .logo-text {
-  display: block;
-  text-align: left;
-}
-
-.sidebar-logo {
-  height: 40px;
-  width: auto;
-  margin-left: 0;
-}
-
-.profile-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  overflow: hidden;
-  justify-content: center; /* Center when collapsed */
-  width: 100%;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 5px;
-  transition: background-color 0.2s ease;
-}
-
-.profile-info:hover {
-  background-color: #f0f0f0;
-}
-
-.sidebar.expanded .profile-info.centered {
-  justify-content: flex-start;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding-left: 1.5rem;
-}
-
-.profile-icon {
+.logo {
   width: 40px;
   height: 40px;
+  background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/qOAV0dqC5s.png) no-repeat center;
+  background-size: cover;
+  border-radius: 8px;
+  flex-shrink: 0; /* Prevent logo from shrinking */
+}
+
+/* Logo Text (FRIS) */
+.logo-text {
+    font-size: 20px; /* Example size */
+    font-weight: 600;
+    color: #333;
+    margin-left: 10px; /* Space from logo */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    flex-grow: 1; /* Allows it to take space */
+    transition: opacity 0.3s ease;
+}
+
+
+/* Frame - Contains Account, Main Pages, Dividers, Spaces */
+.frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  width: 100%;
+  gap: 16px; /* Gap between sections within the frame */
+  flex-grow: 1; /* Allow frame to grow and push footer down */
+}
+
+/* Account/Profile Section */
+.account {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; /* Center content in folded state */
+  width: 40px; /* Fixed width for icon container */
+  height: 40px; /* Fixed height for icon container */
+  border: 3px solid var(--profile-border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 3px; /* Inner padding for the border effect */
+  margin: 0 auto; /* Center the account box itself */
   flex-shrink: 0;
-  margin-right: 10px;
+  transition: background-color 0.2s ease, width 0.3s ease, justify-content 0.3s ease;
 }
 
-.profile-icon.nav-icon-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
+.account.centered-profile {
+    justify-content: center;
+    width: 40px;
 }
 
-.sidebar.expanded .nav-icon-container {
-  justify-content: center;
-  margin-right: 10px;
+.account:hover {
+    background-color: rgba(244, 153, 40, 0.1);
 }
 
-.nav-icon {
-  width: 24px;
-  height: 24px;
-  color: #666;
+.profile-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px; /* Fixed size for the icon area */
+    height: 40px;
+}
+
+.profile-icon-svg {
+    font-size: 30px; /* Size for FaUserCircle */
+    color: #ccc; /* Default icon color */
+    flex-shrink: 0;
 }
 
 .user-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px; /* Spacing for text when expanded */
+    white-space: nowrap;
+    flex-grow: 1; /* Allow text to take space */
+    transition: opacity 0.3s ease;
+}
+
+.user-badge {
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
 }
 
 .user-name {
-  font-size: 0.85rem; /* Tier 5 font size */
-  font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+
+/* Main Pages Navigation */
+.main-pages {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items in folded state */
+  width: 100%;
+  gap: 8px; /* Space between navigation items */
+}
+
+/* Generic Nav Item Wrapper */
+.nav-item-wrapper {
+    width: 100%; /* Take full width for containing link */
+    display: flex;
+    justify-content: center; /* Center the link item itself */
+    flex-shrink: 0;
+    height: 40px; /* Fixed height for each nav item */
+}
+
+
+/* Nav Link Item (Home, Notifications, etc.) */
+.nav-link-item {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center icon when folded */
+  width: 40px; /* Default width for icon-only display */
+  height: 40px;
+  text-decoration: none;
   color: #333;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, width 0.3s ease, justify-content 0.3s ease;
+  overflow: hidden; /* Hide overflowing text during transition */
+  white-space: nowrap;
+  padding: 8px; /* Padding for the icon area */
 }
 
-.user-email {
-  font-size: 0.9rem; /* Tier 4 font size */
-  color: #666;
+
+.nav-link-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
-.toggle-icon {
-  width: 36px; /* 300% of original 24px */
-  height: 36px; /* 300% of original 24px */
+.nav-link-item.active {
+  background-color: #e0e0e0; /* Example active state background */
 }
 
-.sidebar.expanded .sidebar-toggle {
-  left: calc(var(--sidebar-width-expanded) - 18px); /* Position at the edge of the expanded sidebar */
+/* Common Icon Styling for background images */
+.nav-icon-bg {
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; /* or contain, depending on icon source */
+    flex-shrink: 0;
 }
 
-.sidebar.expanded .toggle-icon {
-  transform: rotate(180deg);
+/* Specific Icon Backgrounds (from mockup) */
+.icon-home-alt { background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/H91UATB1xR.png); }
+.icon-bell { background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/Mp3n3Ahdxb.png); }
+.icon-book-open { background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/wHPwLGqAcb.png); }
+.icon-chalkboard { background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/shUWwsWrYb.png); }
+.icon-globe { background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/5EEwnQDJ5X.png); }
+.icon-file { background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/DKS8tBVv0w.png); }
+.icon-log-out { background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/3S3KaGZQNn.png); }
+
+
+/* Nav Label (Text next to icon) */
+.nav-label {
+    margin-left: 10px; /* Space between icon and text */
+    font-size: 16px; /* Example size */
+    font-weight: 500;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    flex-grow: 1; /* Allows text to take available space */
+    transition: opacity 0.3s ease;
 }
 
-.sidebar-toggle {
-  position: fixed; /* Fixed to ensure it's always visible */
-  top: 113px; /* Position at a good height */
-  left: calc(var(--sidebar-width-collapsed) - 18px); /* Position at the edge of the sidebar */
-  width: 36px;
-  height: 36px;
+
+/* Dividers */
+.divider, .divider-7 {
+  align-self: center; /* Center the divider in the 80px width */
+  width: calc(100% - 48px); /* 80px - 2*24px padding = 32px; or full width if no padding, depends on desired visual */
+  height: 1px;
+  background-color: #e0e0e0; /* A light grey for the line */
+  flex-shrink: 0;
+}
+/* Specific background images from mockup if desired, but a solid color is cleaner for lines */
+/* .divider { background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/xdjYPbqSn0.png) no-repeat center; background-size: cover; } */
+/* .divider-7 { background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/OMXUHnUOsG.png) no-repeat center; background-size: cover; } */
+
+
+/* Approval Section (Spaces and Page) */
+.spaces {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items in folded state */
+  width: 100%;
+  gap: 8px; /* Space between Approval text and items */
+}
+
+.approval {
+  flex-shrink: 0;
+  flex-basis: auto;
+  position: relative;
+  height: 21px;
+  color: #333333;
+  font-family: Poppins, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 21px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 26;
+}
+
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items in folded state */
+  width: 100%;
+  gap: 8px;
+}
+
+
+/* Footer / Logout Section */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  width: 100%;
+  padding-bottom: 24px; /* Bottom padding for the sidebar */
+  margin-top: auto; /* Pushes the footer to the bottom */
+  flex-shrink: 0;
+}
+
+.secondary-pages {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center logout item */
+  width: 100%;
+  margin: 125px 0 0 0;
+}
+
+.log-out {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 40px; /* Fixed height for the logout item */
+}
+
+.logout-btn {
+  /* Reuses nav-link-item styles */
   background: none;
   border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
-  z-index: 1001; /* Higher z-index to ensure it's above everything */
-  padding: 0;
 }
 
-.nav-link.logout-btn {
-  background-color: transparent !important;
-  border: none !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 0.75rem 0;
-  cursor: pointer;
-  box-shadow: none !important;
-  outline: none !important;
-  color: #666;
-  position: absolute;
-  bottom: 0;
-}
-
-/* Part 2: Navigation */
-.sidebar-nav {
-  margin-top: 0.25rem; /* Further reduced gap between divider and home icon */
-  flex: 1;
-  padding-top: 0.5rem; /* Reduced padding to minimize gap */
-  border-top: 1px solid #eee;
-  overflow-y: auto;
-}
-
-.sidebar-nav ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem; /* Further reduced spacing between items */
-  padding: 0.25rem 0;
-  margin: 0;
-}
-
-.sidebar-nav li {
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin-bottom: 0.25rem; /* Halved margin */
-  justify-content: flex-start; /* Left align by default */
-  padding-left: 0;
-  height: 36px; /* Fixed height for consistent spacing */
-}
-
-.sidebar.expanded .sidebar-nav li {
-  justify-content: flex-start; /* Left align when expanded */
-  padding-left: 1.5rem;
-}
-
-.nav-link {
-  display: flex;
-  align-items: center;
-  padding: 0.75rem 0.5rem;
-  color: #666;
-  text-decoration: none;
-  border-radius: 0.25rem;
-  transition: all 0.2s ease;
-  margin: 0.25rem 0;
-  justify-content: flex-start; /* Left align by default */
-  width: 100%;
-}
-
-/* Center icons when sidebar is collapsed */
-.sidebar:not(.expanded) .nav-link.centered {
-  justify-content: center !important;
-  text-align: center;
-}
-
-/* Ensure content is left-aligned when sidebar is expanded */
-.sidebar.expanded .nav-link {
-  justify-content: flex-start;
-  text-align: left;
-}
-
-.sidebar.expanded .nav-link {
-  justify-content: flex-start !important; /* Left align when expanded */
-  padding: 0.5rem 0.5rem 0.5rem 1rem; /* Adjusted padding */
-  text-align: left;
-}
-
-.sidebar.expanded .nav-link {
-  padding-left: 2rem;
-  text-align: left;
-  justify-content: flex-start;
-}
-
-.nav-icon {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #666;
-}
-
-.nav-label {
-  display: none;
-  position: absolute;
-  left: 50px;
-  color: #666;
-  text-align: left;
-}
-
-.sidebar.expanded .nav-label {
-  display: block;
-  position: static;
-  text-align: left;
-}
-
-.sidebar.expanded .sidebar-nav li {
-  justify-content: flex-start;
-  padding: 0.25rem 0;
-  padding-left: 1.5rem;
-  text-align: left;
-}
-
-.sidebar-nav li:hover,
-.sidebar-nav li.active {
-  color: var(--primary-color);
-}
-
-.nav-icon {
-  font-size: 1.25rem;
-  min-width: 1.25rem;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #666;
-  position: absolute;
-  left: 30px; /* Fixed position for icons */
-}
-
-.nav-label {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  font-size: 0.9rem; /* Tier 4 font size */
-  font-weight: 500;
-}
-
-.expanded .nav-label {
-  opacity: 1;
-}
-
-/* Part 3: Approval and Logout */
-.sidebar-footer {
-  border-top: 1px solid #eee;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.approval-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center !important; /* Center by default */
-  padding: 0.25rem 0;
-  color: #666;
-  margin-top: 1rem;
-  width: 100%;
-  text-align: center;
-  justify-content: center !important; /* Center by default when collapsed */
-}
-
-/* Remove duplicate .approval-section */
-
-/* Force center alignment when sidebar is collapsed */
-.sidebar:not(.expanded) .approval-section {
-  justify-content: center !important;
-  text-align: center !important;
-  padding-left: 0 !important;
-  align-items: center !important;
-}
-
-.sidebar:not(.expanded) .approval-header {
-  display: flex;
-  justify-content: center !important;
-  text-align: center !important;
-  width: 100%;
-  padding-left: 0 !important;
-}
-
-.approval-section.centered {
-  justify-content: center !important;
-  align-items: center !important;
-  text-align: center !important;
-  padding-left: 0 !important;
-}
-
-.approval-section.left-aligned {
-  justify-content: flex-start !important;
-  align-items: flex-start !important;
-  text-align: left !important;
-  padding-left: 1.5rem !important;
-}
-
-.sidebar.expanded .approval-section {
-  align-items: flex-start !important;
-  justify-content: flex-start !important;
-  padding-left: 1.5rem !important;
-  text-align: left !important;
-}
-
-.approval-header {
-  text-align: inherit;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.sidebar.expanded .approval-items {
-  padding-left: 0;
-  align-items: flex-start !important; /* Left align when expanded */
-}
-
-.approval-header {
-  font-size: 0.85rem;
-  color: #999;
-  text-transform: uppercase;
-  margin: 1.5rem 0 0.5rem;
-  padding: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center !important;
-  text-align: center !important;
-}
-
-.approval-header.centered {
-  text-align: center !important;
-  justify-content: center !important;
-  display: flex;
-  width: 100%;
-}
-
-.approval-header.left-aligned {
-  text-align: left !important;
-  justify-content: flex-start !important;
-  display: flex;
-  width: 100%;
-  padding-left: 1.5rem !important;
-}
-
-/* Styling moved to .approval-header.left-aligned */
-
-.approval-items {
-  padding: 0 1rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center !important; /* Center items by default */
-}
-
-.approval-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.75rem 1.5rem;
-  color: #666;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  width: 100%;
-  justify-content: center; /* Center by default when collapsed */
-}
-
-.sidebar.expanded .approval-item {
-  padding-left: 1.5rem;
-  text-align: left;
-}
-
-.logout-button {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.75rem 1rem;
-  background-color: transparent; /* Removed highlight */
-  color: #666; /* Changed to match other navigation items */
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  justify-content: center; /* Center by default when collapsed */
-  width: 100%;
-}
-
-.sidebar.expanded .logout-button {
-  justify-content: flex-start; /* Left-align when expanded */
-}
-
-.logout-item {
-  margin-top: auto; /* Push to bottom */
-  margin-bottom: 0; /* Remove bottom margin */
-  position: fixed !important; /* Position fixed to ensure it stays at the bottom */
-  bottom: 0 !important; /* At the very bottom of the sidebar */
-  width: var(--sidebar-width-collapsed); /* Match sidebar width */
-  padding: 0;
-  background-color: transparent !important; /* Remove highlight */
-  z-index: 1001; /* Ensure it's above other elements */
-  display: flex;
-  justify-content: center;
-  border-top: none !important; /* Remove any border */
-  box-shadow: none !important; /* Remove any shadow */
-  left: 0; /* Align with the left edge of the sidebar */
-  padding-left: 0;
-  padding-bottom: 10px;
-}
-
-.sidebar.expanded .logout-item {
-  width: var(--sidebar-width-expanded); /* Match expanded sidebar width */
-  justify-content: flex-start;
-  padding-left: 1.5rem;
-}
-
-.nav-link.logout-btn {
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0.75rem 0;
-  width: 100%;
-  color: #666;
-}
-
-.sidebar:not(.expanded) .logout-button .nav-icon {
-  position: static !important; /* Override absolute positioning when sidebar is collapsed */
-  margin: 0 auto;
-}
-
-.sidebar.expanded .logout-button .nav-icon {
-  position: static !important;
-  margin-right: 0.5rem;
-}
-
-.sidebar.expanded .logout-button .nav-label {
-  position: static;
-  margin-left: 0;
-}
-
-/* Logout confirmation popup */
+/* Logout Confirmation Popup Styles (from your original Sidebar.css part) */
 .logout-confirm-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* Above sidebar and main content */
 }
 
 .logout-confirm-popup {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
 }
 
 .logout-confirm-popup h3 {
-  margin-top: 0;
-  color: #333;
+    margin-top: 0;
+    color: #333;
+}
+
+.logout-confirm-popup p {
+    color: #555;
+    margin-bottom: 20px;
 }
 
 .logout-confirm-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
 .logout-confirm-buttons button {
-  padding: 0.5rem 1.5rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
 }
 
-.logout-confirm-buttons button:first-child {
-  background-color: #f0f0f0;
-  color: #333;
+.logout-confirm-buttons button:first-child { /* Cancel button */
+    background-color: #ccc;
+    color: #333;
 }
 
-.logout-confirm-buttons .confirm-btn {
-  background-color: var(--primary-color);
-  color: white;
+.logout-confirm-buttons button:first-child:hover {
+    background-color: #bbb;
 }
 
-.approval-section:hover {
-  color: var(--primary-color);
+.logout-confirm-buttons .confirm-btn { /* Logout button */
+    background-color: #dc3545; /* Red color for logout */
+    color: white;
 }
 
-.logout-button {
-  color: #dc3545;
+.logout-confirm-buttons .confirm-btn:hover {
+    background-color: #c82333;
 }
 
-.logout-button:hover {
-  opacity: 0.8;
-}
+/* Account Popup styles should be in AccountPopup.css */
+/* Ensure AccountPopup's z-index is high enough if it's not a child of Sidebar */
