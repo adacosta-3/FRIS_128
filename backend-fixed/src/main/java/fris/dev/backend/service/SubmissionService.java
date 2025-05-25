@@ -8,5 +8,7 @@ import java.util.List;
 public interface SubmissionService {
     Submission submit(SubmissionDto dto);
     List<Submission> getUserSubmissions(Long userId);
+    List<SubmissionDto> getPendingSubmissionsForUser(String username);
+    List<SubmissionDto> getPendingSubmissionsForUserByType(String username, String activityType);
 }
 

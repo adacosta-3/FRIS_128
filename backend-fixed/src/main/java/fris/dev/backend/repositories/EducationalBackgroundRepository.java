@@ -1,0 +1,13 @@
+package fris.dev.backend.repositories;
+
+import fris.dev.backend.entities.EducationalBackground;
+import fris.dev.backend.entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import java.util.List;
+
+@Repository
+public interface EducationalBackgroundRepository extends JpaRepository<EducationalBackground, Long> {
+    List<EducationalBackground> findByUser(User user);
+}
+

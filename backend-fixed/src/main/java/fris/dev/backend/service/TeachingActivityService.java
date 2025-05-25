@@ -2,6 +2,7 @@ package fris.dev.backend.service;
 
 import fris.dev.backend.DTO.TeachingActivityDto;
 import fris.dev.backend.entities.TeachingActivity;
+import fris.dev.backend.entities.User;
 
 import java.util.List;
 

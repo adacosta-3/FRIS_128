@@ -11,5 +11,6 @@ import java.util.List;
 public interface TeachingActivityRepository extends JpaRepository<TeachingActivity, Long> {
     List<TeachingActivity> findByUser(User user);
     List<TeachingActivity> findByIsApprovedTrue();
+    List<TeachingActivity> findByUserAndIsApprovedTrue(User user);
 }
 

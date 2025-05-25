@@ -20,4 +20,17 @@ public class SubmissionMapper {
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
         return new Submission(null, user, dto.getActivityType(), dto.getReferenceId(), new Timestamp(System.currentTimeMillis()), 1);
     }
+
+    public SubmissionDto toDto(Submission submission) {
+        SubmissionDto dto = new SubmissionDto();
+        dto.setSubmissionId(submission.getSubmissionId());
+        dto.setActivityType(submission.getActivityType());
+        dto.setReferenceId(submission.getReferenceId());
+        dto.setSubmittedAt(submission.getSubmittedAt());
+        dto.setCurrentVersion(submission.getCurrentVersion());
+        dto.setUserId(submission.getUser().getUserId());
+        // Add any other fields you want to expose
+
+        return dto;
+    }
 }
