@@ -60,4 +60,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @Override
+    public User updateGoogleScholarProfile(Long userId, String profileUrl) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        user.setGoogleScholarProfileUrl(profileUrl);
+        return userRepository.save(user);
+    }
 }
