@@ -75,5 +75,14 @@ WHERE s.user = :user
             @Param("statuses") List<String> statuses,
             @Param("activityType") String activityType);
 
+    @Query("""
+    SELECT COUNT(DISTINCT s) FROM Submission s
+    JOIN ApprovalInstance ai ON ai.submission = s
+    WHERE s.user = :user
+      AND ai.status = 'Pending'
+""")
+    int countPendingSubmissionsByUser(@Param("user") User user);
+
+
 
 }
