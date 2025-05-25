@@ -1,0 +1,384 @@
+/* Public Service Page */
+.public-service-main {
+  overflow-y: visible; /* Changed from auto to visible to prevent double scrollbar */
+  padding: 20px;
+  background-color: #f5f5f5;
+  width: calc(100vw - 80px - 40px); /* Full viewport width minus sidebar width minus padding */
+  margin-left: 80px; /* Sidebar width when collapsed */
+  box-sizing: border-box;
+  margin-top: 5rem;
+}
+
+/* Remove the width change when sidebar expands */
+.sidebar.expanded ~ .home-main.public-service-main {
+  margin-left: 80px; /* Keep the same margin */
+  width: calc(100vw - 80px - 40px); /* Keep the same width */
+}
+
+/* Go Back Button */
+.go-back-button {
+  margin-bottom: 15px;
+}
+
+.go-back-button button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #8B0000;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+/* Public Service Header */
+.public-service-header {
+  background-color: #800000;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 5px;
+  margin-top: 20px; /* Added gap above header */
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.public-service-header h1 {
+  margin: 0;
+  text-align: center;
+}
+
+/* Tab Navigation */
+.public-service-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.tab-button {
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.tab-button.active {
+  background-color: #f39c12;
+  color: white;
+}
+
+/* Search and Action Buttons */
+.public-service-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 10px 10px 35px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.action-button {
+  background-color: #1b5e20;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Services Table */
+.services-table {
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: visible;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.services-table thead {
+  background-color: #800000;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.header-cell {
+  display: flex;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  font-size: 0.75rem;
+  box-sizing: border-box;
+  word-break: normal;
+  font-weight: 600;
+  vertical-align: middle;
+  align-items: center;
+  height: 100%;
+  padding: 0 5px;
+}
+
+.services-table th:first-child,
+.services-table td:first-child {
+  padding-left: 10px;
+  width: 20%;
+  white-space: normal;
+  left: 0;
+  position: relative;
+}
+
+.services-table th:nth-child(2),
+.services-table td:nth-child(2) {
+  width: 5%;
+  left: 25%;
+  position: absolute;
+}
+
+.services-table th:nth-child(3),
+.services-table td:nth-child(3) {
+  width: 5%;
+  left: 35%;
+  position: absolute;
+}
+
+.services-table th:nth-child(4),
+.services-table td:nth-child(4) {
+  width: 15%;
+  left: 45%;
+  position: absolute;
+}
+
+.services-table th:nth-child(5),
+.services-table td:nth-child(5) {
+  width: 20%;
+  left: 65%;
+  position: absolute;
+}
+
+.services-table th:last-child,
+.services-table td:last-child {
+  width: 10%;
+  left: 90%;
+  position: absolute;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.table-body {
+  overflow-y: visible;
+  overflow-x: visible;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.table-row {
+  border-bottom: 1px solid #eee;
+  background-color: white;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  height: 90px;
+  display: flex;
+  align-items: center;
+}
+
+.table-cell {
+  display: flex;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-sizing: border-box;
+  vertical-align: middle;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-start;
+  padding: 0 5px;
+}
+
+.details-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.service-position {
+  color: #8B0000;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  text-align: left;
+}
+
+.service-office {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 3px;
+  display: block;
+  text-align: left;
+}
+
+.cell-with-action {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+}
+
+.document-icon {
+  color: #800000;
+  margin-right: 0;
+}
+
+.document-text {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.actions-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-cell.actions-cell {
+  text-align: center;
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  color: #8B0000;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.edit-button:hover {
+  background-color: rgba(139, 0, 0, 0.1);
+  transform: scale(1.1);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px; /* Increased space after last table entry */
+  margin-bottom: 80px; /* Increased space before footer */
+}
+
+.pagination-button {
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: 5px;
+}
+
+.pagination-number {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.pagination-number.active {
+  background-color: #800000; /* Maroon */
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .table-header,
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .header-cell:not(:first-child),
+  .table-cell:not(:first-child) {
+    display: none;
+  }
+  
+  .public-service-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-container {
+    max-width: 100%;
+  }
+}
+
+

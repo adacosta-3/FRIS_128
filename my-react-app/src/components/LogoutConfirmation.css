@@ -1,0 +1,45 @@
+.logout-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.logout-modal {
+  background-color: #8B0000;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+}
+
+.logout-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.cancel-button, .confirm-button {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.cancel-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.confirm-button {
+  background-color: #FFE5B4;
+  color: black;
+}
