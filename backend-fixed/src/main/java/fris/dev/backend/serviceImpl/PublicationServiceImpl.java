@@ -135,9 +135,10 @@ public class PublicationServiceImpl implements PublicationService {
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         for (PublicationDto dto : dtos) {
-            // Force the userId to the logged-in user for security
+            // Ignore dto.getUserId(), override with logged-in user
             dto.setUserId(user.getUserId());
-            submitPublication(dto); // Reuse your logic!
+
+            submitPublication(dto);  // this method already uses dto.userId to set User
         }
     }
 }

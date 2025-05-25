@@ -129,7 +129,6 @@ public class PublicServiceServiceImpl implements PublicServiceService {
                 .collect(Collectors.toList());
     }
 
-    // Implement bulk save from DTOs for CSV upload
     @Override
     @Transactional
     public void saveAllFromDto(List<PublicServiceDto> dtos, String loggedInUsername) {
@@ -137,54 +136,15 @@ public class PublicServiceServiceImpl implements PublicServiceService {
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         for (PublicServiceDto dto : dtos) {
-            // Map DTO to entity and set user
-            PublicService service = mapper.toEntity(dto);
-            service.setUser(user);
+            // Override userId to logged in user's ID to enforce ownership and prevent spoofing
+            dto.setUserId(user.getUserId());
 
-            // Resolve and set ServiceType by ID
-            PublicServiceType serviceType = serviceTypeRepository.findById(dto.getServiceTypeId())
-                    .orElseThrow(() -> new IllegalArgumentException("ServiceType not found"));
-            service.setServiceType(serviceType);
-
-            // Save public service entity
-            service = repository.save(service);
-
-            // Create submission wrapper
-            Submission submission = new Submission();
-            submission.setUser(user);
-            submission.setActivityType("service");
-            submission.setReferenceId(service.getServiceId());
-            submission.setSubmittedAt(new Timestamp(System.currentTimeMillis()));
-            submission.setCurrentVersion(1);
-            submission = submissionRepository.save(submission);
-
-            // Find approval path assignment
-            List<UserRole> roles = userRoleRepository.findByUser(user);
-            if (roles.isEmpty()) throw new IllegalStateException("User has no roles");
-
-            Optional<ApprovalPathAssignment> assignment = Optional.empty();
-            for (UserRole role : roles) {
-                assignment = pathAssignmentRepository
-                        .findByRoleRankAndCollegeAndDepartment(role.getRoleRank(), role.getCollege(), role.getDepartment());
-                if (assignment.isPresent()) break;
+            // You can also check for serviceTypeId presence here if needed:
+            if (dto.getServiceTypeId() == null) {
+                throw new IllegalArgumentException("ServiceTypeId must not be null");
             }
-            if (!assignment.isPresent()) {
-                // fallback to global
-                assignment = pathAssignmentRepository
-                        .findByRoleRankAndCollegeAndDepartment(roles.get(0).getRoleRank(), null, null);
-            }
-            if (!assignment.isPresent()) throw new IllegalStateException("No approval path found");
 
-            // Create approval instance
-            ApprovalInstance ai = new ApprovalInstance();
-            ai.setSubmission(submission);
-            ai.setVersion(1);
-            ai.setApprovalPath(assignment.get().getApprovalPath());
-            ai.setCurrentLevel(1);
-            ai.setStatus("Pending");
-            ai.setLastUpdated(new Timestamp(System.currentTimeMillis()));
-            ai.setManualOverride(false);
-            approvalInstanceRepository.save(ai);
+            create(dto, loggedInUsername);
         }
     }
 }
