@@ -74,16 +74,16 @@ public class SubmissionController {
     }
 
     @GetMapping("/me/filter")
-    public ResponseEntity<List<DetailedSubmissionDto>> getMySubmissionsFiltered(
-            @RequestParam String status,
-            @RequestParam String activityType,
+    public ResponseEntity<List<SubmitterSubmissionDto>> getMySubmissionsFiltered(
+            @RequestParam List<String> statuses,
+            @RequestParam(required = false) String activityType,
             Authentication authentication) {
 
         String username = authentication.getName();
-        List<DetailedSubmissionDto> filteredSubs = submissionService.getSubmissionsByUserStatusAndType(username, status, activityType);
-
-        return ResponseEntity.ok(filteredSubs);
+        List<SubmitterSubmissionDto> submissions = submissionService.getSubmissionsForUserByStatusesAndType(username, statuses, activityType);
+        return ResponseEntity.ok(submissions);
     }
+
 
     @GetMapping("/me/pending-or-rejected")
     public ResponseEntity<List<SubmitterSubmissionDto>> getMyPendingOrRejectedSubmissions(
@@ -94,5 +94,8 @@ public class SubmissionController {
         List<SubmitterSubmissionDto> submissions = submissionService.getPendingOrRejectedSubmissionsForUser(username, activityType);
         return ResponseEntity.ok(submissions);
     }
+
+
+
 
 }

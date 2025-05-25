@@ -17,6 +17,8 @@ public interface SubmissionService {
     List<DetailedSubmissionDto> getPendingSubmissionsByUserAndType(String username, String activityType);
     List<DetailedSubmissionDto> getSubmissionsByUserStatusAndType(String username, String status, String activityType);
     List<SubmitterSubmissionDto> getPendingOrRejectedSubmissionsForUser(String username, String activityType);
+    List<SubmitterSubmissionDto> getSubmissionsForUserByStatusesAndType(String username, List<String> statuses, String activityType);
+
 
 
 }

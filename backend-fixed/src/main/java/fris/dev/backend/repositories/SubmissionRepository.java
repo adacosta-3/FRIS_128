@@ -60,4 +60,20 @@ WHERE s.user = :user
             @Param("user") User user,
             @Param("activityType") String activityType);
 
+    @Query("""
+    SELECT s FROM Submission s
+    JOIN ApprovalInstance ai ON ai.submission = s
+    JOIN ApprovalLevel al ON al.approvalPath = ai.approvalPath AND al.levelOrder = ai.currentLevel
+    JOIN UserRole ur ON ur.roleRank = al.roleRank
+    JOIN ur.user approver
+    WHERE s.user = :user
+      AND ai.status IN :statuses
+      AND (:activityType IS NULL OR s.activityType = :activityType)
+""")
+    List<Submission> findSubmitterByStatusesAndActivityType(
+            @Param("user") User user,
+            @Param("statuses") List<String> statuses,
+            @Param("activityType") String activityType);
+
+
 }

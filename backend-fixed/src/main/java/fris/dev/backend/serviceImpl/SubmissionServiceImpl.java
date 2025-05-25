@@ -206,6 +206,88 @@ public class SubmissionServiceImpl implements SubmissionService {
         return result;
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<SubmitterSubmissionDto> getSubmissionsForUserByStatusesAndType(String username, List<String> statuses, String activityType) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
+        List<Submission> submissions = submissionRepository.findSubmitterByStatusesAndActivityType(user, statuses, activityType);
+
+        List<SubmitterSubmissionDto> result = new ArrayList<>();
+
+        for (Submission s : submissions) {
+            ApprovalInstance ai = approvalInstanceRepository.findBySubmissionOrderByVersionDesc(s).stream()
+                    .findFirst()
+                    .orElse(null);
+
+            if (ai == null) continue;
+
+            ApprovalPath approvalPath = ai.getApprovalPath();  // Get ApprovalPath entity
+
+            // Fetch current approval level
+            ApprovalLevel al = approvalLevelRepository
+                    .findByApprovalPathAndLevelOrder(approvalPath, ai.getCurrentLevel())
+                    .orElse(null);
+
+            String approverRole = null;
+            String approverName = null;
+            int totalLevels = 0;
+
+            if (al != null) {
+                approverRole = al.getRoleRank().getRoleRankName();
+                List<UserRole> userRoles = userRoleRepository.findByRoleRank(al.getRoleRank());
+                if (!userRoles.isEmpty()) {
+                    User approverUser = userRoles.get(0).getUser();
+                    approverName = approverUser.getFirstName() + " " + approverUser.getLastName();
+                }
+                totalLevels = approvalLevelRepository.countByApprovalPath(approvalPath);
+            }
+
+            // Get activity title or description
+            String title = "N/A";
+            switch (s.getActivityType()) {
+                case "publication":
+                    title = publicationRepository.findById(s.getReferenceId())
+                            .map(Publication::getTitle).orElse("Unknown Publication");
+                    break;
+                case "teaching":
+                    title = teachingActivityRepository.findById(s.getReferenceId())
+                            .map(TeachingActivity::getDescription).orElse("Unknown Teaching Activity");
+                    break;
+                case "service":
+                    title = publicServiceRepository.findById(s.getReferenceId())
+                            .map(PublicService::getDescription).orElse("Unknown Public Service");
+                    break;
+            }
+
+            // Get rejection remarks if rejected
+            String rejectionRemarks = null;
+            if ("Rejected".equalsIgnoreCase(ai.getStatus())) {
+                Optional<ApprovalDecision> lastDecision = approvalDecisionRepository
+                        .findTopByApprovalInstanceOrderByDecisionDateDesc(ai);
+                rejectionRemarks = lastDecision.map(ApprovalDecision::getRemarks).orElse(null);
+            }
+
+            SubmitterSubmissionDto dto = new SubmitterSubmissionDto(
+                    s.getSubmissionId(),
+                    s.getActivityType(),
+                    s.getReferenceId(),
+                    s.getSubmittedAt(),
+                    ai.getStatus(),
+                    approverRole,
+                    approverName,
+                    ai.getCurrentLevel(),
+                    totalLevels,
+                    title,
+                    rejectionRemarks,
+                    ai.getLastUpdated()
+            );
+
+            result.add(dto);
+        }
+
+        return result;
+    }
 
 }
