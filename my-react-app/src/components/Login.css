@@ -36,17 +36,17 @@ html, body {
   background: #fff;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end; /* Changed from center to flex-end to move logo to the right */
   min-height: 100%;
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
-  padding: 2rem;
+  padding: 0rem 10rem 0rem 0rem; /* Added more padding on the right */
 }
 
 .logo {
   width: 100%;
-  max-width: 400px;
+  max-width: 550px; /* Increased from 400px to 550px */
   height: auto;
   object-fit: contain;
   transition: transform 0.3s ease;
@@ -112,7 +112,7 @@ html, body {
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #fff;
+  color: #f9f9f9;
 }
 
 .form-group input {

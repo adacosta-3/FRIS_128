@@ -3,7 +3,7 @@
   height: 100vh;
   background-color: #fff;
   border-right: 1px solid #eee;
-  transition: width 0.3s ease;
+  transition: 0.01s;
   position: fixed;
   top: 0;
   left: 0;
@@ -31,10 +31,11 @@
 .sidebar-header {
   padding: 0.75rem 0.5rem;
   border-bottom: 1px solid #eee;
-  margin-bottom: 0.1rem; /* Further reduced margin */
+  margin-bottom: 0rem; /* Completely removed margin */
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0rem; /* Removed gap between logo and profile */
 }
 
 .sidebar-profile {
@@ -49,22 +50,40 @@
 .logo-container {
   display: flex;
   align-items: center;
-  justify-content: center; /* Center by default when sidebar is collapsed */
-  margin-bottom: 1.5rem;
+  justify-content: center !important; /* Center when collapsed */
+  padding: 1rem 0;
+  position: relative;
+  width: 100%;
+  margin-bottom: 0.5rem; /* Reduced margin to minimize gap */
   padding-left: 0;
   transition: all 0.3s ease;
 }
 
 .sidebar.expanded .logo-container {
-  justify-content: flex-start;
+  justify-content: flex-start !important;
   padding-left: 1.5rem;
+  text-align: left !important;
+  align-items: center;
+}
+
+.sidebar.expanded .logo-text {
+  text-align: left !important;
+  margin-left: 0.5rem;
 }
 
 .logo-text {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primary-color);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #800000;
   margin-left: 0.5rem;
+  display: none;
+  text-align: left;
+  position: relative;
+}
+
+.sidebar.expanded .logo-text {
+  display: block;
+  text-align: left;
 }
 
 .sidebar-logo {
@@ -99,9 +118,33 @@
 }
 
 .profile-icon {
-  font-size: 2.5rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+
+.profile-icon.nav-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.sidebar.expanded .nav-icon-container {
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
   color: #666;
-  min-width: 2.5rem;
 }
 
 .user-info {
@@ -121,54 +164,58 @@
   color: #666;
 }
 
-.expand-button {
-  background: var(--secondary-color);
-  border: none;
-  color: white;
-  cursor: pointer;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s;
-  position: absolute;
-  right: -12px;
-  top: 50%;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  z-index: 1001;
+.toggle-icon {
+  width: 36px; /* 300% of original 24px */
+  height: 36px; /* 300% of original 24px */
 }
 
-.expand-button:hover {
-  color: var(--primary-color);
+.sidebar.expanded .sidebar-toggle {
+  left: calc(var(--sidebar-width-expanded) - 18px); /* Position at the edge of the expanded sidebar */
+}
+
+.sidebar.expanded .toggle-icon {
+  transform: rotate(180deg);
 }
 
 .sidebar-toggle {
-  position: absolute;
-  top: 1rem;
-  right: -40px;
-  width: 40px;
-  height: 40px;
-  background-color: #4CAF50; /* Green circle */
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+  position: fixed; /* Fixed to ensure it's always visible */
+  top: 113px; /* Position at a good height */
+  left: calc(var(--sidebar-width-collapsed) - 18px); /* Position at the edge of the sidebar */
+  width: 36px;
+  height: 36px;
+  background: none;
   border: none;
-  color: white;
-  transition: all 0.2s ease;
-  z-index: 1010; /* Increased z-index to be above sidebar */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1001; /* Higher z-index to ensure it's above everything */
+  padding: 0;
+}
+
+.nav-link.logout-btn {
+  background-color: transparent !important;
+  border: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.75rem 0;
+  cursor: pointer;
+  box-shadow: none !important;
+  outline: none !important;
+  color: #666;
+  position: absolute;
+  bottom: 0;
 }
 
 /* Part 2: Navigation */
 .sidebar-nav {
+  margin-top: 0.25rem; /* Further reduced gap between divider and home icon */
   flex: 1;
-  padding-top: 2rem;
+  padding-top: 0.5rem; /* Reduced padding to minimize gap */
   border-top: 1px solid #eee;
+  overflow-y: auto;
 }
 
 .sidebar-nav ul {
@@ -185,7 +232,7 @@
   align-items: center;
   position: relative;
   margin-bottom: 0.25rem; /* Halved margin */
-  justify-content: center; /* Center when collapsed */
+  justify-content: flex-start; /* Left align by default */
   padding-left: 0;
   height: 36px; /* Fixed height for consistent spacing */
 }
@@ -198,18 +245,31 @@
 .nav-link {
   display: flex;
   align-items: center;
-  padding: 0.5rem;
-  border-radius: 8px;
+  padding: 0.75rem 0.5rem;
+  color: #666;
   text-decoration: none;
-  color: inherit;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  justify-content: center; /* Center when collapsed */
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+  margin: 0.25rem 0;
+  justify-content: flex-start; /* Left align by default */
   width: 100%;
 }
 
+/* Center icons when sidebar is collapsed */
+.sidebar:not(.expanded) .nav-link.centered {
+  justify-content: center !important;
+  text-align: center;
+}
+
+/* Ensure content is left-aligned when sidebar is expanded */
 .sidebar.expanded .nav-link {
-  justify-content: flex-start; /* Left align when expanded */
-  padding: 0.5rem 1rem; /* Reduced horizontal padding */
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.sidebar.expanded .nav-link {
+  justify-content: flex-start !important; /* Left align when expanded */
+  padding: 0.5rem 0.5rem 0.5rem 1rem; /* Adjusted padding */
   text-align: left;
 }
 
@@ -220,21 +280,19 @@
 }
 
 .nav-icon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  color:#666;
-  display: flex;
-  justify-content: flex-start;
+  align-items: center;
+  color: #666;
 }
 
 .nav-label {
   display: none;
   position: absolute;
   left: 50px;
-  color:#666;
+  color: #666;
   text-align: left;
 }
 
@@ -259,11 +317,13 @@
 .nav-icon {
   font-size: 1.25rem;
   min-width: 1.25rem;
-  margin: 0 auto;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #666;
+  position: absolute;
+  left: 30px; /* Fixed position for icons */
 }
 
 .nav-label {
@@ -287,52 +347,115 @@
 
 .approval-section {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: center !important; /* Center by default */
   padding: 0.25rem 0;
   color: #666;
-  font-weight: 500;
-  margin-top: 0.15rem;
-  border-top: 1px solid #eee;
-  pointer-events: none; /* Prevents hover effects */
-  justify-content: center;
+  margin-top: 1rem;
   width: 100%;
+  text-align: center;
+  justify-content: center !important; /* Center by default when collapsed */
+}
+
+/* Remove duplicate .approval-section */
+
+/* Force center alignment when sidebar is collapsed */
+.sidebar:not(.expanded) .approval-section {
+  justify-content: center !important;
+  text-align: center !important;
+  padding-left: 0 !important;
+  align-items: center !important;
+}
+
+.sidebar:not(.expanded) .approval-header {
+  display: flex;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 100%;
+  padding-left: 0 !important;
+}
+
+.approval-section.centered {
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  padding-left: 0 !important;
+}
+
+.approval-section.left-aligned {
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  padding-left: 1.5rem !important;
 }
 
 .sidebar.expanded .approval-section {
-  justify-content: flex-start;
-  padding-left: 1rem;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  padding-left: 1.5rem !important;
+  text-align: left !important;
 }
 
 .approval-header {
-  font-size: 0.9rem; /* Tier 4 font size */
-  text-align: left;
+  text-align: inherit;
   width: 100%;
-  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.sidebar.expanded .approval-section {
-  justify-content: flex-start;
-  padding-left: 1.5rem;
-  text-align: left;
+.sidebar.expanded .approval-items {
+  padding-left: 0;
+  align-items: flex-start !important; /* Left align when expanded */
 }
 
-/* Removed redundant rule since logout button is always left-aligned now */
+.approval-header {
+  font-size: 0.85rem;
+  color: #999;
+  text-transform: uppercase;
+  margin: 1.5rem 0 0.5rem;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center !important;
+  text-align: center !important;
+}
 
+.approval-header.centered {
+  text-align: center !important;
+  justify-content: center !important;
+  display: flex;
+  width: 100%;
+}
+
+.approval-header.left-aligned {
+  text-align: left !important;
+  justify-content: flex-start !important;
+  display: flex;
+  width: 100%;
+  padding-left: 1.5rem !important;
+}
+
+/* Styling moved to .approval-header.left-aligned */
 
 .approval-items {
   padding: 0 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center !important; /* Center items by default */
 }
 
 .approval-item {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.5rem 0; /* Reduced from 0.75rem */
+  padding: 0.75rem 1.5rem;
   color: #666;
   cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  justify-content: flex-start; /* Left-align always */
+  transition: all 0.2s ease;
+  width: 100%;
+  justify-content: center; /* Center by default when collapsed */
 }
 
 .sidebar.expanded .approval-item {
@@ -344,14 +467,71 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.5rem 1rem; /* Reduced from 0.75rem */
-  color: #666;
+  padding: 0.75rem 1rem;
+  background-color: transparent; /* Removed highlight */
+  color: #666; /* Changed to match other navigation items */
+  border-radius: 0.25rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  justify-content: flex-start; /* Left-align always */
-  margin-top: auto;
-  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+  justify-content: center; /* Center by default when collapsed */
+  width: 100%;
+}
+
+.sidebar.expanded .logout-button {
+  justify-content: flex-start; /* Left-align when expanded */
+}
+
+.logout-item {
+  margin-top: auto; /* Push to bottom */
+  margin-bottom: 0; /* Remove bottom margin */
+  position: fixed !important; /* Position fixed to ensure it stays at the bottom */
+  bottom: 0 !important; /* At the very bottom of the sidebar */
+  width: var(--sidebar-width-collapsed); /* Match sidebar width */
+  padding: 0;
+  background-color: transparent !important; /* Remove highlight */
+  z-index: 1001; /* Ensure it's above other elements */
+  display: flex;
+  justify-content: center;
+  border-top: none !important; /* Remove any border */
+  box-shadow: none !important; /* Remove any shadow */
+  left: 0; /* Align with the left edge of the sidebar */
+  padding-left: 0;
+  padding-bottom: 10px;
+}
+
+.sidebar.expanded .logout-item {
+  width: var(--sidebar-width-expanded); /* Match expanded sidebar width */
+  justify-content: flex-start;
+  padding-left: 1.5rem;
+}
+
+.nav-link.logout-btn {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.75rem 0;
+  width: 100%;
+  color: #666;
+}
+
+.sidebar:not(.expanded) .logout-button .nav-icon {
+  position: static !important; /* Override absolute positioning when sidebar is collapsed */
+  margin: 0 auto;
+}
+
+.sidebar.expanded .logout-button .nav-icon {
+  position: static !important;
+  margin-right: 0.5rem;
+}
+
+.sidebar.expanded .logout-button .nav-label {
+  position: static;
+  margin-left: 0;
 }
 
 /* Logout confirmation popup */

@@ -1,16 +1,18 @@
 /* Teaching Activities Page */
 .teaching-main {
-  overflow-y: auto;
+  overflow-y: visible; /* Changed from auto to visible to prevent double scrollbar */
   padding: 20px;
   background-color: #f5f5f5;
   width: calc(100vw - 80px - 40px); /* Full viewport width minus sidebar width minus padding */
   margin-left: 80px; /* Sidebar width when collapsed */
   box-sizing: border-box;
+  margin-top: 5rem;
 }
 
+/* Remove the width change when sidebar expands */
 .sidebar.expanded ~ .home-main.teaching-main {
-  margin-left: 280px; /* Sidebar width when expanded */
-  width: calc(100vw - 280px - 40px); /* Full viewport width minus expanded sidebar width minus padding */
+  margin-left: 80px; /* Keep the same margin */
+  width: calc(100vw - 80px - 40px); /* Keep the same width */
 }
 
 /* Go Back Button */
@@ -32,10 +34,11 @@
 
 /* Teaching Header */
 .teaching-header {
-  background-color: #8B0000;
+  background-color: #800000;
   color: white;
   padding: 15px 20px;
   border-radius: 5px;
+  margin-top: 20px; /* Added gap above header */
   margin-bottom: 20px;
   width: 100%;
 }
@@ -118,53 +121,147 @@
 
 /* Courses Table */
 .courses-table {
-  background-color: white;
-  border-radius: 5px;
-  overflow: hidden;
-  margin-bottom: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: visible;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
 }
 
-.table-header {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  background-color: #333;
+.courses-table-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+}
+
+.courses-table thead {
+  background-color: #800000;
   color: white;
-  font-weight: bold;
-  padding: 12px 15px;
+  font-weight: 600;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
 }
 
 .header-cell {
-  padding: 0 10px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  display: flex;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  font-size: 0.75rem;
+  box-sizing: border-box;
+  word-break: normal;
+  font-weight: 600;
+  vertical-align: middle;
+  align-items: center;
+  height: 100%;
+  padding: 0 5px;
 }
 
-.details-cell {
+.courses-table th:first-child,
+.courses-table td:first-child {
   padding-left: 10px;
+  width: 20%;
+  white-space: normal;
+  left: 0;
+  position: relative;
 }
+
+.courses-table th:nth-child(2),
+.courses-table td:nth-child(2) {
+  width: 15%;
+  left: 25%;
+  position: absolute;
+}
+
+.courses-table th:nth-child(3),
+.courses-table td:nth-child(3) {
+  width: 15%;
+  left: 45%;
+  position: absolute;
+}
+
+.courses-table th:nth-child(4),
+.courses-table td:nth-child(4) {
+  width: 20%;
+  left: 65%;
+  position: absolute;
+}
+
+.courses-table th:last-child,
+.courses-table td:last-child {
+  width: 10%;
+  left: 90%;
+  position: absolute;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
 
 .table-body {
-  max-height: 500px;
-  overflow-y: auto;
+  max-height: none;
+  overflow-y: visible;
+  overflow-x: visible;
 }
 
 .table-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
   border-bottom: 1px solid #eee;
-  padding: 12px 15px;
+  background-color: white;
+  position: relative;
+  height: 80px !important;
+  display: flex;
+  align-items: center;
 }
 
 .table-cell {
-  padding: 0 10px;
   display: flex;
   align-items: center;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-sizing: border-box;
+  vertical-align: middle;
+  justify-content: flex-start;
+  height: 100%;
+  padding: 0 5px;
+}
+
+.details-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+  align-items: flex-start;
+  width: 50% !important; /* Increased width to prevent content cut-off */
+  padding: 0 5px;
 }
 
 .course-number {
   color: #8B0000;
   font-weight: bold;
   margin-bottom: 5px;
+  text-align: left;
+  display: block;
 }
 
 .course-section,
@@ -172,13 +269,16 @@
   font-size: 14px;
   color: #666;
   margin-bottom: 3px;
+  text-align: left;
+  display: block;
 }
 
 .cell-with-action {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
   width: 100%;
+  white-space: normal;
 }
 
 .document-icon {
@@ -186,11 +286,31 @@
   margin-right: 8px;
 }
 
+.actions-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 10px; /* Add padding to the right */
+}
+
+.header-cell.actions-cell {
+  text-align: center;
+}
+
 .edit-button {
   background: none;
   border: none;
+  color: #8B0000;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.edit-button:hover {
+  background-color: rgba(139, 0, 0, 0.1);
+  transform: scale(1.1);
 }
 
 /* Pagination */
@@ -198,8 +318,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 40px;
+  margin-top: 80px; /* Increased space after last table entry */
+  margin-bottom: 80px; /* Increased space before footer */
 }
 
 .pagination-button {
@@ -229,7 +349,7 @@
 }
 
 .pagination-number.active {
-  background-color: #8B0000;
+  background-color: #800000; /* Maroon */
   color: white;
 }
 

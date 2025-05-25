@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import GoogleScholarPopup from './GoogleScholarPopup';
-import { FaSearch, FaArrowLeft, FaPlus } from 'react-icons/fa';
+import { FaSearch, FaArrowLeft, FaPlus, FaGraduationCap, FaPencilAlt } from 'react-icons/fa';
 import './MyRequests.css';
 
 const MyRequests = ({ onLogout }) => {
@@ -36,16 +36,18 @@ const MyRequests = ({ onLogout }) => {
   ];
 
   return (
-    <div className="home-root">
+    <div className="my-requests-root">
+      {showScholarPopup && (
+        <GoogleScholarPopup 
+          isOpen={true} 
+          onClose={() => setShowScholarPopup(false)} 
+          onSave={handleSaveScholar}
+        />
+      )}
       <Sidebar onLogout={onLogout} />
-      <GoogleScholarPopup 
-        isOpen={showScholarPopup} 
-        onClose={() => setShowScholarPopup(false)} 
-        onSave={handleSaveScholar}
-      />
       
       {/* Main Content */}
-      <main className="home-main my-requests-main">
+      <main className="my-requests-main">
         {/* Go Back Button */}
         <div className="go-back-button">
           <button onClick={() => navigate('/home')}>
@@ -78,13 +80,23 @@ const MyRequests = ({ onLogout }) => {
           </div>
           
           <div className="action-buttons">
-            <button className="action-button"><FaPlus /> Single</button>
-            <button className="action-button"><FaPlus /> Multiple</button>
             <button 
-              className="action-button google-scholar-btn"
+              className="action-btn single"
+              onClick={() => navigate('/add-entry?category=request')}
+            >
+              <FaPlus /> Single
+            </button>
+            <button 
+              className="action-btn multiple"
+              onClick={() => navigate('/add-multiple-entries?category=request')}
+            >
+              <FaPlus /> Multiple
+            </button>
+            <button 
+              className="action-btn scholar" 
               onClick={() => setShowScholarPopup(true)}
             >
-              Google Scholar
+              <FaGraduationCap /> Google Scholar
             </button>
           </div>
         </div>
@@ -93,11 +105,10 @@ const MyRequests = ({ onLogout }) => {
         <div className="requests-table">
           {/* Table Header */}
           <div className="table-header">
-            <div className="header-cell details-cell">Details</div>
-            <div className="header-cell">DOI</div>
+            <div className="header-cell details-cell">Title</div>
+            <div className="header-cell">Author/s</div>
             <div className="header-cell">Publication Type</div>
-            <div className="header-cell">SDG</div>
-            <div className="header-cell">Target/s</div>
+            <div className="header-cell actions-cell">Actions</div>
           </div>
           
           {/* Table Body */}
@@ -106,25 +117,23 @@ const MyRequests = ({ onLogout }) => {
               <div key={request.id} className="table-row">
                 <div className="table-cell details-cell">
                   <div className="request-title">{request.title}</div>
+                </div>
+                <div className="table-cell">
                   <div className="request-authors">{request.authors}</div>
                 </div>
-                <div className="table-cell">{request.doi}</div>
                 <div className="table-cell">{request.type}</div>
-                <div className="table-cell">{request.sdg}</div>
-                <div className="table-cell">
-                  <div className="cell-with-action">
-                    {request.target}
-                    <button 
-                      className="share-button"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        setShowScholarPopup(true);
-                      }}
-                    >
-                      ↗
-                    </button>
-                  </div>
+                <div className="table-cell actions-cell">
+                  <button 
+                    className="edit-button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      // Edit functionality would go here
+                      console.log('Edit request:', request.id);
+                    }}
+                  >
+                    <FaPencilAlt />
+                  </button>
                 </div>
               </div>
             ))}

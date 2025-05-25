@@ -1,0 +1,53 @@
+/* Standardized pagination styles to be used across all components */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px; /* Increased space after last table entry */
+  margin-bottom: 80px; /* Increased space before footer */
+  width: 100%;
+  clear: both;
+}
+
+.pagination-button {
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  cursor: pointer;
+  margin: 0 10px;
+  font-weight: 500;
+  color: #333;
+}
+
+.pagination-button:hover {
+  background-color: #e0e0e0;
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: 5px;
+}
+
+.pagination-number {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  font-weight: 500;
+  color: #333;
+}
+
+.pagination-number:hover {
+  background-color: #e0e0e0;
+}
+
+.pagination-number.active {
+  background-color: #800000;
+  color: white;
+}

@@ -2,8 +2,15 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import { FaSearch, FaArrowLeft, FaFileAlt } from 'react-icons/fa';
+import { FaSearch, FaArrowLeft, FaPlus } from 'react-icons/fa';
 import './TeachingActivities.css';
+import './FixedPagination.css';
+import './CommonLayout.css';
+
+// Import custom SVG icons
+import editIcon from '../../assets/images/icon-edit.svg';
+import shareIcon from '../../assets/images/icon-share.svg';
+import myRequestsIcon from '../../assets/images/icon-my requests.svg';
 
 const TeachingActivities = ({ onLogout }) => {
   const navigate = useNavigate();
@@ -64,43 +71,64 @@ const TeachingActivities = ({ onLogout }) => {
           </div>
           
           <div className="action-buttons">
-            <button className="action-button">Single</button>
-            <button className="action-button">Multiple</button>
+            <button 
+              className="action-button"
+              onClick={() => navigate('/add-entry?category=teaching')}
+            >
+              <FaPlus /> Single
+            </button>
+            <button 
+              className="action-button"
+              onClick={() => navigate('/add-multiple-entries?category=teaching')}
+            >
+              <FaPlus /> Multiple
+            </button>
           </div>
         </div>
         
         {/* Courses Table */}
-        <div className="courses-table">
-          {/* Table Header */}
-          <div className="table-header">
-            <div className="header-cell details-cell">Details</div>
-            <div className="header-cell">Academic Year, Term</div>
-            <div className="header-cell">Course Type, Teaching Points</div>
-            <div className="header-cell">Supporting Document</div>
-          </div>
-          
-          {/* Table Body */}
-          <div className="table-body">
-            {courses.map(course => (
-              <div key={course.id} className="table-row">
-                <div className="table-cell details-cell">
+        <table className="courses-table">
+          <thead>
+            <tr className="table-header">
+              <th className="header-cell details-cell">Details</th>
+              <th className="header-cell">Academic Year, Term</th>
+              <th className="header-cell">Course Type, Teaching Points</th>
+              <th className="header-cell">Supporting Document</th>
+              <th className="header-cell actions-cell">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* Table Rows */}
+            {courses.map((course, index) => (
+              <tr key={course.id} className="table-row">
+                <td className="table-cell details-cell">
                   <div className="course-number">{course.number}</div>
                   <div className="course-section">{course.section}</div>
                   <div className="course-description">{course.description}</div>
-                </div>
-                <div className="table-cell">{course.year}</div>
-                <div className="table-cell">{course.type}</div>
-                <div className="table-cell">
+                </td>
+                <td className="table-cell">{course.year}</td>
+                <td className="table-cell">{course.type}</td>
+                <td className="table-cell">
                   <div className="cell-with-action">
-                    <span className="document-icon"><FaFileAlt /></span>
+                    <span className="document-icon">
+                      <img src={myRequestsIcon} alt="Document" className="document-icon" />
+                    </span>
                     {course.document}
-                    <button className="edit-button">✏️</button>
                   </div>
-                </div>
-              </div>
+                </td>
+                <td className="table-cell actions-cell">
+                  <button className="edit-button">
+                    {index === 0 ? (
+                      <img src={shareIcon} alt="Share" className="action-icon" />
+                    ) : (
+                      <img src={editIcon} alt="Edit" className="action-icon" />
+                    )}
+                  </button>
+                </td>
+              </tr>
             ))}
-          </div>
-        </div>
+          </tbody>
+        </table>
         
         {/* Pagination */}
         <div className="pagination">

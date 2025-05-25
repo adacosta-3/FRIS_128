@@ -3,6 +3,14 @@
   width: 100%;
 }
 
+:root {
+  --sidebar-width-collapsed: 80px;
+  --sidebar-width-expanded: 280px;
+  --primary-color: #800000;
+  --secondary-color: #006400;
+  --accent-color: #F49928;
+}
+
 /* Reset default styles */
 * {
   margin: 0;

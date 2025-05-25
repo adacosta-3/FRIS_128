@@ -6,6 +6,7 @@
   width: calc(100vw - 80px - 40px); /* Full viewport width minus sidebar width minus padding */
   margin-left: 80px; /* Sidebar width when collapsed */
   box-sizing: border-box;
+  margin-top: 5rem;
 }
 
 .sidebar.expanded ~ .home-main.research-main {
@@ -35,7 +36,8 @@
   background-color: #800000; /* Maroon */
   color: white;
   padding: 15px 20px;
-  border-radius: 0;
+  border-radius: 5px;
+  margin-top: 20px; /* Added gap above header */
   margin-bottom: 20px;
   width: 100%;
 }
@@ -106,8 +108,32 @@
   gap: 10px;
 }
 
+.action-btn.scholar {
+  background-color: #006400; /* Standard green color */
+  color: white;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+}
+
+.action-btn.scholar:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.action-btn.scholar:active, .action-btn.scholar.active {
+  border: 2px solid #000;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
 .action-button {
-  background-color: #1b5e20;
+  background-color: #006400;
   color: white;
   border: none;
   border-radius: 5px;
@@ -125,55 +151,156 @@
 
 /* Publications Table */
 .publications-table {
-  background-color: white;
-  border-radius: 5px;
-  overflow: hidden;
-  margin-bottom: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: visible;
+  box-shadow: 0 4px 10px rgb(255, 255, 255);
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .table-header {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-  background-color: #333;
-  color: white;
-  font-weight: bold;
-  padding: 12px 15px;
+  background-color: #800000; /* Maroon background */
+  color: white; /* White font color */
+  font-weight: 600;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  padding: 0; /* Remove padding if causing spacing */
+  margin: 0;  /* Remove margin */
+  display: flex;
+  align-items: center;
 }
 
+/* Also ensure header cells inherit the white font color */
 .header-cell {
-  padding: 0 10px;
+  color: white;
+  padding: 10px;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.75rem;
+  box-sizing: border-box;
+  word-break: normal;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .details-cell {
   padding-left: 10px;
+  width: 40%;
+  white-space: normal;
 }
 
-.table-body {
-  max-height: 500px;
-  overflow-y: auto;
+.publications-table th:nth-child(2),
+.publications-table td:nth-child(2) {
+  width: 10%;
+  left: 25%;
+  position: absolute;
+}
+
+.publications-table th:nth-child(3),
+.publications-table td:nth-child(3) {
+  width: 15%;
+  left: 40%;
+  position: absolute;
+}
+
+.publications-table th:nth-child(4),
+.publications-table td:nth-child(4) {
+  width: 10%;
+  left: 60%;
+  position: absolute;
+}
+
+.publications-table th:nth-child(5),
+.publications-table td:nth-child(5) {
+  width: 10%;
+  left: 75%;
+  position: absolute;
+}
+
+.publications-table th:last-child,
+.publications-table td:last-child {
+  width: 10%;
+  left: 90%;
+  position: absolute;
+  text-align: center;
+}
+
+.publications-table th:first-child,
+.publications-table td:first-child {
+  width: 20%;
+  left: 0;
+  position: relative;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* No table body container with scrollbar */
+
+.table-header {
+  background-color: #800000;
+  color: white;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
 }
 
 .table-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
   border-bottom: 1px solid #eee;
-  padding: 12px 15px;
-  width: 100%;
+  background-color: white;
+  position: relative;
+  height: 90px;
 }
 
-.table-cell {
-  padding: 0 10px;
+.header-cell, .table-cell {
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-sizing: border-box;
+  vertical-align: middle;
   display: flex;
   align-items: center;
+  height: 100%;
+  justify-content: flex-start;
+  padding: 0 5px;
+}
+
+.details-cell {
+  width: 40%;
+  white-space: normal;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 5px;
 }
 
 .publication-title {
   color: #8B0000;
   font-weight: bold;
   margin-bottom: 5px;
+  display: block;
+  text-align: left;
 }
 
 .publication-authors,
@@ -181,21 +308,53 @@
   font-size: 14px;
   color: #666;
   margin-bottom: 3px;
+  display: block;
+  text-align: left;
 }
 
-.cell-with-action {
+.actions-cell {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 100%;
 }
 
-.share-button {
+.header-cell.actions-cell {
+  text-align: center;
+}
+
+.edit-button {
   background: none;
   border: none;
-  color: #8B0000;
   cursor: pointer;
-  font-size: 16px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.edit-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.action-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.button-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.document-icon img {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  vertical-align: middle;
 }
 
 /* Pagination */
@@ -203,8 +362,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 40px; /* Increased space after last table entry */
-  margin-bottom: 60px; /* Increased space before footer */
+  margin-top: 80px; /* Increased space after last table entry */
+  margin-bottom: 80px; /* Increased space before footer */
 }
 
 .pagination-button {

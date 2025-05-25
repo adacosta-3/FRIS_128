@@ -130,31 +130,33 @@
 /* Main Content */
 .home-main {
   flex: 1;
-  margin-left: 100px; /* Increased from 80px to 100px (added 20px gap) */
+  margin-left: 80px; /* Sidebar width when collapsed */
   min-height: 100vh;
   overflow-y: auto;
   max-height: 100vh;
-  transition: margin-left 0.3s ease;
-  width: calc(100vw - 100px); /* Adjusted to account for the increased margin */
+  width: calc(100vw - 80px); /* Fixed width regardless of sidebar state */
+  box-sizing: border-box;
+  transition: none; /* Remove transition to prevent resizing */
 }
 
+/* Remove the width change when sidebar expands */
 .sidebar.expanded ~ .home-main {
-  margin-left: 300px; /* Increased from 280px to 300px (added 20px gap) */
-  width: calc(100vw - 300px); /* Adjusted to account for the increased margin */
+  margin-left: 80px; /* Keep the same margin */
+  width: calc(100vw - 80px); /* Keep the same width */
 }
 
-/* Hero Section */
 .hero-section {
+  background-size: contain;
   position: relative;
   height: 800px;
   background: url('../../images/oblation.png');
   background-size: cover;
-  background-position: center;
+  background-position: 60% center; /* Shift image to the left */
   border-radius: 20px;
   margin: 2rem;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: calc(100% - 4rem); /* Make it 25% wider by using full width minus margins */
+  width: calc(100% - 4rem);
 }
 
 .hero-section::before {
@@ -302,11 +304,20 @@
 }
 
 .stat-icon {
-  font-size: 1.25rem;
-  color: #666;
+  width: 40px;
+  height: 40px;
   background: #f8f9fa;
   padding: 0.75rem;
   border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-icon-img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
 }
 
 .stat-info {

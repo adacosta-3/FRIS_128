@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import { FaSearch, FaArrowLeft, FaFileAlt } from 'react-icons/fa';
+import { FaSearch, FaArrowLeft, FaPlus } from 'react-icons/fa';
 import './PublicService.css';
+import './FixedPagination.css';
+
+// Import custom SVG icons
+import editIcon from '../../assets/images/icon-edit.svg';
+import shareIcon from '../../assets/images/icon-share.svg';
+import myRequestsIcon from '../../assets/images/icon-my requests.svg';
 
 const PublicService = ({ onLogout }) => {
   const navigate = useNavigate();
@@ -68,44 +74,65 @@ const PublicService = ({ onLogout }) => {
           </div>
           
           <div className="action-buttons">
-            <button className="action-button">Single</button>
-            <button className="action-button">Multiple</button>
+            <button 
+              className="action-button"
+              onClick={() => navigate('/add-entry?category=service')}
+            >
+              <FaPlus /> Single
+            </button>
+            <button 
+              className="action-button"
+              onClick={() => navigate('/add-multiple-entries?category=service')}
+            >
+              <FaPlus /> Multiple
+            </button>
           </div>
         </div>
         
         {/* Services Table */}
-        <div className="services-table">
-          {/* Table Header */}
-          <div className="table-header">
-            <div className="header-cell details-cell">Details</div>
-            <div className="header-cell">Start Date</div>
-            <div className="header-cell">End Date</div>
-            <div className="header-cell">Service Type</div>
-            <div className="header-cell">Supporting Document</div>
-          </div>
-          
-          {/* Table Body */}
-          <div className="table-body">
-            {services.map(service => (
-              <div key={service.id} className="table-row">
-                <div className="table-cell details-cell">
+        <table className="services-table">
+          <thead>
+            <tr className="table-header">
+              <th className="header-cell details-cell">Details</th>
+              <th className="header-cell">Start Date</th>
+              <th className="header-cell">End Date</th>
+              <th className="header-cell">Service Type</th>
+              <th className="header-cell">Supporting Document</th>
+              <th className="header-cell actions-cell">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* Table Rows */}
+            {services.map((service, index) => (
+              <tr key={service.id} className="table-row">
+                <td className="table-cell details-cell">
                   <div className="service-position">{service.position}</div>
                   <div className="service-office">{service.office}</div>
-                </div>
-                <div className="table-cell">{service.startDate}</div>
-                <div className="table-cell">{service.endDate}</div>
-                <div className="table-cell">{service.type}</div>
-                <div className="table-cell">
+                </td>
+                <td className="table-cell">{service.startDate}</td>
+                <td className="table-cell">{service.endDate}</td>
+                <td className="table-cell">{service.type}</td>
+                <td className="table-cell">
                   <div className="cell-with-action">
-                    <span className="document-icon"><FaFileAlt /></span>
-                    {service.document}
-                    <button className="edit-button">✏️</button>
+                    <span className="document-icon">
+                      <img src={myRequestsIcon} alt="Document" className="document-icon" />
+                    </span>
+                    <span className="document-text">{service.document}</span>
                   </div>
-                </div>
-              </div>
+                </td>
+                <td className="table-cell actions-cell">
+                  <button className="edit-button">
+                    {index === 0 ? (
+                      <img src={shareIcon} alt="Share" className="action-icon" />
+                    ) : (
+                      <img src={editIcon} alt="Edit" className="action-icon" />
+                    )}
+                  </button>
+                </td>
+              </tr>
             ))}
-          </div>
-        </div>
+          </tbody>
+        </table>
         
         {/* Pagination */}
         <div className="pagination">

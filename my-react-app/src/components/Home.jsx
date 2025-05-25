@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FaFileAlt, FaProjectDiagram, FaBook, FaClock, FaLink } from 'react-icons/fa';
 import './Home.css';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
@@ -7,9 +6,24 @@ import GoogleScholarPopup from './GoogleScholarPopup';
 import oblation from '../../images/oblation.png';
 import frisLogo from '../../images/FRIS Logo.png';
 
+// Import custom SVG icons
+import coursesIcon from '../../assets/images/icon-courses this semester.svg';
+import projectsIcon from '../../assets/images/icon-total projects.svg';
+import publicationsIcon from '../../assets/images/icon-total publications.svg';
+import pendingRequestsIcon from '../../assets/images/icon-pending requests.svg';
+
 const Home = ({ onLogout }) => {
   const [showScholarPopup, setShowScholarPopup] = useState(false);
   const [scholarUrl, setScholarUrl] = useState('');
+  
+  // Make the showScholarPopup state available globally
+  window.showGoogleScholarPopup = () => {
+    setShowScholarPopup(true);
+  };
+  
+  window.closeGoogleScholarPopup = () => {
+    setShowScholarPopup(false);
+  };
 
   const handleSaveScholar = (url) => {
     setScholarUrl(url);
@@ -18,10 +32,10 @@ const Home = ({ onLogout }) => {
   };
 
   const stats = [
-    { id: 1, label: 'Total Publications', value: '12', icon: <FaFileAlt /> },
-    { id: 2, label: 'Total Projects', value: '2', icon: <FaProjectDiagram /> },
-    { id: 3, label: 'Courses This Semester', value: '3', icon: <FaBook /> },
-    { id: 4, label: 'Pending Requests', value: '5', icon: <FaClock />, highlight: true }
+    { id: 1, label: 'Total Publications', value: '12', icon: <img src={publicationsIcon} alt="Publications" className="stat-icon-img" /> },
+    { id: 2, label: 'Total Projects', value: '2', icon: <img src={projectsIcon} alt="Projects" className="stat-icon-img" /> },
+    { id: 3, label: 'Courses This Semester', value: '3', icon: <img src={coursesIcon} alt="Courses" className="stat-icon-img" /> },
+    { id: 4, label: 'Pending Requests', value: '5', icon: <img src={pendingRequestsIcon} alt="Pending Requests" className="stat-icon-img" />, highlight: true }
   ];
 
 
@@ -48,7 +62,7 @@ const Home = ({ onLogout }) => {
                 style={{ 
                   transform: 'scale(2)',
                   width: '100%', // Increased from 100% to 200%
-                  maxWidth: '1600px', // Optionally increase maxWidth as well
+                  maxWidth: '1500px', // Optionally increase maxWidth as well
                   objectFit: 'contain',
                   marginTop: '7rem',
                   marginLeft: '-20px',
@@ -63,7 +77,7 @@ const Home = ({ onLogout }) => {
                 width: '100%',
                 fontSize: '4rem', /* Reduced from 11.25rem */
                 color: 'white',
-                marginLeft: '250px',
+                marginLeft: '200px !important',
                 fontWeight: 700,
                 lineHeight: 1.5,
                 textShadow: '2px 2px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5), 6px 6px 15px rgba(0, 0, 0, 1), 3px 3px 10px rgba(0, 0, 0, 0.9), 0px 0px 20px rgba(0, 0, 0, 0.7)',
@@ -106,19 +120,6 @@ const Home = ({ onLogout }) => {
                     {stat.value}
                   </div>
                 </div>
-                {stat.id === 1 && (
-                  <button 
-                    className="link-scholar-btn"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setShowScholarPopup(true);
-                    }}
-                    title="Link Google Scholar"
-                  >
-                    <FaLink />
-                  </button>
-                )}
               </div>
             ))}
           </div>

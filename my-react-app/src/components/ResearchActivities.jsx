@@ -3,9 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import GoogleScholarPopup from './GoogleScholarPopup';
-import { FaSearch, FaArrowLeft, FaPlus } from 'react-icons/fa';
+import { FaSearch, FaArrowLeft, FaPlus, FaGraduationCap } from 'react-icons/fa';
 import './ResearchActivities.css';
+import './FixedPagination.css';
 import './CommonLayout.css';
+
+// Import custom SVG icons
+import editIcon from '../../assets/images/icon-edit.svg';
+import shareIcon from '../../assets/images/icon-share.svg';
+import myRequestsIcon from '../../assets/images/icon-my requests.svg';
+import linkIcon from '../../assets/images/icon-link.svg';
 
 const ResearchActivities = ({ onLogout }) => {
   const navigate = useNavigate();
@@ -13,12 +20,16 @@ const ResearchActivities = ({ onLogout }) => {
   const [showScholarPopup, setShowScholarPopup] = useState(false);
   const [scholarUrl, setScholarUrl] = useState('');
 
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
+
   const handleSaveScholar = (url) => {
     setScholarUrl(url);
     console.log('Google Scholar URL saved:', url);
     // In a real app, you would save this to the user's profile
   };
-  
+
   // Sample publication data
   const publications = [
     { id: 1, title: 'Title', authors: 'Author/s', date: 'Date Published', doi: 'DOI', type: 'Publication Type', sdg: 'SDG', target: 'Target/s' },
@@ -28,7 +39,7 @@ const ResearchActivities = ({ onLogout }) => {
     { id: 5, title: 'Title', authors: 'Author/s', date: 'Date Published', doi: 'DOI', type: 'Publication Type', sdg: 'SDG', target: 'Target/s' },
     { id: 6, title: 'Title', authors: 'Author/s', date: 'Date Published', doi: 'DOI', type: 'Publication Type', sdg: 'SDG', target: 'Target/s' }
   ];
-  
+
   // Navigation tabs
   const tabs = [
     { id: 'all', label: 'All' },
@@ -41,16 +52,16 @@ const ResearchActivities = ({ onLogout }) => {
   ];
 
   return (
-    <div className="home-root">
+    <div className="research-activities-root">
+      {showScholarPopup && (
+        <GoogleScholarPopup 
+          isOpen={true} 
+          onClose={() => setShowScholarPopup(false)} 
+          onSave={handleSaveScholar}
+        />
+      )}
       <Sidebar onLogout={onLogout} />
-      <GoogleScholarPopup 
-        isOpen={showScholarPopup} 
-        onClose={() => setShowScholarPopup(false)} 
-        onSave={handleSaveScholar}
-      />
-      
-      {/* Main Content */}
-      <main className="home-main research-main">
+      <main className="research-main">
         {/* Go Back Button */}
         <div className="go-back-button">
           <button onClick={() => navigate('/home')}>
@@ -82,52 +93,66 @@ const ResearchActivities = ({ onLogout }) => {
             <FaSearch className="search-icon" />
             <input type="text" placeholder="Search" className="search-input" />
           </div>
-          
           <div className="action-buttons">
-            <button className="action-button"><FaPlus /> Single</button>
-            <button className="action-button"><FaPlus /> Multiple</button>
             <button 
-              className="action-button google-scholar-btn"
+              className="action-btn single"
+              onClick={() => navigate('/add-entry?category=research')}
+            >
+              <FaPlus /> Single
+            </button>
+            <button 
+              className="action-btn multiple"
+              onClick={() => navigate('/add-multiple-entries?category=research')}
+            >
+              <FaPlus /> Multiple
+            </button>
+            <button 
+              className="action-btn scholar" 
               onClick={() => setShowScholarPopup(true)}
             >
-              Google Scholar
+              <img src={linkIcon} alt="Link" className="button-icon" /> Google Scholar
             </button>
           </div>
         </div>
         
         {/* Publications Table */}
-        <div className="publications-table">
-          {/* Table Header */}
-          <div className="table-header">
-            <div className="header-cell details-cell">Details</div>
-            <div className="header-cell">DOI</div>
-            <div className="header-cell">Publication Type</div>
-            <div className="header-cell">SDG</div>
-            <div className="header-cell">Target/s</div>
-          </div>
-          
-          {/* Table Body */}
-          <div className="table-body">
-            {publications.map(pub => (
-              <div key={pub.id} className="table-row">
-                <div className="table-cell details-cell">
+        <table className="publications-table">
+          <thead>
+            <tr className="table-header">
+              <th className="header-cell details-cell">Details</th>
+              <th className="header-cell">DOI</th>
+              <th className="header-cell">Publication Type</th>
+              <th className="header-cell">SDG</th>
+              <th className="header-cell">Target/s</th>
+              <th className="header-cell actions-cell">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* Table Rows */}
+            {publications.map((pub, index) => (
+              <tr key={pub.id} className="table-row">
+                <td className="table-cell details-cell">
                   <div className="publication-title">{pub.title}</div>
                   <div className="publication-authors">{pub.authors}</div>
                   <div className="publication-date">{pub.date}</div>
-                </div>
-                <div className="table-cell">{pub.doi}</div>
-                <div className="table-cell">{pub.type}</div>
-                <div className="table-cell">{pub.sdg}</div>
-                <div className="table-cell">
-                  <div className="cell-with-action">
-                    {pub.target}
-                    <button className="share-button">↗</button>
-                  </div>
-                </div>
-              </div>
+                </td>
+                <td className="table-cell">{pub.doi}</td>
+                <td className="table-cell">{pub.type}</td>
+                <td className="table-cell">{pub.sdg}</td>
+                <td className="table-cell">{pub.target}</td>
+                <td className="table-cell actions-cell">
+                  <button className="edit-button">
+                    {index === 0 ? (
+                      <img src={shareIcon} alt="Share" className="action-icon" />
+                    ) : (
+                      <img src={editIcon} alt="Edit" className="action-icon" />
+                    )}
+                  </button>
+                </td>
+              </tr>
             ))}
-          </div>
-        </div>
+          </tbody>
+        </table>
         
         {/* Pagination */}
         <div className="pagination">

@@ -7,6 +7,10 @@ import TeachingActivities from './components/TeachingActivities';
 import PublicService from './components/PublicService';
 import Notifications from './components/Notifications';
 import MyRequests from './components/MyRequests';
+import EditBiography from './components/EditBiography';
+import AddEntryForm from './components/AddEntryForm';
+import MultipleAddForm from './components/MultipleAddForm';
+import AddSingleEntryToMultipleForm from './components/MultipleAddEntryForm';
 import './App.css';
 
 function App() {
@@ -104,6 +108,46 @@ function App() {
             element={
               isLoggedIn ? 
                 <MyRequests onLogout={handleLogout} /> : 
+                <Navigate to="/" />
+            } 
+          />
+          <Route 
+            path="/edit-biography" 
+            element={
+              isLoggedIn ? 
+                <EditBiography onLogout={handleLogout} /> : 
+                <Navigate to="/" />
+            } 
+          />
+          <Route 
+            path="/add-entry" 
+            element={
+              isLoggedIn ? 
+                <AddEntryForm onLogout={handleLogout} isMultiple={false} /> : 
+                <Navigate to="/" />
+            } 
+          />
+          <Route 
+            path="/add-multiple-entries" 
+            element={
+              isLoggedIn ? 
+                <MultipleAddForm onLogout={handleLogout} /> : 
+                <Navigate to="/" />
+            } 
+          />
+          <Route 
+            path="/multiple-add" 
+            element={
+              isLoggedIn ? 
+                <MultipleAddForm onLogout={handleLogout} /> : 
+                <Navigate to="/" />
+            } 
+          />
+          <Route 
+            path="/multiple-add-entry" 
+            element={
+              isLoggedIn ? 
+                <AddSingleEntryToMultipleForm onLogout={handleLogout} /> : 
                 <Navigate to="/" />
             } 
           />
