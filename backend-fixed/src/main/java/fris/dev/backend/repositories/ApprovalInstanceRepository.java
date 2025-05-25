@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ApprovalInstanceRepository extends JpaRepository<ApprovalInstance, Long> {
@@ -28,5 +29,6 @@ public interface ApprovalInstanceRepository extends JpaRepository<ApprovalInstan
     List<ApprovalInstance> findBySubmissionOrderByVersionDesc(Submission submission);
 
 
+    Optional<Object> findTopBySubmissionOrderByVersionDesc(Submission submission);
 }
 

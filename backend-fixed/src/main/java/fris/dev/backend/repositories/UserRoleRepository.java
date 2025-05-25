@@ -16,6 +16,8 @@ public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
     List<UserRole> findByCollegeAndDepartment(String college, String department);
     Optional<UserRole> findById(Long id);
     void deleteById(Long id);
+
+    List<UserRole> findByRoleRankAndCollegeAndDepartment(RoleRank roleRank, String college, String department);
 }
 
 

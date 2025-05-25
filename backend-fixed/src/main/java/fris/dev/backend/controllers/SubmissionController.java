@@ -2,6 +2,7 @@ package fris.dev.backend.controllers;
 
 import fris.dev.backend.DTO.DetailedSubmissionDto;
 import fris.dev.backend.DTO.SubmissionDto;
+import fris.dev.backend.DTO.SubmitterSubmissionDto;
 import fris.dev.backend.entities.Submission;
 import fris.dev.backend.service.SubmissionService;
 import lombok.RequiredArgsConstructor;
@@ -84,6 +85,14 @@ public class SubmissionController {
         return ResponseEntity.ok(filteredSubs);
     }
 
+    @GetMapping("/me/pending-or-rejected")
+    public ResponseEntity<List<SubmitterSubmissionDto>> getMyPendingOrRejectedSubmissions(
+            @RequestParam(required = false) String activityType,
+            Authentication authentication) {
 
+        String username = authentication.getName();
+        List<SubmitterSubmissionDto> submissions = submissionService.getPendingOrRejectedSubmissionsForUser(username, activityType);
+        return ResponseEntity.ok(submissions);
+    }
 
 }
