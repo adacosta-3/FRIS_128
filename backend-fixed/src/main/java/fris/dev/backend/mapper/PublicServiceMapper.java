@@ -25,6 +25,7 @@ public class PublicServiceMapper {
 
         return new PublicService(null, user, type, dto.getDescription(), dto.getDateOfService(), false);
     }
+
     public PublicServiceResponseDto toResponseDto(PublicService entity) {
         String typeName = null;
         String subtypeName = null;

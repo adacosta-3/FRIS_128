@@ -8,4 +8,5 @@ import java.util.List;
 public interface PublicationTypeService {
     PublicationType create(PublicationTypeDto dto);
     List<PublicationType> getAll();
+    List<PublicationTypeDto> getAllPublicationTypesGrouped();
 }

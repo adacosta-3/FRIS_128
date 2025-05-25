@@ -25,20 +25,17 @@ public class PublicationMapper {
 
         PublicationType pubType = null;
         if (dto.getPublicationTypeId() != null) {
-            pubType = publicationTypeRepository.findById(dto.getPublicationTypeId())
-                    .orElse(null);
+            pubType = publicationTypeRepository.findById(dto.getPublicationTypeId()).orElse(null);
         }
 
         SDG sdg = null;
         if (dto.getSdgId() != null) {
-            sdg = sdgRepository.findById(dto.getSdgId())
-                    .orElse(null);
+            sdg = sdgRepository.findById(dto.getSdgId()).orElse(null);
         }
 
         SDGTarget sdgTarget = null;
         if (dto.getSdgTargetId() != null) {
-            sdgTarget = sdgTargetRepository.findById(dto.getSdgTargetId())
-                    .orElse(null);
+            sdgTarget = sdgTargetRepository.findById(dto.getSdgTargetId()).orElse(null);
         }
 
         Publication publication = new Publication();
@@ -91,6 +88,4 @@ public class PublicationMapper {
                 sdgTargetName
         );
     }
-
 }
-

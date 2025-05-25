@@ -9,7 +9,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PublicationTypeDto {
+public class PublicServiceTypeDto {
     private String typeName;
     private List<String> subtypes;
 }
+
