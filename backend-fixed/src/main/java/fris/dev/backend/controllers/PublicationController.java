@@ -61,6 +61,4 @@ public class PublicationController {
 
         return ResponseEntity.ok(dtos);
     }
-
-
 }

@@ -16,7 +16,7 @@ public class CourseAndSet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long courseSetId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teaching_id", nullable = false)
     private TeachingActivity teachingActivity;
 
