@@ -45,21 +45,13 @@ button {
 }
 
 
-.sidebar-toggle .arrow {
-    width: 100%; /* Take full width of button */
-    height: 100%; /* Take full height of button */
-    background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/VwoZAFy2Ff.png) no-repeat center;
-    background-size: contain; /* Ensure arrow fits within the button */
-    transition: transform 0.3s ease;
-}
-
-
 /* Header Body - Contains Logo and Profile Section */
 .header-body {
   display: flex;
   flex-direction: column;
   align-items: center; /* Center items horizontally in folded state */
   width: 100%; /* Occupy full width of sidebar */
+  height: 100%;
   padding-top: 24px; /* Matches mockup's top spacing */
   padding-bottom: 16px; /* Spacing before nav frame */
   flex-shrink: 0;
@@ -106,6 +98,7 @@ button {
   width: 100%;
   gap: 16px; /* Gap between sections within the frame */
   flex-grow: 1; /* Allow frame to grow and push footer down */
+  position: relative;
 }
 
 /* Account/Profile Section */
@@ -293,24 +286,12 @@ button {
   gap: 8px;
 }
 
-
-/* Footer / Logout Section */
-.footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center items horizontally */
-  width: 100%;
-  padding-bottom: 24px; /* Bottom padding for the sidebar */
-  margin-top: auto; /* Pushes the footer to the bottom */
-  flex-shrink: 0;
-}
-
 .secondary-pages {
   display: flex;
   flex-direction: column;
   align-items: center; /* Center logout item */
   width: 100%;
-  margin: 125px 0 0 0;
+  margin-top: auto;
 }
 
 .log-out {
