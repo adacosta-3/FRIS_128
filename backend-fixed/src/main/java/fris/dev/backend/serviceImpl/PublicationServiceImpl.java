@@ -6,9 +6,9 @@ import fris.dev.backend.entities.*;
 import fris.dev.backend.mapper.PublicationMapper;
 import fris.dev.backend.repositories.*;
 import fris.dev.backend.service.PublicationService;
-import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -22,20 +22,19 @@ public class PublicationServiceImpl implements PublicationService {
     private final PublicationRepository publicationRepository;
     private final PublicationMapper publicationMapper;
     private final UserRepository userRepository;
+    private final PublicationTypeRepository publicationTypeRepository;
+    private final SDGRepository sdgRepository;
+    private final SDGTargetRepository sdgTargetRepository;
     private final SubmissionRepository submissionRepository;
     private final ApprovalPathAssignmentRepository pathAssignmentRepository;
     private final ApprovalInstanceRepository approvalInstanceRepository;
     private final UserRoleRepository userRoleRepository;
-    private final RoleRankRepository roleRankRepository;
-    private final ApprovalLevelRepository approvalLevelRepository;
 
     @Override
     @Transactional
     public Publication submitPublication(PublicationDto dto) {
-        // 1️⃣ Save the publication entity
         Publication publication = publicationRepository.save(publicationMapper.toEntity(dto));
 
-        // 2️⃣ Create a Submission wrapper for the approval workflow
         Submission submission = new Submission();
         submission.setUser(publication.getUser());
         submission.setActivityType("publication");
@@ -51,7 +50,6 @@ public class PublicationServiceImpl implements PublicationService {
             throw new IllegalStateException("User has no assigned roles. Cannot assign approval path.");
         }
 
-        // 3️⃣ Find approval path based on user's role and unit (college, department)
         Optional<ApprovalPathAssignment> foundAssignment = Optional.empty();
 
         for (UserRole role : roles) {
@@ -62,9 +60,8 @@ public class PublicationServiceImpl implements PublicationService {
             }
         }
 
-        // 4️⃣ Fallback: try global/university-wide path (null college and department)
         if (!foundAssignment.isPresent()) {
-            RoleRank defaultRole = roles.get(0).getRoleRank(); // pick first role arbitrarily for fallback
+            RoleRank defaultRole = roles.get(0).getRoleRank();
             foundAssignment = pathAssignmentRepository.findByRoleRankAndCollegeAndDepartment(defaultRole, null, null);
         }
 
@@ -74,7 +71,6 @@ public class PublicationServiceImpl implements PublicationService {
 
         ApprovalPath approvalPath = foundAssignment.get().getApprovalPath();
 
-        // 5️⃣ Create ApprovalInstance: status starts as Pending, at first level (1)
         ApprovalInstance instance = new ApprovalInstance();
         instance.setSubmission(submission);
         instance.setVersion(1);
@@ -85,22 +81,8 @@ public class PublicationServiceImpl implements PublicationService {
         instance.setManualOverride(false);
         approvalInstanceRepository.save(instance);
 
-        // 6️⃣ At this point:
-        // - Submitter's pending page shows this submission because it’s in approval_instances with status Pending
-        // - First approver will see the submission in their to-approve page by querying approval_instances where
-        //   currentLevel matches their role_rank in approval_levels of the approvalPath
-        //
-        // 7️⃣ When approver approves (handled elsewhere):
-        // - approval_decisions recorded
-        // - approval_instance currentLevel increments
-        // - Once final level approved:
-        //    -> instance.status set to "Approved"
-        //    -> publication.isApproved = true, so it shows up in user profile
-
         return publication;
     }
-
-
 
     @Override
     public List<Publication> getUserPublications(Long userId) {
@@ -146,5 +128,35 @@ public class PublicationServiceImpl implements PublicationService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional
+    public void saveAllFromDto(List<PublicationDto> dtos, String loggedInUsername) {
+        // Find logged-in user entity once
+        User user = userRepository.findByUsername(loggedInUsername)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
+        List<Publication> entities = dtos.stream().map(dto -> {
+            Publication pub = publicationMapper.toEntity(dto);
+
+            // Override user from logged in user, ignore dto.getUserId()
+            pub.setUser(user);
+
+            // Resolve related entities by their IDs from DTO
+            PublicationType pubType = publicationTypeRepository.findById(dto.getPublicationTypeId())
+                    .orElseThrow(() -> new IllegalArgumentException("PublicationType not found with ID: " + dto.getPublicationTypeId()));
+            pub.setPublicationType(pubType);
+
+            SDG sdg = sdgRepository.findById(dto.getSdgId())
+                    .orElseThrow(() -> new IllegalArgumentException("SDG not found with ID: " + dto.getSdgId()));
+            pub.setSdg(sdg);
+
+            SDGTarget sdgTarget = sdgTargetRepository.findById(dto.getSdgTargetId())
+                    .orElseThrow(() -> new IllegalArgumentException("SDG Target not found with ID: " + dto.getSdgTargetId()));
+            pub.setSdgTarget(sdgTarget);
+
+            return pub;
+        }).collect(Collectors.toList());
+
+        publicationRepository.saveAll(entities);
+    }
 }
