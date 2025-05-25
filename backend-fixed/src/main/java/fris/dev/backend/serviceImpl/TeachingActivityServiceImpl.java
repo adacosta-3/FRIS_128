@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,10 +29,8 @@ public class TeachingActivityServiceImpl implements TeachingActivityService {
     @Override
     @Transactional
     public TeachingActivity submit(TeachingActivityDto dto) {
-        // 1️⃣ Save the teaching activity
         TeachingActivity activity = teachingActivityRepository.save(teachingActivityMapper.toEntity(dto));
 
-        // 2️⃣ Create a Submission record
         Submission submission = new Submission();
         submission.setUser(activity.getUser());
         submission.setActivityType("teaching");
@@ -40,7 +39,6 @@ public class TeachingActivityServiceImpl implements TeachingActivityService {
         submission.setCurrentVersion(1);
         submission = submissionRepository.save(submission);
 
-        // 3️⃣ Find the Approval Path
         User user = activity.getUser();
         List<UserRole> roles = userRoleRepository.findByUser(user);
 
@@ -53,7 +51,6 @@ public class TeachingActivityServiceImpl implements TeachingActivityService {
             if (assignment.isPresent()) {
                 ApprovalPath path = assignment.get().getApprovalPath();
 
-                // 4️⃣ Create ApprovalInstance
                 ApprovalInstance instance = new ApprovalInstance();
                 instance.setSubmission(submission);
                 instance.setVersion(1);
@@ -91,17 +88,14 @@ public class TeachingActivityServiceImpl implements TeachingActivityService {
     @Override
     @Transactional
     public TeachingActivity submitTeachingActivity(TeachingActivityDto dto, String username) {
-        // 1. Find user
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        // 2. Map and save TeachingActivity (with user)
         TeachingActivity ta = teachingActivityMapper.toEntity(dto);
         ta.setUser(user);
         ta.setIsApproved(false);
         ta = teachingActivityRepository.save(ta);
 
-        // 3. Create Submission record
         Submission submission = new Submission();
         submission.setUser(user);
         submission.setActivityType("teaching");
@@ -110,7 +104,6 @@ public class TeachingActivityServiceImpl implements TeachingActivityService {
         submission.setCurrentVersion(1);
         submission = submissionRepository.save(submission);
 
-        // 4. Find approval path assignment by user roles & units
         List<UserRole> roles = userRoleRepository.findByUser(user);
         if (roles.isEmpty()) throw new IllegalStateException("User has no roles");
 
@@ -122,13 +115,11 @@ public class TeachingActivityServiceImpl implements TeachingActivityService {
         }
 
         if (!assignment.isPresent()) {
-            // fallback global
             assignment = pathAssignmentRepository
                     .findByRoleRankAndCollegeAndDepartment(roles.get(0).getRoleRank(), null, null);
         }
         if (!assignment.isPresent()) throw new IllegalStateException("No approval path found");
 
-        // 5. Create approval instance, level 1, status pending
         ApprovalInstance ai = new ApprovalInstance();
         ai.setSubmission(submission);
         ai.setVersion(1);
@@ -140,5 +131,57 @@ public class TeachingActivityServiceImpl implements TeachingActivityService {
         approvalInstanceRepository.save(ai);
 
         return ta;
+    }
+
+    @Override
+    @Transactional
+    public void saveAllFromDto(List<TeachingActivityDto> dtos, String loggedInUsername) {
+        User user = userRepository.findByUsername(loggedInUsername)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        for (TeachingActivityDto dto : dtos) {
+            // Map DTO to entity and set user, approval false
+            TeachingActivity ta = teachingActivityMapper.toEntity(dto);
+            ta.setUser(user);
+            ta.setIsApproved(false);
+            ta = teachingActivityRepository.save(ta);
+
+            // Create submission wrapper
+            Submission submission = new Submission();
+            submission.setUser(user);
+            submission.setActivityType("teaching");
+            submission.setReferenceId(ta.getTeachingId());
+            submission.setSubmittedAt(new Timestamp(System.currentTimeMillis()));
+            submission.setCurrentVersion(1);
+            submission = submissionRepository.save(submission);
+
+            // Find approval path assignment
+            List<UserRole> roles = userRoleRepository.findByUser(user);
+            if (roles.isEmpty()) throw new IllegalStateException("User has no roles");
+
+            Optional<ApprovalPathAssignment> assignment = Optional.empty();
+            for (UserRole role : roles) {
+                assignment = pathAssignmentRepository
+                        .findByRoleRankAndCollegeAndDepartment(role.getRoleRank(), role.getCollege(), role.getDepartment());
+                if (assignment.isPresent()) break;
+            }
+            if (!assignment.isPresent()) {
+                // fallback to global
+                assignment = pathAssignmentRepository
+                        .findByRoleRankAndCollegeAndDepartment(roles.get(0).getRoleRank(), null, null);
+            }
+            if (!assignment.isPresent()) throw new IllegalStateException("No approval path found");
+
+            // Create approval instance
+            ApprovalInstance ai = new ApprovalInstance();
+            ai.setSubmission(submission);
+            ai.setVersion(1);
+            ai.setApprovalPath(assignment.get().getApprovalPath());
+            ai.setCurrentLevel(1);
+            ai.setStatus("Pending");
+            ai.setLastUpdated(new Timestamp(System.currentTimeMillis()));
+            ai.setManualOverride(false);
+            approvalInstanceRepository.save(ai);
+        }
     }
 }

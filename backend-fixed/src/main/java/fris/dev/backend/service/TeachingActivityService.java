@@ -10,4 +10,7 @@ public interface TeachingActivityService {
     List<TeachingActivity> getByUserId(Long userId);
     List<TeachingActivity> getApproved();
     TeachingActivity submitTeachingActivity(TeachingActivityDto dto, String username);
+
+    // Updated with username param
+    void saveAllFromDto(List<TeachingActivityDto> dtos, String loggedInUsername);
 }
