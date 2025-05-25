@@ -1,8 +1,10 @@
 package fris.dev.backend.serviceImpl;
 
+import fris.dev.backend.DTO.DetailedSubmissionDto;
 import fris.dev.backend.DTO.SubmissionDto;
 import fris.dev.backend.entities.Submission;
 import fris.dev.backend.entities.User;
+import fris.dev.backend.mapper.DetailedSubmissionMapper;
 import fris.dev.backend.mapper.SubmissionMapper;
 import fris.dev.backend.repositories.SubmissionRepository;
 import fris.dev.backend.repositories.UserRepository;
@@ -22,6 +24,7 @@ public class SubmissionServiceImpl implements SubmissionService {
     private final SubmissionRepository submissionRepository;
     private final SubmissionMapper submissionMapper;
     private final UserRepository userRepository;
+    private final DetailedSubmissionMapper detailedSubmissionMapper;
 
     @Override
     public Submission submit(SubmissionDto dto) {
@@ -55,6 +58,59 @@ public class SubmissionServiceImpl implements SubmissionService {
                 .map(submissionMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<DetailedSubmissionDto> getSubmissionsByUser(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        List<Submission> submissions = submissionRepository.findByUser(user);
+
+        return submissions.stream()
+                .map(detailedSubmissionMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<DetailedSubmissionDto> getPendingSubmissionsByUser(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        List<Submission> submissions = submissionRepository.findPendingSubmissionsByUser(user);
+
+        return submissions.stream()
+                .map(detailedSubmissionMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<DetailedSubmissionDto> getPendingSubmissionsByUserAndType(String username, String activityType) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        List<Submission> submissions = submissionRepository.findPendingSubmissionsByUserAndActivityType(user, activityType);
+
+        return submissions.stream()
+                .map(detailedSubmissionMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<DetailedSubmissionDto> getSubmissionsByUserStatusAndType(String username, String status, String activityType) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        List<Submission> submissions = submissionRepository.findByUserAndStatusAndActivityType(user, status, activityType);
+
+        return submissions.stream()
+                .map(detailedSubmissionMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
 
 
 }

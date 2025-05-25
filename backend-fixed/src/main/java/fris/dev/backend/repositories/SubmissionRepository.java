@@ -31,5 +31,17 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
             @Param("user") User user,
             @Param("activityType") String activityType);
 
+    @Query("""
+    SELECT s FROM Submission s
+    JOIN ApprovalInstance ai ON ai.submission = s
+    WHERE s.user = :user
+      AND ai.status = :status
+      AND s.activityType = :activityType
+""")
+    List<Submission> findByUserAndStatusAndActivityType(
+            @Param("user") User user,
+            @Param("status") String status,
+            @Param("activityType") String activityType);
+
 
 }

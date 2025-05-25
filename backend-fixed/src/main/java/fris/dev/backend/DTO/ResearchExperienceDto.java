@@ -8,9 +8,9 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResearchExperienceDto {
+    private Long researchExperienceId; // null for new entries
     private String location;
     private Date startDate;
     private Date endDate;
     private String experienceDetails;
 }
-

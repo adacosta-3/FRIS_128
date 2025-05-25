@@ -6,6 +6,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResearchInterestDto {
+    private Long researchInterestId;  // null for create
     private String researchInterest;
 }
+
 

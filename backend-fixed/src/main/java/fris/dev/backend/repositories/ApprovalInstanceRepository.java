@@ -25,6 +25,7 @@ public interface ApprovalInstanceRepository extends JpaRepository<ApprovalInstan
     List<ApprovalInstance> findPendingApprovalsByRoleRank(@Param("roleRank") RoleRank roleRank);
     List<ApprovalInstance> findBySubmission(Submission submission);
     List<ApprovalInstance> findByStatus(String status);
+    List<ApprovalInstance> findBySubmissionOrderByVersionDesc(Submission submission);
 
 
 }

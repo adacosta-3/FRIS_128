@@ -1,5 +1,6 @@
 package fris.dev.backend.service;
 
+import fris.dev.backend.DTO.DetailedSubmissionDto;
 import fris.dev.backend.DTO.SubmissionDto;
 import fris.dev.backend.entities.Submission;
 
@@ -10,5 +11,10 @@ public interface SubmissionService {
     List<Submission> getUserSubmissions(Long userId);
     List<SubmissionDto> getPendingSubmissionsForUser(String username);
     List<SubmissionDto> getPendingSubmissionsForUserByType(String username, String activityType);
+    List<DetailedSubmissionDto> getSubmissionsByUser(String username);
+    List<DetailedSubmissionDto> getPendingSubmissionsByUser(String username);
+    List<DetailedSubmissionDto> getPendingSubmissionsByUserAndType(String username, String activityType);
+    List<DetailedSubmissionDto> getSubmissionsByUserStatusAndType(String username, String status, String activityType);
+
 }
 

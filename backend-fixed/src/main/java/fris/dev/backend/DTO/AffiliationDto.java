@@ -6,6 +6,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AffiliationDto {
+    private Long affiliationId;  // null when creating
     private String affiliationName;
     private String affiliationType;
 }
+
