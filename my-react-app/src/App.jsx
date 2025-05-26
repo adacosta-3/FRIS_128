@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+// src/App.jsx
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './AuthContext';
+
 import Login from './components/Login';
 import Home from './components/Home';
 import ResearchActivities from './components/ResearchActivities';
@@ -15,174 +18,179 @@ import ApprovalTasks from './components/ApprovalTasks';
 import GoogleScholarLinking from './components/GoogleScholarLinking';
 import AdminDashboard from './components/AdminDashboard';
 import RequestApprovalView from './components/RequestApprovalView';
+import ProtectedRoute from './components/ProtectedRoute';
+
 import './App.css';
 
-function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
+function AppRoutes() {
+    const { username, logout } = useAuth();
 
-  const handleLogin = (email) => {
-    setUsername(email.split('@')[0]);
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUsername('');
-  };
-
-  return (
-    <Router>
-      <div className="App">
+    return (
         <Routes>
-          <Route 
-            path="/" 
-            element={
-              isLoggedIn ? 
-                <Navigate to="/home" /> : 
-                <Login onLogin={handleLogin} />
-            } 
-          />
-          <Route 
-            path="/home" 
-            element={
-              isLoggedIn ? 
-                <Home username={username} onLogout={handleLogout} /> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/research" 
-            element={
-              isLoggedIn ? 
-                <ResearchActivities onLogout={handleLogout} /> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/research/single-publication" 
-            element={
-              isLoggedIn ? 
-                <div>Single Publication Form</div> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/research/multiple-publications" 
-            element={
-              isLoggedIn ? 
-                <div>Multiple Publications Form</div> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/research/google-scholar" 
-            element={
-              isLoggedIn ? 
-                <GoogleScholarLinking onLogout={handleLogout} /> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/teaching" 
-            element={
-              isLoggedIn ? 
-                <TeachingActivities onLogout={handleLogout} /> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/public" 
-            element={
-              isLoggedIn ? 
-                <PublicService onLogout={handleLogout} /> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/notifications" 
-            element={
-              isLoggedIn ? 
-                <Notifications onLogout={handleLogout} /> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/requests" 
-            element={
-              isLoggedIn ? 
-                <MyRequests onLogout={handleLogout} /> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/edit-biography" 
-            element={
-              isLoggedIn ? 
-                <EditBiography onLogout={handleLogout} /> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/add-entry" 
-            element={
-              isLoggedIn ? 
-                <AddEntryForm onLogout={handleLogout} isMultiple={false} /> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/add-multiple-entries" 
-            element={
-              isLoggedIn ? 
-                <MultipleAddForm onLogout={handleLogout} /> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/multiple-add" 
-            element={
-              isLoggedIn ? 
-                <MultipleAddForm onLogout={handleLogout} /> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/multiple-add-entry" 
-            element={
-              isLoggedIn ? 
-                <AddSingleEntryToMultipleForm onLogout={handleLogout} /> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/approval-tasks" 
-            element={
-              isLoggedIn ? 
-                <ApprovalTasks onLogout={handleLogout} /> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/approval-tasks/view/:requestId" 
-            element={
-              isLoggedIn ? 
-                <RequestApprovalView onLogout={handleLogout} /> : 
-                <Navigate to="/" />
-            } 
-          />
-          <Route 
-            path="/admin" 
-            element={
-              isLoggedIn ? 
-                <AdminDashboard onLogout={handleLogout} /> : 
-                <Navigate to="/" />
-            } 
-          />
+            <Route
+                path="/home"
+                element={
+                    <ProtectedRoute>
+                        <Home username={username} onLogout={logout} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/research"
+                element={
+                    <ProtectedRoute>
+                        <ResearchActivities onLogout={logout} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/research/single-publication"
+                element={
+                    <ProtectedRoute>
+                        <div>Single Publication Form</div>
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/research/multiple-publications"
+                element={
+                    <ProtectedRoute>
+                        <div>Multiple Publications Form</div>
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/research/google-scholar"
+                element={
+                    <ProtectedRoute>
+                        <GoogleScholarLinking onLogout={logout} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/teaching"
+                element={
+                    <ProtectedRoute>
+                        <TeachingActivities onLogout={logout} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/public"
+                element={
+                    <ProtectedRoute>
+                        <PublicService onLogout={logout} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/notifications"
+                element={
+                    <ProtectedRoute>
+                        <Notifications onLogout={logout} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/requests"
+                element={
+                    <ProtectedRoute>
+                        <MyRequests onLogout={logout} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/edit-biography"
+                element={
+                    <ProtectedRoute>
+                        <EditBiography onLogout={logout} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/add-entry"
+                element={
+                    <ProtectedRoute>
+                        <AddEntryForm onLogout={logout} isMultiple={false} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/add-multiple-entries"
+                element={
+                    <ProtectedRoute>
+                        <MultipleAddForm onLogout={logout} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/multiple-add"
+                element={
+                    <ProtectedRoute>
+                        <MultipleAddForm onLogout={logout} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/multiple-add-entry"
+                element={
+                    <ProtectedRoute>
+                        <AddSingleEntryToMultipleForm onLogout={logout} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/approval-tasks"
+                element={
+                    <ProtectedRoute>
+                        <ApprovalTasks onLogout={logout} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/approval-tasks/view/:requestId"
+                element={
+                    <ProtectedRoute>
+                        <RequestApprovalView onLogout={logout} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/admin"
+                element={
+                    <ProtectedRoute>
+                        <AdminDashboard onLogout={logout} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </div>
-    </Router>
-  );
+    );
 }
 
-export default App;
+function AppWrapper() {
+    const { isLoggedIn } = useAuth();
+
+    return (
+        <Router>
+            <Routes>
+                <Route
+                    path="/"
+                    element={isLoggedIn ? <Navigate to="/home" /> : <Login />}
+                />
+                <Route
+                    path="/*"
+                    element={isLoggedIn ? <AppRoutes /> : <Navigate to="/" />}
+                />
+            </Routes>
+        </Router>
+    );
+}
+
+export default function App() {
+    return (
+        <AuthProvider>
+            <AppWrapper />
+        </AuthProvider>
+    );
+}
