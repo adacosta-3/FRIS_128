@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import GoogleScholarPopup from './GoogleScholarPopup';
 import { FaSearch, FaArrowLeft, FaPlus } from 'react-icons/fa';
 import './ResearchActivities.css';
 import './FixedPagination.css';
@@ -16,7 +15,7 @@ const ResearchActivities = ({ onLogout }) => {
   const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState('all');
-  const [showScholarPopup, setShowScholarPopup] = useState(false);
+  // We no longer need the popup state
   const [scholarUrl, setScholarUrl] = useState('');
   const [publications, setPublications] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -79,20 +78,10 @@ const ResearchActivities = ({ onLogout }) => {
     }
   }, [activeTab]);
 
-  const handleSaveScholar = (url) => {
-    console.log('Google Scholar URL to save:', url);
-    setScholarUrl(url);
-  };
+  // We no longer need the handleSaveScholar function as we're redirecting directly to the linking page
 
   return (
       <div className="research-activities-root">
-        {showScholarPopup && (
-            <GoogleScholarPopup
-                isOpen={true}
-                onClose={() => setShowScholarPopup(false)}
-                onSave={handleSaveScholar}
-            />
-        )}
 
         <Sidebar onLogout={onLogout} />
 
@@ -142,7 +131,17 @@ const ResearchActivities = ({ onLogout }) => {
               </button>
               <button
                   className="action-btn scholar"
-                  onClick={() => setShowScholarPopup(true)}
+                  onClick={() => {
+                    // Check if user already has a linked account
+                    const hasLinkedAccount = localStorage.getItem('googleScholarLinked') === 'true';
+                    if (hasLinkedAccount) {
+                      // If already linked, redirect to the publications page
+                      navigate('/research/google-scholar/publications');
+                    } else {
+                      // If not linked, redirect to the Google Scholar linking page
+                      navigate('/research/google-scholar');
+                    }
+                  }}
               >
                 <img src={linkIcon} alt="Link" className="button-icon" /> Google Scholar
               </button>

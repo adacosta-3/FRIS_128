@@ -16,6 +16,7 @@ import MultipleAddForm from './components/MultipleAddForm';
 import AddSingleEntryToMultipleForm from './components/MultipleAddEntryForm';
 import ApprovalTasks from './components/ApprovalTasks';
 import GoogleScholarLinking from './components/GoogleScholarLinking';
+import GoogleScholarLink from './components/GoogleScholarLink';
 import AdminDashboard from './components/AdminDashboard';
 import RequestApprovalView from './components/RequestApprovalView';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -61,6 +62,14 @@ function AppRoutes() {
             />
             <Route
                 path="/research/google-scholar"
+                element={
+                    <ProtectedRoute>
+                        <GoogleScholarLink onLogout={logout} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/research/google-scholar/publications"
                 element={
                     <ProtectedRoute>
                         <GoogleScholarLinking onLogout={logout} />
