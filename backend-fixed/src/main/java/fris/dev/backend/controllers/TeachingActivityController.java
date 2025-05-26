@@ -1,6 +1,7 @@
 package fris.dev.backend.controllers;
 
 import fris.dev.backend.DTO.TeachingActivityDto;
+import fris.dev.backend.DTO.TeachingActivityResponseDto;
 import fris.dev.backend.entities.TeachingActivity;
 import fris.dev.backend.service.TeachingActivityService;
 import lombok.RequiredArgsConstructor;
@@ -40,4 +41,14 @@ public class TeachingActivityController {
     public ResponseEntity<List<TeachingActivity>> getApproved() {
         return ResponseEntity.ok(service.getApproved());
     }
+
+    @GetMapping("/approved/filter")
+    public ResponseEntity<List<TeachingActivityResponseDto>> getApprovedTeachingActivitiesByType(
+            @RequestParam String type,
+            Authentication authentication) {
+        String username = authentication.getName();
+        List<TeachingActivityResponseDto> activities = service.getApprovedTeachingActivitiesByType(username, type);
+        return ResponseEntity.ok(activities);
+    }
+
 }

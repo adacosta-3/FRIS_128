@@ -21,4 +21,7 @@ public interface PublicationService {
 
     // Add bulk save from DTO for CSV import
     void saveAllFromDto(List<PublicationDto> dtos, String loggedInUsername);
+
+    List<PublicationResponseDto> getApprovedPublicationsByType(String username, String typeName);
+
 }

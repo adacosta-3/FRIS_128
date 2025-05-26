@@ -1,13 +1,16 @@
 package fris.dev.backend.serviceImpl;
 
 import fris.dev.backend.DTO.TeachingActivityDto;
+import fris.dev.backend.DTO.TeachingActivityResponseDto;
 import fris.dev.backend.entities.*;
 import fris.dev.backend.mapper.TeachingActivityMapper;
 import fris.dev.backend.repositories.*;
 import fris.dev.backend.service.TeachingActivityService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -202,4 +205,19 @@ public class TeachingActivityServiceImpl implements TeachingActivityService {
             submitTeachingActivity(dto, loggedInUsername);
         }
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<TeachingActivityResponseDto> getApprovedTeachingActivitiesByType(String username, String type) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        List<TeachingActivity> activities = teachingActivityRepository.findByUserAndIsApprovedTrueAndType(user, type);
+
+        return activities.stream()
+                .map(teachingActivityMapper::toResponseDto)
+                .collect(Collectors.toList());
+    }
+
+
 }

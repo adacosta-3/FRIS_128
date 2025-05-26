@@ -33,4 +33,16 @@ public interface PublicationRepository extends JpaRepository<Publication, Long> 
 """)
     int countProjectsByUser(@Param("user") User user);
 
+    @Query("""
+    SELECT p FROM Publication p
+    JOIN p.publicationType pt
+    WHERE p.user = :user
+      AND p.isApproved = TRUE
+      AND pt.typeName = :typeName
+""")
+    List<Publication> findApprovedByUserAndTypeName(
+            @Param("user") User user,
+            @Param("typeName") String typeName);
+
+
 }

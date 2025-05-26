@@ -19,4 +19,7 @@ public interface PublicServiceService {
 
     // Add bulk save method for CSV imports
     void saveAllFromDto(List<PublicServiceDto> dtos, String loggedInUsername);
+
+    List<PublicServiceResponseDto> getApprovedServicesByType(String username, String typeName);
+
 }

@@ -12,5 +12,8 @@ public interface TeachingActivityRepository extends JpaRepository<TeachingActivi
     List<TeachingActivity> findByUser(User user);
     List<TeachingActivity> findByIsApprovedTrue();
     List<TeachingActivity> findByUserAndIsApprovedTrue(User user);
+
+    List<TeachingActivity> findByUserAndIsApprovedTrueAndType(User user, String type);
+
 }
 

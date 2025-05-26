@@ -65,5 +65,15 @@ public class PublicServiceController {
         return ResponseEntity.ok(dtos);
     }
 
+    @GetMapping("/approved/filter")
+    public ResponseEntity<List<PublicServiceResponseDto>> getApprovedServicesByType(
+            @RequestParam String typeName,
+            Authentication authentication) {
+        String username = authentication.getName();
+        List<PublicServiceResponseDto> services = service.getApprovedServicesByType(username, typeName);
+        return ResponseEntity.ok(services);
+    }
+
+
 
 }

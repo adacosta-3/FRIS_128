@@ -7,6 +7,7 @@ import fris.dev.backend.mapper.PublicServiceMapper;
 import fris.dev.backend.repositories.*;
 import fris.dev.backend.service.PublicServiceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -147,4 +148,18 @@ public class PublicServiceServiceImpl implements PublicServiceService {
             create(dto, loggedInUsername);
         }
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PublicServiceResponseDto> getApprovedServicesByType(String username, String typeName) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        List<PublicService> services = repository.findApprovedByUserAndTypeName(user, typeName);
+
+        return services.stream()
+                .map(mapper::toResponseDto)
+                .collect(Collectors.toList());
+    }
+
 }

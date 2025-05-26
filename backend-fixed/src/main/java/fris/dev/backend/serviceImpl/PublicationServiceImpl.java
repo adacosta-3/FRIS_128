@@ -7,6 +7,7 @@ import fris.dev.backend.mapper.PublicationMapper;
 import fris.dev.backend.repositories.*;
 import fris.dev.backend.service.PublicationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -141,4 +142,18 @@ public class PublicationServiceImpl implements PublicationService {
             submitPublication(dto);  // this method already uses dto.userId to set User
         }
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PublicationResponseDto> getApprovedPublicationsByType(String username, String typeName) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        List<Publication> publications = publicationRepository.findApprovedByUserAndTypeName(user, typeName);
+
+        return publications.stream()
+                .map(publicationMapper::toResponseDto)
+                .collect(Collectors.toList());
+    }
+
 }

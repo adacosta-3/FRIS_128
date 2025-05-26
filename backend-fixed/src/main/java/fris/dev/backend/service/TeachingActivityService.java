@@ -1,6 +1,7 @@
 package fris.dev.backend.service;
 
 import fris.dev.backend.DTO.TeachingActivityDto;
+import fris.dev.backend.DTO.TeachingActivityResponseDto;
 import fris.dev.backend.entities.TeachingActivity;
 import fris.dev.backend.entities.User;
 
@@ -14,4 +15,7 @@ public interface TeachingActivityService {
 
     // Updated with username param
     void saveAllFromDto(List<TeachingActivityDto> dtos, String loggedInUsername);
+
+    List<TeachingActivityResponseDto> getApprovedTeachingActivitiesByType(String username, String type);
+
 }

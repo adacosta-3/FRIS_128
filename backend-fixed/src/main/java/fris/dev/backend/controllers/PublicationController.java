@@ -48,17 +48,27 @@ public class PublicationController {
         return ResponseEntity.ok(dtos);
     }
 
+//    @GetMapping("/approved/filter")
+//    public ResponseEntity<List<PublicationResponseDto>> getApprovedFiltered(
+//            @RequestParam(required = false) Long publicationTypeId,
+//            Authentication authentication) {
+//
+//        String username = authentication.getName();
+//        User user = userRepository.findByUsername(username)
+//                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+//
+//        List<PublicationResponseDto> dtos = publicationService.getApprovedPublicationsByUserAndType(user.getUserId(), publicationTypeId);
+//
+//        return ResponseEntity.ok(dtos);
+//    }
+
     @GetMapping("/approved/filter")
-    public ResponseEntity<List<PublicationResponseDto>> getApprovedFiltered(
-            @RequestParam(required = false) Long publicationTypeId,
+    public ResponseEntity<List<PublicationResponseDto>> getApprovedPublicationsByType(
+            @RequestParam String typeName,
             Authentication authentication) {
-
         String username = authentication.getName();
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-        List<PublicationResponseDto> dtos = publicationService.getApprovedPublicationsByUserAndType(user.getUserId(), publicationTypeId);
-
-        return ResponseEntity.ok(dtos);
+        List<PublicationResponseDto> publications = publicationService.getApprovedPublicationsByType(username, typeName);
+        return ResponseEntity.ok(publications);
     }
+
 }
