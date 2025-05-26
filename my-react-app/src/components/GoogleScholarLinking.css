@@ -1,0 +1,438 @@
+.scholar-linking-root {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.scholar-linking-main {
+  flex-grow: 1;
+  padding: 2rem;
+  margin-left: 80px; /* Match sidebar width */
+  transition: margin-left 0.3s;
+}
+
+.scholar-linking-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.scholar-linking-header h1 {
+  margin: 0;
+  margin-left: 1rem;
+  color: #800000;
+  font-size: 1.8rem;
+}
+
+.scholar-linking-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 1000px;
+  max-width: 100%;
+  min-height: calc(80vh - 100px);
+  overflow-y: visible; /* Prevent double scrollbar */
+}
+
+/* Scholar Link Section */
+.scholar-link-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.scholar-link-section h2 {
+  color: #800000;
+  margin-bottom: 1rem;
+}
+
+.info-text {
+  color: #555;
+  max-width: 600px;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.link-scholar-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #4285F4; /* Google blue */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.link-scholar-button:hover {
+  background-color: #3367D6; /* Darker Google blue */
+}
+
+.scholar-link-form {
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Publications Section */
+.scholar-publications-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.scholar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.scholar-header h2 {
+  color: #800000;
+  margin: 0;
+}
+
+.scholar-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.refresh-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #4285F4;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.refresh-button:hover {
+  background-color: #3367D6;
+}
+
+.unlink-button {
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.unlink-button:hover {
+  background-color: #e5e5e5;
+}
+
+.publications-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.available-publications,
+.system-publications {
+  flex: 1;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+}
+
+.available-publications h3,
+.system-publications h3 {
+  color: #800000;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+}
+
+.publications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.publication-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.publication-details {
+  flex: 1;
+}
+
+.publication-details h4 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+.authors {
+  color: #555;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.journal {
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.citations {
+  color: #888;
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.add-publication-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #800000;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+  margin-left: 1rem;
+  white-space: nowrap;
+}
+
+.add-publication-button:hover {
+  background-color: #600000;
+}
+
+.view-publication-button {
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+  margin-left: 1rem;
+}
+
+.view-publication-button:hover {
+  background-color: #e5e5e5;
+}
+
+.system-item {
+  border-left: 3px solid #4CAF50;
+}
+
+.no-publications {
+  color: #888;
+  font-style: italic;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* Instructions */
+.scholar-info {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid #e0e0e0;
+  margin-top: 2rem;
+}
+
+.scholar-info h3 {
+  color: #800000;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.instructions-list {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.instructions-list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.help-list {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+  text-align: left;
+}
+
+.help-list li {
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.sub-instructions {
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.sub-instructions li {
+  margin-bottom: 0.25rem;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.note {
+  color: #666;
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.add-publication-modal {
+  background-color: white;
+  border-radius: 8px;
+  width: 800px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #800000;
+  font-size: 1.5rem;
+}
+
+.close-modal-button {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #888;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.close-modal-button:hover {
+  color: #333;
+}
+
+.add-publication-form {
+  padding: 1.5rem;
+}
+
+.prefilled-section,
+.additional-section {
+  margin-bottom: 2rem;
+}
+
+.prefilled-section h3,
+.additional-section h3 {
+  color: #800000;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-group.half {
+  flex: 1;
+}
+
+.form-control:disabled {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.file-input {
+  padding: 0.5rem 0;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .scholar-linking-main {
+    padding: 1rem;
+  }
+  
+  .scholar-linking-container {
+    padding: 15px;
+  }
+  
+  .scholar-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .publications-container {
+    flex-direction: column;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}

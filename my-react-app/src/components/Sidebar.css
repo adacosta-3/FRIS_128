@@ -289,16 +289,20 @@ button {
 .secondary-pages {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center logout item */
+  align-items: center;
+  justify-content: flex-start; /* optional: content starts at top */
+  /*height: 100vh; /* Full height of the viewport */
   width: 100%;
   margin-top: auto;
 }
+
 
 .log-out {
   width: 100%;
   display: flex;
   justify-content: center;
-  height: 40px; /* Fixed height for the logout item */
+  height: 40px;
+  margin-top: auto; /* Pushes it to the bottom of the flex column */
 }
 
 .logout-btn {

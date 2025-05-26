@@ -149,9 +149,9 @@
   background-size: contain;
   position: relative;
   height: 800px;
-  background: url('../../images/oblation.png');
+  background: url('../../images/oblation.png') no-repeat;
   background-size: cover;
-  background-position: 60% center; /* Shift image to the left */
+  background-position: 30% center !important; /* More left, increase % to shift image right */
   border-radius: 20px;
   margin: 2rem;
   overflow: hidden;

@@ -77,7 +77,7 @@ const Home = ({ onLogout }) => {
                 width: '100%',
                 fontSize: '4rem', /* Reduced from 11.25rem */
                 color: 'white',
-                marginLeft: '200px !important',
+                marginLeft: '400px !important',
                 fontWeight: 700,
                 lineHeight: 1.5,
                 textShadow: '2px 2px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5), 6px 6px 15px rgba(0, 0, 0, 1), 3px 3px 10px rgba(0, 0, 0, 0.9), 0px 0px 20px rgba(0, 0, 0, 0.7)',

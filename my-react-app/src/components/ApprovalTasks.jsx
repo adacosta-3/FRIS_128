@@ -1,31 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import GoogleScholarPopup from './GoogleScholarPopup';
-import { FaSearch, FaArrowLeft, FaPlus, FaGraduationCap, FaPencilAlt } from 'react-icons/fa';
-import './MyRequests.css';
+import { FaSearch, FaEye, FaArrowLeft } from 'react-icons/fa';
+import './MyRequests.css'; // Reusing the same styles
 
-const MyRequests = ({ onLogout }) => {
+const ApprovalTasks = ({ onLogout }) => {
   const navigate = useNavigate();
   const [activeStatus, setActiveStatus] = useState('pending');
-  const [showScholarPopup, setShowScholarPopup] = useState(false);
-  const [scholarUrl, setScholarUrl] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const handleSaveScholar = (url) => {
-    setScholarUrl(url);
-    console.log('Google Scholar URL saved:', url);
-    // In a real app, you would save this to the user's profile
-  };
-  
-  // Sample requests data
+  // Sample requests data for approval tasks
   const requests = [
-    { id: 1, title: 'Title', authors: 'Author/s', doi: 'DOI', type: 'Publication Type', sdg: 'SDG', target: 'Target/s' },
-    { id: 2, title: 'Title', authors: 'Author/s', doi: 'DOI', type: 'Publication Type', sdg: 'SDG', target: 'Target/s' },
-    { id: 3, title: 'Title', authors: 'Author/s', doi: 'DOI', type: 'Publication Type', sdg: 'SDG', target: 'Target/s' },
-    { id: 4, title: 'Title', authors: 'Author/s', doi: 'DOI', type: 'Publication Type', sdg: 'SDG', target: 'Target/s' },
-    { id: 5, title: 'Title', authors: 'Author/s', doi: 'DOI', type: 'Publication Type', sdg: 'SDG', target: 'Target/s' },
-    { id: 6, title: 'Title', authors: 'Author/s', doi: 'DOI', type: 'Publication Type', sdg: 'SDG', target: 'Target/s' }
+    { 
+      id: 1, 
+      title: 'Machine Learning Applications in Healthcare', 
+      authors: 'K. J. Arellano, J. Smith', 
+      type: 'Journal Article',
+      submittedBy: 'Kristine Joy Arellano',
+      submittedDate: '2025-05-20'
+    },
+    { 
+      id: 2, 
+      title: 'Data Mining Techniques for Educational Data', 
+      authors: 'K. J. Arellano, M. Johnson', 
+      type: 'Conference Paper',
+      submittedBy: 'Kristine Joy Arellano',
+      submittedDate: '2025-05-18'
+    },
+    { 
+      id: 3, 
+      title: 'Artificial Intelligence in Agriculture', 
+      authors: 'K. J. Arellano, R. Davis', 
+      type: 'Book Chapter',
+      submittedBy: 'Kristine Joy Arellano',
+      submittedDate: '2025-05-15'
+    },
+    { 
+      id: 4, 
+      title: 'Neural Networks for Image Recognition', 
+      authors: 'K. J. Arellano, T. Wilson', 
+      type: 'Journal Article',
+      submittedBy: 'Kristine Joy Arellano',
+      submittedDate: '2025-05-10'
+    },
+    { 
+      id: 5, 
+      title: 'Blockchain Technology in Education', 
+      authors: 'K. J. Arellano, L. Brown', 
+      type: 'Conference Paper',
+      submittedBy: 'Kristine Joy Arellano',
+      submittedDate: '2025-05-05'
+    },
+    { 
+      id: 6, 
+      title: 'Deep Learning for Natural Language Processing', 
+      authors: 'K. J. Arellano, P. Garcia', 
+      type: 'Journal Article',
+      submittedBy: 'Kristine Joy Arellano',
+      submittedDate: '2025-05-01'
+    }
   ];
   
   // Status filters
@@ -34,16 +68,14 @@ const MyRequests = ({ onLogout }) => {
     { id: 'approved', label: 'Approved' },
     { id: 'rejected', label: 'Rejected' }
   ];
+  
+  // Handle viewing a request
+  const handleViewRequest = (requestId) => {
+    navigate(`/approval-tasks/view/${requestId}`);
+  };
 
   return (
     <div className="my-requests-root">
-      {showScholarPopup && (
-        <GoogleScholarPopup 
-          isOpen={true} 
-          onClose={() => setShowScholarPopup(false)} 
-          onSave={handleSaveScholar}
-        />
-      )}
       <Sidebar onLogout={onLogout} />
       
       {/* Main Content */}
@@ -55,9 +87,9 @@ const MyRequests = ({ onLogout }) => {
           </button>
         </div>
         
-        {/* My Requests Header */}
+        {/* Approval Tasks Header */}
         <div className="my-requests-header">
-          <h1>My Requests</h1>
+          <h1>Approval Tasks</h1>
         </div>
         
         {/* Status Filters and Search */}
@@ -76,28 +108,13 @@ const MyRequests = ({ onLogout }) => {
           
           <div className="search-container">
             <FaSearch className="search-icon" />
-            <input type="text" placeholder="Search" className="search-input" />
-          </div>
-          
-          <div className="action-buttons">
-            <button 
-              className="action-btn single"
-              onClick={() => navigate('/add-entry?category=request')}
-            >
-              <FaPlus /> Single
-            </button>
-            <button 
-              className="action-btn multiple"
-              onClick={() => navigate('/add-multiple-entries?category=request')}
-            >
-              <FaPlus /> Multiple
-            </button>
-            <button 
-              className="action-btn scholar" 
-              onClick={() => navigate('/research/google-scholar')}
-            >
-              <FaGraduationCap /> Google Scholar
-            </button>
+            <input 
+              type="text" 
+              placeholder="Search" 
+              className="search-input"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           </div>
         </div>
         
@@ -124,15 +141,10 @@ const MyRequests = ({ onLogout }) => {
                 <div className="table-cell">{request.type}</div>
                 <div className="table-cell actions-cell">
                   <button 
-                    className="edit-button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      // Edit functionality would go here
-                      console.log('Edit request:', request.id);
-                    }}
+                    className="view-button"
+                    onClick={() => handleViewRequest(request.id)}
                   >
-                    <FaPencilAlt />
+                    <FaEye />
                   </button>
                 </div>
               </div>
@@ -152,11 +164,10 @@ const MyRequests = ({ onLogout }) => {
           <button className="pagination-button">Next</button>
         </div>
         
-        {/* Footer */}
         <Footer />
       </main>
     </div>
   );
 };
 
-export default MyRequests;
+export default ApprovalTasks;

@@ -1,0 +1,47 @@
+/* Edit Excel Entry specific styles */
+.add-entry-form-container {
+  width: 1000px;
+  max-width: 100%;
+}
+
+.entry-details-summary {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid #800000;
+}
+
+.entry-details-summary h2 {
+  color: #800000;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.entry-details-summary p {
+  margin: 8px 0;
+  color: #333;
+}
+
+.entry-details-summary strong {
+  font-weight: 600;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* Override form styles for this specific use case */
+.edit-excel-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.edit-excel-form .form-actions {
+  margin-top: 2rem;
+}

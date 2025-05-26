@@ -106,17 +106,29 @@ const AccountPopup = ({ isOpen, onClose, isSidebarExpanded }) => {
                 // First close the account popup
                 onClose();
                 
-                // Then trigger the Google Scholar popup using the global function
-                if (window.showGoogleScholarPopup) {
-                  window.showGoogleScholarPopup();
-                  console.log('Called global showGoogleScholarPopup function');
-                } else {
-                  console.error('Global showGoogleScholarPopup function not found');
-                }
+                // Navigate to the Google Scholar linking page
+                navigate('/research/google-scholar');
               }}
             >
               <img src={linkIcon} alt="Link" className="option-icon" />
               <span className="option-text">Link Google Scholar</span>
+              <span className="option-arrow">›</span>
+            </div>
+            <div 
+              className="account-option"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent event bubbling
+                e.preventDefault();
+                
+                // First close the account popup
+                onClose();
+                
+                // Navigate to CV generation page (to be implemented)
+                alert('CV generation feature will be implemented soon!');
+              }}
+            >
+              <img src={linkIcon} alt="CV" className="option-icon" />
+              <span className="option-text">Generate CV</span>
               <span className="option-arrow">›</span>
             </div>
           </div>

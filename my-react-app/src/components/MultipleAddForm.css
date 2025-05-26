@@ -49,13 +49,32 @@
 .multiple-add-form-container {
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-  margin-bottom: 2rem;
-  width: 600px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 100%;
+  min-height: calc(80vh - 100px); /* Taller to reach footer */
+  overflow-y: visible; /* Prevent double scrollbar */
+}
+
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.instructions {
+  flex: 1;
+  max-width: 60%;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  align-items: center;
 }
 
 .multiple-add-form {
@@ -265,6 +284,22 @@
   position: relative;
 }
 
+.edit-entry-button {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  width: 80px;
+  text-align: center;
+}
+
+.edit-entry-button:hover {
+  background-color: #2b6ed9;
+}
+
 .remove-entry-button {
   background-color: #ff4d4d;
   color: white;
@@ -273,10 +308,133 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.9rem;
+  width: 80px;
+  text-align: center;
 }
 
 .remove-entry-button:hover {
   background-color: #e60000;
+}
+
+/* Excel Upload Section */
+.csv-section {
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+  border: 1px solid #e0e0e0;
+}
+
+.csv-section h3 {
+  color: #800000;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.info-text {
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.csv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.download-csv-btn {
+  background-color: #1b5e20;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.download-csv-btn:hover {
+  background-color: #0d4717;
+}
+
+.upload-container {
+  position: relative;
+}
+
+.upload-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #0d47a1;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.upload-label:hover {
+  background-color: #083378;
+}
+
+.csv-upload {
+  position: absolute;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.note-container {
+  background-color: #fff3e0;
+  border-left: 4px solid #ff9800;
+  padding: 15px;
+  border-radius: 0 4px 4px 0;
+  margin-top: 20px;
+}
+
+.note-container h4 {
+  color: #e65100;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.note-container p {
+  color: #555;
+  margin: 0;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #666;
+  font-weight: 600;
+  margin: 30px 0;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #ddd;
+}
+
+.separator::before {
+  margin-right: 15px;
+}
+
+.separator::after {
+  margin-left: 15px;
 }
 
 /* Responsive styles */
@@ -288,5 +446,9 @@
   .entry-details {
     flex-direction: column;
     gap: 0.5rem;
+  }
+  
+  .excel-actions {
+    flex-direction: column;
   }
 }

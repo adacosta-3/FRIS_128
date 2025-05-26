@@ -13,7 +13,6 @@ const EditBiography = ({ onLogout }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: 'Kristine Joy Arellano',
-    displayName: 'K. J. Arellano',
     email: 'kbarellano3@up.edu.ph',
     pronouns: 'She/Her',
     scholarLink: 'https://scholar.google.com/citations?user=example',
@@ -159,19 +158,7 @@ const EditBiography = ({ onLogout }) => {
               />
             </div>
             
-            <div className="form-group">
-              <label htmlFor="displayName">Display Name</label>
-              <input
-                type="text"
-                id="displayName"
-                name="displayName"
-                value={formData.displayName}
-                onChange={handleChange}
-                disabled={!isEditing}
-                placeholder="How your name will appear in publications and submissions"
-                required
-              />
-            </div>
+
             
             <div className="form-group">
               <label htmlFor="email">Email</label>

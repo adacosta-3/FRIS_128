@@ -1,12 +1,14 @@
 /* Research Activities Page */
 .research-main {
-  overflow-y: auto;
+  overflow-y: visible; /* Prevent double scrollbar - match Notifications page */
   padding: 20px;
   background-color: #f5f5f5;
   width: calc(100vw - 80px - 40px); /* Full viewport width minus sidebar width minus padding */
   margin-left: 80px; /* Sidebar width when collapsed */
   box-sizing: border-box;
   margin-top: 5rem;
+  padding-bottom: 120px; /* Added extra padding at the bottom to prevent footer overlap */
+  /* Remove fixed height to allow content to determine page length */
 }
 
 .sidebar.expanded ~ .home-main.research-main {
@@ -149,20 +151,30 @@
   background-color: #4285F4;
 }
 
-/* Publications Table */
-.publications-table {
-  margin-top: 1rem;
-  border-radius: 8px;
-  overflow: visible;
-  box-shadow: 0 4px 10px rgb(255, 255, 255);
+/* Publications Table Container */
+.table-container {
+  overflow-x: visible; /* Remove horizontal scroll bar */
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
   position: relative;
 }
 
+.publications-table {
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: visible; /* Remove overflow hidden to prevent small scroll bars */
+  width: 100%;
+  border-collapse: collapse;
+  position: relative;
+}
+
 .table-header {
-  background-color: #800000; /* Maroon background */
+  background-color: #444444; /* Dark grey background */
   color: white; /* White font color */
   font-weight: 600;
   border-radius: 8px 8px 0 0;
@@ -181,7 +193,7 @@
 /* Also ensure header cells inherit the white font color */
 .header-cell {
   color: white;
-  padding: 10px;
+  display: flex;
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -189,16 +201,24 @@
   box-sizing: border-box;
   word-break: normal;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
   height: 100%;
+  padding: 0 5px;
   background-color: transparent;
+}
+
+/* Center the details cell both vertically and horizontally */
+.header-cell.details-cell {
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  text-align: center;
 }
 
 .details-cell {
   padding-left: 10px;
   width: 40%;
+  justify-content: flex-start; /* Left align the details cell */
   white-space: normal;
 }
 
@@ -258,7 +278,7 @@
 /* No table body container with scrollbar */
 
 .table-header {
-  background-color: #800000;
+  background-color: #444444;
   color: white;
   position: relative;
   display: flex;
@@ -268,10 +288,14 @@
 }
 
 .table-row {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0;
+  margin: 0;
   border-bottom: 1px solid #eee;
   background-color: white;
-  position: relative;
-  height: 90px;
+  min-height: 60px; /* Increased minimum height for rows */
 }
 
 .header-cell, .table-cell {
