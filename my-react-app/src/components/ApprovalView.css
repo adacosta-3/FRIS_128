@@ -1,0 +1,252 @@
+.approval-view-root {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.approval-view-main {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 80px; /* Match sidebar width */
+  transition: margin-left 0.3s;
+}
+
+.sidebar.expanded + .approval-view-main {
+  margin-left: 280px;
+}
+
+.approval-view-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: #800000;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-right: 1rem;
+}
+
+.back-button:hover {
+  background-color: rgba(128, 0, 0, 0.1);
+}
+
+.approval-view-header h1 {
+  color: #800000;
+  font-size: 1.75rem;
+  margin: 0;
+}
+
+.approval-view-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.request-details {
+  width: 100%;
+}
+
+.request-header {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+
+.request-header h2 {
+  color: #333;
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+.request-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-badge.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-badge.approved {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge.rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.submission-info {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.details-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.detail-group h3 {
+  color: #555;
+  font-size: 1rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.detail-group p {
+  margin: 0;
+  color: #333;
+  line-height: 1.5;
+}
+
+.document-link {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.document-link:hover {
+  text-decoration: underline;
+}
+
+.sdg-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sdg-list li {
+  margin-bottom: 0.25rem;
+}
+
+.approval-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: flex-end;
+}
+
+.approve-button, .reject-button, .confirm-reject-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.approve-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.approve-button:hover {
+  background-color: #218838;
+}
+
+.reject-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.reject-button:hover {
+  background-color: #c82333;
+}
+
+.rejection-form {
+  margin-top: 2rem;
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #dc3545;
+}
+
+.rejection-form h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.25rem;
+}
+
+.rejection-info {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.rejection-reason {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1rem;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+.rejection-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.cancel-button {
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.cancel-button:hover {
+  background-color: #e2e6ea;
+}
+
+.confirm-reject-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.confirm-reject-button:hover {
+  background-color: #c82333;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-size: 1.25rem;
+  color: #666;
+}

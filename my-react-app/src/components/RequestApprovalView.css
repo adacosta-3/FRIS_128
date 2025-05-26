@@ -1,0 +1,272 @@
+.approval-view-root {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.approval-view-main {
+  flex: 1;
+  padding: 2rem;
+  margin-left: var(--sidebar-width-collapsed);
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.expanded + .approval-view-main {
+  margin-left: var(--sidebar-width-expanded);
+}
+
+.approval-view-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: #800000;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-right: 1rem;
+}
+
+.back-button:hover {
+  background-color: rgba(128, 0, 0, 0.1);
+}
+
+.approval-view-header h1 {
+  color: #800000;
+  font-size: 1.75rem;
+  margin: 0;
+}
+
+.approval-view-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  min-height: calc(80vh - 100px);
+  overflow-y: auto;
+  width: 1000px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.request-details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  gap: 1.5rem;
+}
+
+.request-header {
+  margin-bottom: 1.5rem;
+}
+
+.request-header h2 {
+  color: #800000;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.request-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.status-badge.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.details-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-like-field {
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.form-like-field label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.form-like-field .field-value {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.75rem;
+  color: #555;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.form-like-field .field-value.multi-line {
+  min-height: 5rem;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+
+.sdg-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sdg-list li {
+  background-color: #e6f7ff;
+  color: #0070c0;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.document-link {
+  color: #0070c0;
+  text-decoration: none;
+}
+
+.document-link:hover {
+  text-decoration: underline;
+}
+
+.approval-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+.approve-button, .reject-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.approve-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.approve-button:hover {
+  background-color: #218838;
+}
+
+.reject-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.reject-button:hover {
+  background-color: #c82333;
+}
+
+.rejection-form {
+  margin-top: 2rem;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.rejection-form h3 {
+  color: #721c24;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.rejection-info {
+  color: #721c24;
+  margin-bottom: 1rem;
+}
+
+.rejection-reason {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.rejection-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: flex-start;
+}
+
+.cancel-button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background-color: #f8f9fa;
+  border: 1px solid #6c757d;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+.cancel-button:hover {
+  background-color: #e2e6ea;
+}
+
+.confirm-rejection-button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background-color: #0d6efd;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.confirm-rejection-button:hover {
+  background-color: #0b5ed7;
+}

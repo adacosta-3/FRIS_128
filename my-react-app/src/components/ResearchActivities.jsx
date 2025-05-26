@@ -108,7 +108,7 @@ const ResearchActivities = ({ onLogout }) => {
             </button>
             <button 
               className="action-btn scholar" 
-              onClick={() => setShowScholarPopup(true)}
+              onClick={() => navigate('/research/google-scholar')}
             >
               <img src={linkIcon} alt="Link" className="button-icon" /> Google Scholar
             </button>

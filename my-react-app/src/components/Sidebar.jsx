@@ -26,7 +26,14 @@ const Sidebar = ({ onLogout }) => {
     { path: '/public', label: 'Public Service', iconClass: 'icon-globe' },
   ];
 
-  const approvalItems = [{ path: '/requests', label: 'My Requests', iconClass: 'icon-file' }];
+  const approvalItems = [
+    { path: '/requests', label: 'My Requests', iconClass: 'icon-file' },
+    { path: '/approval-tasks', label: 'Approval Tasks', iconClass: 'icon-check-square' }
+  ];
+
+  const adminItems = [
+    { path: '/admin', label: 'Admin Dashboard', iconClass: 'icon-shield' }
+  ];
 
   const isActive = (path) => location.pathname === path;
 
@@ -61,6 +68,17 @@ const Sidebar = ({ onLogout }) => {
               <span className="approval">Approval</span>
               {approvalItems.map((item, index) => (
                 <div key={`approval-${index}`} className={`nav-item-wrapper ${item.label.toLowerCase().replace(/\s/g, '-')}`}>
+                  <Link to={item.path} className={`nav-link-item ${isActive(item.path) ? 'active' : ''}`}>
+                    <div className={`nav-icon-bg ${item.iconClass}`} />
+                  </Link>
+                </div>
+              ))}
+            </div>
+            
+            <div className="page">
+              <span className="approval">Admin</span>
+              {adminItems.map((item, index) => (
+                <div key={`admin-${index}`} className={`nav-item-wrapper ${item.label.toLowerCase().replace(/\s/g, '-')}`}>
                   <Link to={item.path} className={`nav-link-item ${isActive(item.path) ? 'active' : ''}`}>
                     <div className={`nav-icon-bg ${item.iconClass}`} />
                   </Link>

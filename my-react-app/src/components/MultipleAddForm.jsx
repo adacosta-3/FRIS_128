@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import { FaArrowLeft, FaPlus, FaTimes } from 'react-icons/fa';
+import { FaArrowLeft, FaPlus, FaTimes, FaDownload, FaUpload } from 'react-icons/fa';
 import './MultipleAddForm.css';
 import './FormStyles.css';
 
@@ -10,6 +10,8 @@ const MultipleAddForm = ({ onLogout }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [entries, setEntries] = useState([]);
+  const [showExcelUpload, setShowExcelUpload] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState(null);
   
   // Parse query parameters and restore state if returning from add entry
   useEffect(() => {
@@ -47,17 +49,10 @@ const MultipleAddForm = ({ onLogout }) => {
     }
   }, [location, navigate]);
 
-  // Handle adding a new entry - navigate to the dedicated multiple entry form
+  // This function is no longer needed as we're only using Excel upload
+  // Kept as a placeholder in case we need to restore this functionality later
   const handleAddEntry = () => {
-    // Store current entries in sessionStorage before navigating
-    sessionStorage.setItem('multipleAddFormState', JSON.stringify({
-      entries
-    }));
-    console.log('Navigating to Add Single Entry to Multiple form');
-    // Navigate to the dedicated multiple entry form
-    // This starts the flow: choose classification > sub-classification > enter details > submit
-    // Use navigate() instead of window.location.href to ensure proper routing
-    navigate('/multiple-add-entry');
+    alert('Please use the Excel upload functionality to add multiple entries.');
   };
 
   // Handle removing an entry
@@ -67,6 +62,76 @@ const MultipleAddForm = ({ onLogout }) => {
     setEntries(updatedEntries);
   };
 
+  // Handle CSV template download
+  const handleDownloadCSV = () => {
+    // In a real application, this would generate and download a CSV template
+    console.log('Downloading CSV template for research publications');
+    alert('CSV template for research publications would be downloaded here');
+    
+    // This would typically trigger a download of a pre-formatted CSV template
+    // with columns for Title, Authors, Date Published, Journal, etc.
+  };
+  
+  // Handle CSV file upload
+  const handleCSVUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setUploadedFile(file);
+      console.log('CSV file uploaded:', file.name);
+      
+      // In a real application, this would parse the CSV file
+      // and extract the publication data to create entries
+      
+      // For demo purposes, let's simulate adding entries from the CSV file
+      const mockEntriesFromCSV = [
+        {
+          id: Date.now(),
+          timestamp: new Date().toISOString(),
+          category: 'research',
+          subCategory: 'publications',
+          title: 'Publication from Excel 1',
+          authors: 'Author A, Author B',
+          datePublished: '2025-01-15',
+          journal: 'Journal of Science',
+          type: 'Journal Article'
+        },
+        {
+          id: Date.now() + 1,
+          timestamp: new Date().toISOString(),
+          category: 'research',
+          subCategory: 'publications',
+          title: 'Publication from Excel 2',
+          authors: 'Author C, Author D',
+          datePublished: '2025-02-20',
+          journal: 'Nature',
+          type: 'Journal Article'
+        }
+      ];
+      
+      // Add the mock entries to the existing entries
+      setEntries(prevEntries => {
+        const newEntries = [...prevEntries, ...mockEntriesFromCSV];
+        // Update sessionStorage with the new entries
+        sessionStorage.setItem('multipleAddFormState', JSON.stringify({
+          entries: newEntries
+        }));
+        return newEntries;
+      });
+      
+      // Reset the file input
+      e.target.value = null;
+      setUploadedFile(null);
+      
+      // Show success message
+      alert(`Successfully imported ${mockEntriesFromCSV.length} publications from CSV file.\n\nNote: SDG and Supporting Document fields are not included in the CSV import. You'll need to edit each publication individually to add these fields.`);
+    }
+  };
+  
+  // Toggle Excel upload section
+  const toggleExcelUpload = () => {
+    setShowExcelUpload(!showExcelUpload);
+  };
+  
   // Handle form submission - this is the final submission of all entries
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -122,31 +187,72 @@ const MultipleAddForm = ({ onLogout }) => {
         
         <div className="multiple-add-form-container">
           <form onSubmit={handleSubmit} className="multiple-add-form">
-            <div className="multiple-requests-header">
-              <h2>Multiple Requests</h2>
-              <p>Add multiple requests and submit them all at once.</p>
+            {/* Top section with instructions and buttons */}
+            <div className="top-section">
+              {/* Instructions on the left */}
+              <div className="instructions">
+                <h2>Multiple Requests</h2>
+                <p>Add multiple requests and submit them all at once. You can upload a CSV file with your entries or add them individually.</p>
+                <p className="info-text">
+                  The CSV upload method does not support adding SDG and Supporting Document fields. 
+                  If you'd like to add these, you'll have to edit the corresponding entry 
+                  individually by clicking the EDIT button after submission.
+                </p>
+              </div>
+              
+              {/* Action buttons on the right */}
+              <div className="action-buttons">
+                <button 
+                  type="button" 
+                  className="download-csv-btn" 
+                  onClick={handleDownloadCSV}
+                >
+                  <FaDownload /> Download CSV Template
+                </button>
+                
+                <div className="upload-container">
+                  <label className="upload-label" htmlFor="csv-upload">
+                    <FaUpload /> Upload CSV
+                  </label>
+                  <input
+                    type="file"
+                    id="csv-upload"
+                    className="csv-upload"
+                    accept=".csv"
+                    onChange={handleCSVUpload}
+                  />
+                </div>
+              </div>
             </div>
             
-            {/* Display entries list (even when empty) */}
-            {entries.length > 0 ? (
-              <div className="entries-list">
-                <h3>Added Entries ({entries.length})</h3>
-                <div className="entries-table">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Entry Type</th>
-                        <th>Details</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {entries.map((entry, index) => (
+            {/* Table of entries */}
+            <div className="entries-list">
+              <div className="entries-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Date</th>
+                      <th>Submission Type</th>
+                      <th>Edit</th>
+                      <th>Remove</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {entries.length > 0 ? (
+                      entries.map((entry, index) => (
                         <tr key={index} className="entry-item">
-                          <td>{entry.requestType || 'Request'}</td>
+                          <td>{entry.title || `Request ${index + 1}`}</td>
+                          <td>{entry.datePublished || new Date().toLocaleDateString()}</td>
+                          <td>{entry.requestType || entry.subCategory || 'Request'}</td>
                           <td>
-                            <strong>{entry.title || `Request ${index + 1}`}</strong>
-                            {entry.description && <p>{entry.description.substring(0, 100)}{entry.description.length > 100 ? '...' : ''}</p>}
+                            <button
+                              type="button"
+                              className="edit-entry-button"
+                              onClick={() => navigate(`/edit-excel-entry/${entry.id || index}`)}
+                            >
+                              Edit
+                            </button>
                           </td>
                           <td>
                             <button
@@ -154,31 +260,24 @@ const MultipleAddForm = ({ onLogout }) => {
                               className="remove-entry-button"
                               onClick={() => handleRemoveEntry(index)}
                             >
-                              <FaTimes /> Remove
+                              Remove
                             </button>
                           </td>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="5" className="no-entries-message">
+                          No entries added yet. Upload an Excel file to add entries.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
               </div>
-            ) : (
-              <div className="no-entries-message">
-                <p>No entries added yet. Click "Add Entry" to start adding entries.</p>
-              </div>
-            )}
-            
-            {/* Always show Add Entry button and Submit buttons */}
-            <div className="add-entry-actions">
-              <button
-                type="button"
-                className="add-entry-button"
-                onClick={handleAddEntry}
-              >
-                <FaPlus /> Add Entry
-              </button>
             </div>
+            
+            {/* The manual entry option has been removed */}
             
             <div className="form-actions">
               <button 

@@ -11,6 +11,10 @@ import EditBiography from './components/EditBiography';
 import AddEntryForm from './components/AddEntryForm';
 import MultipleAddForm from './components/MultipleAddForm';
 import AddSingleEntryToMultipleForm from './components/MultipleAddEntryForm';
+import ApprovalTasks from './components/ApprovalTasks';
+import GoogleScholarLinking from './components/GoogleScholarLinking';
+import AdminDashboard from './components/AdminDashboard';
+import RequestApprovalView from './components/RequestApprovalView';
 import './App.css';
 
 function App() {
@@ -75,7 +79,7 @@ function App() {
             path="/research/google-scholar" 
             element={
               isLoggedIn ? 
-                <div>Google Scholar Integration</div> : 
+                <GoogleScholarLinking onLogout={handleLogout} /> : 
                 <Navigate to="/" />
             } 
           />
@@ -148,6 +152,30 @@ function App() {
             element={
               isLoggedIn ? 
                 <AddSingleEntryToMultipleForm onLogout={handleLogout} /> : 
+                <Navigate to="/" />
+            } 
+          />
+          <Route 
+            path="/approval-tasks" 
+            element={
+              isLoggedIn ? 
+                <ApprovalTasks onLogout={handleLogout} /> : 
+                <Navigate to="/" />
+            } 
+          />
+          <Route 
+            path="/approval-tasks/view/:requestId" 
+            element={
+              isLoggedIn ? 
+                <RequestApprovalView onLogout={handleLogout} /> : 
+                <Navigate to="/" />
+            } 
+          />
+          <Route 
+            path="/admin" 
+            element={
+              isLoggedIn ? 
+                <AdminDashboard onLogout={handleLogout} /> : 
                 <Navigate to="/" />
             } 
           />
