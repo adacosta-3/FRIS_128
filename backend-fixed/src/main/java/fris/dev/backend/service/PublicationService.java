@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface PublicationService {
-    Publication submitPublication(PublicationDto dto);
+    Publication submitPublication(PublicationDto dto, String username);
 
     List<Publication> getUserPublications(Long userId);
 

@@ -23,9 +23,11 @@ public class PublicationController {
     private final UserRepository userRepository;
 
     @PostMapping
-    public ResponseEntity<Publication> submit(@RequestBody PublicationDto dto) {
-        return ResponseEntity.ok(publicationService.submitPublication(dto));
+    public ResponseEntity<Publication> submit(@RequestBody PublicationDto dto, Authentication authentication) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(publicationService.submitPublication(dto, username));
     }
+
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Publication>> getUserPublications(@PathVariable Long userId) {

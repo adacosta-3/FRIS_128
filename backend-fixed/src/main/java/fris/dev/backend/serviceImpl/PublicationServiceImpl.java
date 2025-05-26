@@ -33,7 +33,9 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Override
     @Transactional
-    public Publication submitPublication(PublicationDto dto) {
+    public Publication submitPublication(PublicationDto dto, String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         Publication publication = publicationRepository.save(publicationMapper.toEntity(dto));
 
         Submission submission = new Submission();
@@ -44,8 +46,10 @@ public class PublicationServiceImpl implements PublicationService {
         submission.setCurrentVersion(1);
         submission = submissionRepository.save(submission);
 
-        User user = publication.getUser();
-        List<UserRole> roles = userRoleRepository.findByUser(user);
+//        User user = publication.getUser();
+//        List<UserRole> roles = userRoleRepository.findByUser(user);
+        List<UserRole> roles = userRoleRepository.findByUser(publication.getUser());
+
 
         if (roles.isEmpty()) {
             throw new IllegalStateException("User has no assigned roles. Cannot assign approval path.");
@@ -139,7 +143,7 @@ public class PublicationServiceImpl implements PublicationService {
             // Ignore dto.getUserId(), override with logged-in user
             dto.setUserId(user.getUserId());
 
-            submitPublication(dto);  // this method already uses dto.userId to set User
+            submitPublication(dto, loggedInUsername);  // this method already uses dto.userId to set User
         }
     }
 
