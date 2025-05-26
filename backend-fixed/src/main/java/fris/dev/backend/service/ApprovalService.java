@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ApprovalService {
     List<PendingApprovalDto> getPendingApprovalsForUser(String username);
+
+    PendingApprovalDto getPendingApprovalBySubmissionId(Long submissionId);
 }
 
 

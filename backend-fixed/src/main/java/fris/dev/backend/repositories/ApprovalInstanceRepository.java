@@ -30,5 +30,7 @@ public interface ApprovalInstanceRepository extends JpaRepository<ApprovalInstan
 
 
     Optional<Object> findTopBySubmissionOrderByVersionDesc(Submission submission);
+
+    Optional<ApprovalInstance> findBySubmission_SubmissionIdAndStatus(Long submissionId, String pending);
 }
 
