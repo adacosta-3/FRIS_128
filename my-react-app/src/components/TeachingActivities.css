@@ -141,7 +141,7 @@
 }
 
 .courses-table thead {
-  background-color: #444444; /* Dark grey background */
+  background-color: #444444 !important; /* Dark grey background */
   color: white;
   font-weight: 600;
   border-radius: 8px 8px 0 0;
@@ -181,10 +181,12 @@
 .courses-table th:first-child,
 .courses-table td:first-child {
   padding-left: 10px;
-  width: 20%;
+  width: 25%; /* Increased width to show more details */
   white-space: normal;
   left: 0;
   position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .courses-table th:nth-child(2),

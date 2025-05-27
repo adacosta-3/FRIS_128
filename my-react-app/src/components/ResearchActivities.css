@@ -174,7 +174,7 @@
 }
 
 .table-header {
-  background-color: #444444; /* Dark grey background */
+  background-color: #444444 !important; /* Dark grey background */
   color: white; /* White font color */
   font-weight: 600;
   border-radius: 8px 8px 0 0;
@@ -217,9 +217,12 @@
 
 .details-cell {
   padding-left: 10px;
-  width: 40%;
+  width: 45%; /* Increased width to show more details */
   justify-content: flex-start; /* Left align the details cell */
   white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .publications-table th:nth-child(2),
