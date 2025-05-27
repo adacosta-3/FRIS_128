@@ -28,11 +28,11 @@ const Sidebar = ({ onLogout }) => {
 
   const approvalItems = [
     { path: '/requests', label: 'My Requests', iconClass: 'icon-file' },
-    { path: '/approval-tasks', label: 'Approval Tasks', iconClass: 'icon-check-square' }
+    { path: '/approval-tasks', label: 'Approval Tasks', iconClass: 'fa fa-check-square' }
   ];
 
   const adminItems = [
-    { path: '/admin', label: 'Admin Dashboard', iconClass: 'icon-shield' }
+    { path: '/admin', label: 'Admin Dashboard', iconClass: 'fa fa-shield' }
   ];
 
   const isActive = (path) => location.pathname === path;

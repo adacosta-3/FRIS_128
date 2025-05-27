@@ -148,8 +148,8 @@
 .hero-section {
   background-size: contain;
   position: relative;
-  height: 800px;
-  background: url('../../images/oblation.png') no-repeat;
+  height: 600px;
+  background: url('../../images/HOME_OBLE.jpg') no-repeat;
   background-size: cover;
   background-position: 30% center !important; /* More left, increase % to shift image right */
   border-radius: 20px;
@@ -178,13 +178,13 @@
   color: white;
   position: relative;
   z-index: 2;
+  margin: 0 0 0 100px; /* Remove default margin */
 }
 
 .hero-logo {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-width: 600px;
   align-self: flex-start;
 }
 
@@ -200,12 +200,11 @@
 }
 
 .hero-logo h1 {
-  font-size: 11.25rem; /* Increased by 1.5x from previous 7.5rem */
+  font-size: 4rem; /* Adjust font size as needed */
   color: white;
-  font-weight: 1000;
+  font-weight: 700;
   line-height: 1.5;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5), 6px 6px 15px rgba(0, 0, 0, 1), 3px 3px 10px rgba(0, 0, 0, 0.9), 0px 0px 20px rgba(0, 0, 0, 0.7); /* Added requested shadow plus previous shadow */
-  margin: 0;
+  text-align: left; /* Center the text */
   position: relative;
   z-index: 2;
 }

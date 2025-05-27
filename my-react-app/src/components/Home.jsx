@@ -239,13 +239,12 @@ const Home = ({ onLogout }) => {
                                 className="fris-logo"
                                 style={{
                                     transform: 'scale(2)',
-                                    width: '100%',
                                     maxWidth: '1500px',
                                     objectFit: 'contain',
                                     marginTop: '7rem',
-                                    marginLeft: '-20px',
+                                    marginLeft: '60px',
                                     alignSelf: 'flex-start',
-                                    marginBottom: '1rem',
+                                    marginBottom: '40px',
                                     position: 'relative',
                                     zIndex: 2
                                 }}
@@ -256,7 +255,7 @@ const Home = ({ onLogout }) => {
                                 color: 'white',
                                 marginLeft: '400px !important',
                                 fontWeight: 700,
-                                lineHeight: 1.5,
+                                lineHeight: 1.1,
                                 textShadow: '2px 2px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5), 6px 6px 15px rgba(0, 0, 0, 1), 3px 3px 10px rgba(0, 0, 0, 0.9), 0px 0px 20px rgba(0, 0, 0, 0.7)',
                                 margin: 0,
                                 position: 'relative',
@@ -264,20 +263,6 @@ const Home = ({ onLogout }) => {
                             }}>
                                 Faculty and REPS<br />Information System
                             </h1>
-                        </div>
-
-                        <div className="welcome-message">
-                            <span>Welcome back,</span>
-                            <span
-                                className="welcome-name"
-                                style={{
-                                    color: '#F49928',
-                                    fontWeight: 700,
-                                    textShadow: '2px 2px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5)'
-                                }}
-                            >
-                Kristine Joy!
-              </span>
                         </div>
                     </div>
                 </section>
