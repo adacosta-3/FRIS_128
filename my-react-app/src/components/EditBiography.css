@@ -35,6 +35,9 @@
   margin-bottom: 2rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .edit-biography-header h1 {
@@ -143,34 +146,37 @@
   background-color: #e0e0e0;
 }
 
-.edit-btn, .save-btn, .cancel-btn {
+.edit-button, .save-button, .cancel-button, .add-button, .remove-button {
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
   font-weight: 500;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.edit-btn, .save-btn {
+.edit-button, .save-button {
   background-color: #006400; /* Standard green color */
   border: none;
   color: white;
 }
 
-.edit-btn:hover, .save-btn:hover {
+.edit-button:hover, .save-button:hover {
   background-color: #004d00;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.cancel-btn {
+.cancel-button {
   background-color: #f0f0f0;
   border: 1px solid #ddd;
   color: #666;
 }
 
-.cancel-btn:hover {
+.cancel-button:hover {
   background-color: #e0e0e0;
   transform: translateY(-2px);
 }
@@ -180,6 +186,81 @@
   margin-top: 2rem;
   border-top: 1px solid #eee;
   padding-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.form-section h2 {
+  margin-bottom: 1.5rem;
+  color: #800000;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.form-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.editable {
+  background-color: #fff;
+  border: 1px solid #4CAF50 !important;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+}
+
+.education-item, .experience-item {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #eee;
+}
+
+.add-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  margin-bottom: 1.5rem;
+}
+
+.add-button:hover {
+  background-color: #3e8e41;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.remove-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+}
+
+.remove-button:hover {
+  background-color: #d32f2f;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.form-actions-bottom {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
 }
 
 .form-section h3 {
