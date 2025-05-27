@@ -223,6 +223,8 @@ button {
 .icon-chalkboard { background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/shUWwsWrYb.png); }
 .icon-globe { background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/5EEwnQDJ5X.png); }
 .icon-file { background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/DKS8tBVv0w.png); }
+.icon-check-square { background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/DKS8tBVv0w.png); }
+.icon-shield { background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/wHPwLGqAcb.png); }
 .icon-log-out { background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/3S3KaGZQNn.png); }
 
 
@@ -248,9 +250,6 @@ button {
   background-color: #e0e0e0; /* A light grey for the line */
   flex-shrink: 0;
 }
-/* Specific background images from mockup if desired, but a solid color is cleaner for lines */
-/* .divider { background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/xdjYPbqSn0.png) no-repeat center; background-size: cover; } */
-/* .divider-7 { background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-25/OMXUHnUOsG.png) no-repeat center; background-size: cover; } */
 
 
 /* Approval Section (Spaces and Page) */

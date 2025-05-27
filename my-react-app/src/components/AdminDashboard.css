@@ -9,6 +9,7 @@
   padding: 2rem;
   margin-left: var(--sidebar-width-collapsed);
   transition: margin-left 0.3s ease;
+  padding-bottom: 120px; /* Added to prevent footer overlap */
 }
 
 .sidebar.expanded + .admin-dashboard-main {

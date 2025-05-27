@@ -18,6 +18,7 @@ import ApprovalTasks from './components/ApprovalTasks';
 import GoogleScholarLinking from './components/GoogleScholarLinking';
 import GoogleScholarLink from './components/GoogleScholarLink';
 import AdminDashboard from './components/AdminDashboard';
+import EnhancedAdminDashboard from './components/EnhancedAdminDashboard';
 import RequestApprovalView from './components/RequestApprovalView';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -168,7 +169,7 @@ function AppRoutes() {
                 path="/admin"
                 element={
                     <ProtectedRoute>
-                        <AdminDashboard onLogout={logout} />
+                        <EnhancedAdminDashboard onLogout={logout} />
                     </ProtectedRoute>
                 }
             />

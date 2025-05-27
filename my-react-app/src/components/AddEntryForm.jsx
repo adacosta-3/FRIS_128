@@ -1249,49 +1249,259 @@ const AddEntryForm = ({ onLogout }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Get token from localStorage and verify it exists
       const token = localStorage.getItem('token');
+      if (!token) {
+        alert('You are not logged in. Please log in to submit entries.');
+        navigate('/login');
+        return;
+      }
+      
       let url = '';
-      let payload = { ...formData };
+      let payload = {};
 
-      if (mainCategory === 'research' && subCategory === 'publication') {
+      // Format date fields if they exist
+      const formatDateField = (dateString) => {
+        if (!dateString) return null;
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+      };
+
+      // Research Activity submission
+      if (mainCategory === 'research') {
         url = 'http://localhost:8080/api/publications';
-        // Adapt payload if needed
-      } else if (mainCategory === 'research' && subCategory === 'project') {
-        url = 'http://localhost:8080/api/publications'; // Same endpoint, backend will know type
-        payload.publicationTypeId = formData.publicationTypeId; // example: map dropdown to typeId
-      } else if (mainCategory === 'teaching' && subCategory === 'courses') {
-        url = 'http://localhost:8080/api/teaching-activities/courses';
-      } else if (mainCategory === 'teaching' && subCategory === 'authorship') {
-        url = 'http://localhost:8080/api/teaching-activities/authorship';
-      } else if (mainCategory === 'service') {
+        
+        if (subCategory === 'publication') {
+          // Match exactly what PublicationDto expects
+          payload = {
+            title: formData.title || '',
+            authors: formData.authors || '',
+            datePublished: formatDateField(formData.datePublished) || new Date().toISOString().split('T')[0],
+            journal: formData.journal || '',
+            citedAs: formData.citedAs || '',
+            doi: formData.doi || '',
+            publicationTypeId: parseInt(formData.publicationTypeId) || 1 // Default to type 1 if not specified
+          };
+          
+          // Only add optional fields if they have values
+          if (formData.sdgId && formData.sdgId !== '') {
+            payload.sdgId = parseInt(formData.sdgId);
+          }
+          
+          if (formData.sdgTargetId && formData.sdgTargetId !== '') {
+            payload.sdgTargetId = parseInt(formData.sdgTargetId);
+          }
+          
+          if (formData.supportingDocument) {
+            payload.supportingDocument = formData.supportingDocument;
+          }
+        } else if (subCategory === 'project') {
+          payload = {
+            title: formData.title || '',
+            authors: formData.authors || '',
+            datePublished: formatDateField(formData.startDate) || new Date().toISOString().split('T')[0],
+            journal: '', // Projects don't have journals
+            citedAs: '',
+            doi: '',
+            publicationTypeId: 5 // Assuming 5 is for projects, adjust as needed
+          };
+          
+          // Only add optional fields if they have values
+          if (formData.sdgId && formData.sdgId !== '') {
+            payload.sdgId = parseInt(formData.sdgId);
+          }
+          
+          if (formData.sdgTargetId && formData.sdgTargetId !== '') {
+            payload.sdgTargetId = parseInt(formData.sdgTargetId);
+          }
+          
+          if (formData.supportingDocument) {
+            payload.supportingDocument = formData.supportingDocument;
+          }
+          
+          // Additional fields for projects
+          if (formData.fundingAmount) {
+            payload.fundingAmount = formData.fundingAmount;
+          }
+          if (formData.fundingAgency) {
+            payload.fundingAgency = formData.fundingAgency;
+          }
+        }
+      } 
+      // Teaching Activity submission
+      else if (mainCategory === 'teaching') {
+        // Match the endpoint in TeachingActivityController
+        url = 'http://localhost:8080/api/teaching-activities';
+        
+        if (subCategory === 'courses') {
+          // Match exactly what TeachingActivityDto expects
+          payload = {
+            type: 'course',
+            description: formData.courseDescription || `Course: ${formData.courseNumber || ''}, Section: ${formData.section || ''}`,
+            academicYear: formData.academicYear || ''
+          };
+          
+          // We can include additional metadata in the description field
+          // since the DTO only has type, description, and academicYear
+          const metadata = {};
+          
+          if (formData.term) {
+            metadata.term = formData.term;
+          }
+          if (formData.courseNumber) {
+            metadata.courseNumber = formData.courseNumber;
+          }
+          if (formData.section) {
+            metadata.section = formData.section;
+          }
+          if (formData.teachingPoints) {
+            metadata.teachingPoints = formData.teachingPoints;
+          }
+          
+          // If we have metadata, append it to the description as JSON
+          if (Object.keys(metadata).length > 0) {
+            const metadataStr = JSON.stringify(metadata);
+            payload.description = `${payload.description} [Metadata: ${metadataStr}]`;
+          }
+        } else if (subCategory === 'authorship') {
+          payload = {
+            type: 'authorship',
+            description: formData.title || '',
+            academicYear: formData.date ? new Date(formData.date).getFullYear().toString() : ''
+          };
+          
+          // We can include additional metadata in the description field
+          const metadata = {};
+          
+          if (formData.authors) {
+            metadata.authors = formData.authors;
+          }
+          if (formData.publisher) {
+            metadata.publisher = formData.publisher;
+          }
+          if (formData.authorshipType) {
+            metadata.authorshipType = formData.authorshipType;
+          }
+          
+          // If we have metadata, append it to the description as JSON
+          if (Object.keys(metadata).length > 0) {
+            const metadataStr = JSON.stringify(metadata);
+            payload.description = `${payload.description} [Metadata: ${metadataStr}]`;
+          }
+        }
+      } 
+      // Public Service submission
+      else if (mainCategory === 'service') {
         url = 'http://localhost:8080/api/public-service';
+        
+        // Match exactly what PublicServiceDto expects
+        payload = {
+          serviceTypeId: parseInt(formData.serviceTypeId) || 1, // Default to type 1 if not specified
+          description: formData.description || '',
+          dateOfService: formatDateField(formData.dateOfService) || formatDateField(formData.startDate) || new Date().toISOString().split('T')[0]
+        };
+        
+        // We can include additional metadata in the description field
+        // since the DTO only has serviceTypeId, description, and dateOfService
+        const metadata = {};
+        
+        if (formData.position) {
+          metadata.position = formData.position;
+        }
+        if (formData.office) {
+          metadata.office = formData.office;
+        }
+        
+        // If we have metadata, append it to the description as JSON
+        if (Object.keys(metadata).length > 0) {
+          const metadataStr = JSON.stringify(metadata);
+          payload.description = `${payload.description} [Metadata: ${metadataStr}]`;
+        }
       } else {
         alert('Invalid category selection');
         return;
       }
 
-      const formPayload = new FormData();
+      // All API calls follow the same pattern
+      console.log('Submitting to URL:', url);
+      console.log('Payload:', payload);
+      console.log('Token:', token.substring(0, 10) + '...');
+      
+      // Remove any undefined or null values from payload
       Object.keys(payload).forEach(key => {
-        formPayload.append(key, payload[key]);
+        if (payload[key] === undefined || payload[key] === null || payload[key] === '') {
+          delete payload[key];
+        }
       });
+      
+      console.log(`Sending ${mainCategory} (${subCategory}) payload to ${url}:`, JSON.stringify(payload, null, 2));
+      
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+        
+        if (!response.ok) {
+          // Try to get detailed error information if available
+          let errorMessage = `Failed: ${response.status}`;
+          
+          try {
+            const errorData = await response.json();
+            console.error('Error response:', errorData);
+            errorMessage += ` - ${JSON.stringify(errorData)}`;
+          } catch (e) {
+            // If response isn't JSON, try to get text
+            const errorText = await response.text().catch(() => '');
+            console.error('Error response text:', errorText);
+            if (errorText) {
+              errorMessage += ` - ${errorText}`;
+            }
+          }
+          
+          // If it's a 403, specifically mention token issues
+          if (response.status === 403) {
+            errorMessage = 'Authentication failed. Your session may have expired. Please try logging out and logging back in.';
+          }
+          
+          throw new Error(errorMessage);
+        }
 
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
-        body: formPayload
-      });
+        // Get the created entity data
+        const createdData = await response.json();
+        console.log('Created successfully:', createdData);
 
-      if (!response.ok) {
-        throw new Error(`Failed: ${response.status}`);
+        alert('Submission successful!');
+        
+        // Reset form
+        setFormData({});
+        setMainCategory('');
+        setSubCategory('');
+        setActiveStep(0);
+        
+        // Navigate to the appropriate page based on the category
+        if (mainCategory === 'research') {
+          navigate('/research');
+        } else if (mainCategory === 'teaching') {
+          navigate('/teaching');
+        } else if (mainCategory === 'service') {
+          navigate('/public');
+        } else {
+          navigate('/home');
+        }
+      } catch (error) {
+        // Handle error
+        console.error('Error submitting entry:', error);
+        alert(`Submission failed: ${error.message}`);
       }
-
-      alert('Submission successful!');
-      navigate('/home');
     } catch (error) {
       console.error('Error submitting:', error);
-      alert('Submission failed.');
+      alert(`Submission failed: ${error.message}`);
     }
   };
 
