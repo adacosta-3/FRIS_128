@@ -30,8 +30,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
-  width: 1000px;
-  max-width: 100%;
+  width: 100%;
   min-height: calc(80vh - 100px);
   overflow-y: visible; /* Prevent double scrollbar */
 }
@@ -266,6 +265,20 @@
   margin-top: 2rem;
 }
 
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
 .scholar-info h3 {
   color: #800000;
   margin-top: 0;
@@ -331,8 +344,7 @@
 .add-publication-modal {
   background-color: white;
   border-radius: 8px;
-  width: 800px;
-  max-width: 90%;
+  width: 90%;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -367,6 +379,7 @@
 
 .add-publication-form {
   padding: 1.5rem;
+  width: 100%;
 }
 
 .prefilled-section,

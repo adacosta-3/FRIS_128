@@ -112,8 +112,8 @@
 }
 
 .action-button {
-  background-color: #1b5e20;
-  color: white;
+  background-color: #1b5e20 !important;
+  color: white !important;
   border: none;
   border-radius: 5px;
   padding: 8px 15px;
