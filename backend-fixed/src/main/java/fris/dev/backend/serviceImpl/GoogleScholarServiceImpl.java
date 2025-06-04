@@ -34,16 +34,16 @@ public class GoogleScholarServiceImpl implements GoogleScholarService {
         if (updated == 0) {
             throw new IllegalArgumentException("User not found for username: " + username);
         }
-        log.info("✅ Google Scholar profile URL updated for user [{}]: {}", username, profileUrl);
+        log.info("Google Scholar profile URL updated for user [{}]: {}", username, profileUrl);
     }
 
     @Override
     public List<PublicationDto> fetchGoogleScholarPublications(String profileUrl) {
         try {
-            log.info("🔍 Fetching publications for profile URL: {}", profileUrl);
+            log.info("Fetching publications for profile URL: {}", profileUrl);
             return fetchPublicationsFromProfileUrl(profileUrl);
         } catch (SerpApiSearchException e) {
-            log.error("❌ Error fetching publications from SerpApi: {}", e.getMessage(), e);
+            log.error("Error fetching publications from SerpApi: {}", e.getMessage(), e);
             return new ArrayList<>();
         }
     }
@@ -51,7 +51,7 @@ public class GoogleScholarServiceImpl implements GoogleScholarService {
     @Override
     @Transactional
     public void importGoogleScholarPublications(String username) {
-        log.info("🚀 Starting import of Google Scholar publications for user [{}]", username);
+        log.info("Starting import of Google Scholar publications for user [{}]", username);
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
@@ -60,16 +60,16 @@ public class GoogleScholarServiceImpl implements GoogleScholarService {
             throw new IllegalStateException("Google Scholar profile URL not set for user");
         }
 
-        log.debug("🔗 Profile URL for user [{}]: {}", username, profileUrl);
+        log.debug("Profile URL for user [{}]: {}", username, profileUrl);
         List<PublicationDto> publications = fetchGoogleScholarPublications(profileUrl);
-        log.info("📄 Fetched {} publications for user [{}] from SerpApi", publications.size(), username);
+        log.info("Fetched {} publications for user [{}] from SerpApi", publications.size(), username);
 
         for (PublicationDto pub : publications) {
             pub.setUserId(user.getUserId());
         }
 
         publicationService.saveAllFromDto(publications, username);
-        log.info("💾 Saved {} publications for user [{}]", publications.size(), username);
+        log.info("Saved {} publications for user [{}]", publications.size(), username);
     }
 
     @Override
@@ -82,11 +82,11 @@ public class GoogleScholarServiceImpl implements GoogleScholarService {
         String apiKey = "ae2e1220500e10992ef9490db9fd358d6d6d481d685898f8a99c19260e1c26ee";
         String endpoint = String.format("https://serpapi.com/search.json?engine=google_scholar_author&author_id=%s&api_key=%s", userId, apiKey);
 
-        log.info("🌐 Fetching from SerpApi endpoint: {}", endpoint);
+        log.info("Fetching from SerpApi endpoint: {}", endpoint);
 
         try (java.util.Scanner s = new java.util.Scanner(new java.net.URL(endpoint).openStream(), "UTF-8").useDelimiter("\\A")) {
             String response = s.hasNext() ? s.next() : "";
-            log.debug("📊 Raw SerpApi JSON response: {}", response);
+            log.debug("Raw SerpApi JSON response: {}", response);
 
             com.google.gson.JsonObject json = com.google.gson.JsonParser.parseString(response).getAsJsonObject();
             List<PublicationDto> dtos = new ArrayList<>();
@@ -109,7 +109,7 @@ public class GoogleScholarServiceImpl implements GoogleScholarService {
                             String yearStr = article.get("year").getAsString();
                             dto.setDatePublished(new java.sql.Date(new java.text.SimpleDateFormat("yyyy").parse(yearStr).getTime()));
                         } catch (Exception e) {
-                            log.warn("⚠️ Failed to parse year [{}]: {}", article.get("year"), e.getMessage());
+                            log.warn("Failed to parse year [{}]: {}", article.get("year"), e.getMessage());
                             dto.setDatePublished(null);
                         }
                     }
@@ -125,18 +125,18 @@ public class GoogleScholarServiceImpl implements GoogleScholarService {
 
                     dto.setUserId(null); // Set later during import process
 
-                    log.debug("📝 Mapped publication: {}", dto);
+                    log.debug("Mapped publication: {}", dto);
                     dtos.add(dto);
                 }
             } else {
-                log.warn("⚠️ No 'articles' found in SerpApi response for user ID [{}]", userId);
+                log.warn("No 'articles' found in SerpApi response for user ID [{}]", userId);
             }
 
-            log.info("✅ Mapped {} publications for profile URL: {}", dtos.size(), profileUrl);
+            log.info("Mapped {} publications for profile URL: {}", dtos.size(), profileUrl);
             return dtos;
 
         } catch (Exception e) {
-            log.error("❌ Error fetching publications from SerpApi: {}", e.getMessage(), e);
+            log.error("Error fetching publications from SerpApi: {}", e.getMessage(), e);
             throw new SerpApiSearchException("Error fetching publications from SerpApi");
         }
     }
@@ -149,7 +149,7 @@ public class GoogleScholarServiceImpl implements GoogleScholarService {
             for (String param : query.split("&")) {
                 if (param.startsWith("user=")) {
                     String extractedUserId = param.split("=")[1];
-                    log.debug("🔍 Extracted user ID from URL [{}]: {}", url, extractedUserId);
+                    log.debug("Extracted user ID from URL [{}]: {}", url, extractedUserId);
                     return extractedUserId;
                 }
             }
